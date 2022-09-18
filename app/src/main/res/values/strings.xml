@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">HouseOps</string>
+    <string name="sign_in">Sign In</string>
+    <string name="email">Email</string>
+    <string name="email_hint">someone@example.com</string>
+    <string name="password">Password</string>
+    <string name="password_hint">password</string>
+    <string name="forgot_password_text">Forgot password?</string>
 </resources>

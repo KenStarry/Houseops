@@ -3,13 +3,16 @@
 
     <!--Brand Colors-->
     <color name="bg_white">#FFFFFF</color>
+    <color name="bg_white_trans">#FFFFFF</color>
     <color name="bg_cream">#F9F9F9</color>
 
-    <color name="bg_dark">#000000</color>
+    <color name="bg_dark">#131313</color>
     <color name="bg_dark_light">#282828</color>
+    <color name="bg_dark_light_trans">#D9282828</color>
 
     <color name="accent_blue_bright">#70C3C9</color>
     <color name="accent_blue_dull">#1D3F4D</color>
+    <color name="accent_blue_dull_trans">#D91D3F4D</color>
 
     <!--Text Black Colors-->
     <color name="text_black_900">#000000</color>

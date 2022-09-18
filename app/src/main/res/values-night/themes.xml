@@ -22,6 +22,7 @@
 
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorOnPrimary</item>
+        <item name="android:navigationBarColor">?attr/colorOnPrimary</item>
 
     </style>
 </resources>

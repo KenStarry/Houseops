@@ -9,4 +9,6 @@
     <attr name="textBlack100" format="reference"/>
     <attr name="textBlack100Trans" format="reference"/>
 
+    <attr name="whiteTrans" format="reference"/>
+
 </resources>
