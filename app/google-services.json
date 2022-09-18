@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "357713145104",
+    "project_id": "houseops-9ebc6",
+    "storage_bucket": "houseops-9ebc6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:357713145104:android:0ecfd24e50331ef7634995",
+        "android_client_info": {
+          "package_name": "com.example.houseops"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "357713145104-a31gitjqss8ojosp30dvfqgtu1uu00dk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.houseops",
+            "certificate_hash": "607966dfa88962e191d8f312c6c7b68b3bcb4a4b"
+          }
+        },
+        {
+          "client_id": "357713145104-jli6vt6lopuqdonus4q3bno83r6i6694.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFtcLs2JJze6CCfpRDl7h7Cq4MElt_qCA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "357713145104-jli6vt6lopuqdonus4q3bno83r6i6694.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

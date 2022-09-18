@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Brand Colors-->
+    <color name="bg_white">#FFFFFF</color>
+    <color name="bg_cream">#F9F9F9</color>
+
+    <color name="bg_dark">#000000</color>
+    <color name="bg_dark_light">#282828</color>
+
+    <color name="accent_blue_bright">#70C3C9</color>
+    <color name="accent_blue_dull">#1D3F4D</color>
+
+    <!--Text Black Colors-->
+    <color name="text_black_900">#000000</color>
+    <color name="text_black_700">#3A3A3A</color>
+    <color name="text_black_500">#4C4C4C</color>
+    <color name="text_black_300">#727272</color>
+    <color name="text_black_100">#898989</color>
+    <color name="text_black_100_trans">#4D898989</color>
+
+    <color name="text_white_900">#FFFFFF</color>
+    <color name="text_white_700">#E7E7E7</color>
+    <color name="text_white_500">#C9C9C9</color>
+    <color name="text_white_300">#B5B5B5</color>
+    <color name="text_white_100">#A5A5A5</color>
+    <color name="text_white_100_trans">#4DA5A5A5</color>
+
+
+</resources>

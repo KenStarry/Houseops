@@ -1,0 +1,27 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.HouseOps" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/accent_blue_bright</item>
+        <item name="colorPrimaryVariant">@color/accent_blue_dull</item>
+        <item name="colorOnPrimary">@color/bg_dark</item>
+
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/accent_blue_bright</item>
+        <item name="colorSecondaryVariant">@color/accent_blue_bright</item>
+        <item name="colorOnSecondary">@color/bg_dark_light</item>
+
+        <!--Text Colors Dark Mode-->
+        <item name="textBlack900">@color/text_white_900</item>
+        <item name="textBlack700">@color/text_white_700</item>
+        <item name="textBlack500">@color/text_white_500</item>
+        <item name="textBlack300">@color/text_white_300</item>
+        <item name="textBlack100">@color/text_white_100</item>
+        <item name="textBlack100Trans">@color/text_white_100_trans</item>
+
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+
+    </style>
+</resources>
