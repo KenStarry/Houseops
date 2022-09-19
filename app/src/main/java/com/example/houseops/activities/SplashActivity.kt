@@ -7,15 +7,17 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.example.houseops.R
-import kotlinx.android.synthetic.main.activity_splash.*
+import com.example.houseops.databinding.ActivitySplashBinding
 
 class SplashActivity : AppCompatActivity() {
 
     private val timeout: Long = 4000
+    private lateinit var binding: ActivitySplashBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
+        binding = ActivitySplashBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         splashHandler()
     }
@@ -47,17 +49,17 @@ class SplashActivity : AppCompatActivity() {
 
             //  Night mode enabled
             Configuration.UI_MODE_NIGHT_YES -> {
-                splash_logo.setImageResource(R.drawable.houseops_logo_white_new)
+                binding.splashLogo.setImageResource(R.drawable.houseops_logo_white_new)
             }
 
             //  Night mode disabled
             Configuration.UI_MODE_NIGHT_NO -> {
-                splash_logo.setImageResource(R.drawable.houseops_logo_dark_new)
+                binding.splashLogo.setImageResource(R.drawable.houseops_logo_dark_new)
             }
 
             //  Night mode undefined
             Configuration.UI_MODE_NIGHT_UNDEFINED -> {
-                splash_logo.setImageResource(R.drawable.houseops_logo_dark_new)
+                binding.splashLogo.setImageResource(R.drawable.houseops_logo_dark_new)
             }
         }
     }
