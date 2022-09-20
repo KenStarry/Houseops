@@ -59,7 +59,18 @@ class LoginActivity : AppCompatActivity() {
     private fun allowAccessToAccount(email: String, password: String) {
 
         //  Sign in the user using the email address
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
 
+                if (task.isSuccessful) {
+                    //  Logged in Successfully
+                    Toast.makeText(this@LoginActivity, "Logged in successfully!", Toast.LENGTH_SHORT).show()
+
+                } else {
+
+                    Toast.makeText(this@LoginActivity, "Something went wrong...", Toast.LENGTH_SHORT).show()
+                }
+            }
 
     }
 
