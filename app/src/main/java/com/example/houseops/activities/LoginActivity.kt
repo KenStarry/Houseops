@@ -1,5 +1,6 @@
 package com.example.houseops.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.houseops.R
@@ -21,6 +22,8 @@ class LoginActivity : AppCompatActivity() {
 
         binding.signUpText.setOnClickListener {
 
+            val intent = Intent(this@LoginActivity, SignUpActivity::class.java)
+            startActivity(intent)
         }
     }
 

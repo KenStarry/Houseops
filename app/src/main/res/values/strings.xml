@@ -6,4 +6,6 @@
     <string name="password">Password</string>
     <string name="password_hint">password</string>
     <string name="forgot_password_text">Forgot password?</string>
+    <string name="create_account">Create Account</string>
+    <string name="username">Username</string>
 </resources>

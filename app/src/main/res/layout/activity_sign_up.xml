@@ -1,9 +1,265 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.SignUpActivity">
+    android:background="?attr/colorOnPrimary"
+    tools:context=".activities.LoginActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!--The Real Estate Image at the back-->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="250dp">
+
+        <!--Watermark image-->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/real_estate_3"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/accent_blue_dull_trans">
+
+            <!--Logo-->
+            <ImageView
+                android:layout_width="250dp"
+                android:layout_height="150dp"
+                android:layout_centerHorizontal="true"
+                android:scaleType="centerCrop"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/houseops_logo_white_new" />
+
+        </RelativeLayout>
+
+    </FrameLayout>
+
+    <!--Content-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/top_rounded_view"
+        android:layout_marginTop="150dp"
+        android:padding="16dp"
+        android:orientation="vertical">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            android:scrollbarFadeDuration="@integer/material_motion_duration_medium_1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/create_account"
+                    android:textSize="22sp"
+                    android:includeFontPadding="false"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textColor="?attr/textBlack700"
+                    android:textStyle="bold"
+                    android:layout_marginTop="8dp"/>
+
+                <!--Username Create-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/username"
+                        android:textSize="14sp"
+                        android:includeFontPadding="false"
+                        android:fontFamily="@font/poppins_bold"
+                        android:textColor="?attr/colorPrimary"
+                        android:textStyle="bold"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp"
+                        app:hintEnabled="false"
+                        android:padding="0dp"
+                        app:passwordToggleEnabled="false"
+                        app:boxStrokeWidth="0dp"
+                        app:passwordToggleTint="?attr/colorPrimary">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:inputType="textEmailAddress"
+                            android:fontFamily="@font/poppins_regular"
+                            android:lines="1"
+                            android:hint="John Doe"
+                            android:textSize="14sp"
+                            android:textColor="?attr/textBlack700"
+                            android:background="@drawable/rounded_edit_text"
+                            android:id="@+id/usernameSignUp"
+                            android:layout_marginTop="16dp"
+                            android:padding="0dp"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                </LinearLayout>
+
+                <!--Email Create-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/email"
+                        android:textSize="14sp"
+                        android:includeFontPadding="false"
+                        android:fontFamily="@font/poppins_bold"
+                        android:textColor="?attr/colorPrimary"
+                        android:textStyle="bold"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp"
+                        app:hintEnabled="false"
+                        android:padding="0dp"
+                        app:passwordToggleEnabled="false"
+                        app:boxStrokeWidth="0dp"
+                        app:passwordToggleTint="?attr/colorPrimary">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:inputType="textEmailAddress"
+                            android:fontFamily="@font/poppins_regular"
+                            android:lines="1"
+                            android:hint="@string/email_hint"
+                            android:textSize="14sp"
+                            android:textColor="?attr/textBlack700"
+                            android:background="@drawable/rounded_edit_text"
+                            android:id="@+id/emailSignUp"
+                            android:layout_marginTop="16dp"
+                            android:padding="0dp"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                </LinearLayout>
+
+                <!--Password Create-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/password"
+                        android:textSize="14sp"
+                        android:includeFontPadding="false"
+                        android:fontFamily="@font/poppins_bold"
+                        android:textColor="?attr/colorPrimary"
+                        android:textStyle="bold"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:hintEnabled="false"
+                        android:padding="0dp"
+                        app:boxStrokeWidth="0dp"
+                        app:passwordToggleEnabled="true"
+                        app:passwordToggleTint="?attr/colorPrimary">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:inputType="textPassword"
+                            android:fontFamily="@font/poppins_regular"
+                            android:lines="1"
+                            android:hint="@string/password_hint"
+                            android:textSize="14sp"
+                            android:textColor="?attr/textBlack700"
+                            android:background="@drawable/rounded_edit_text"
+                            android:id="@+id/passwordSignUp"
+                            android:layout_marginTop="16dp"
+                            android:padding="0dp"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <!--Password Confirm Create-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Confirm Password"
+                        android:textSize="14sp"
+                        android:includeFontPadding="false"
+                        android:fontFamily="@font/poppins_bold"
+                        android:textColor="?attr/colorPrimary"
+                        android:textStyle="bold"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:hintEnabled="false"
+                        android:padding="0dp"
+                        app:boxStrokeWidth="0dp"
+                        app:passwordToggleEnabled="true"
+                        app:passwordToggleTint="?attr/colorPrimary">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:inputType="textPassword"
+                            android:fontFamily="@font/poppins_regular"
+                            android:lines="1"
+                            android:hint="@string/password_hint"
+                            android:textSize="14sp"
+                            android:textColor="?attr/textBlack700"
+                            android:background="@drawable/rounded_edit_text"
+                            android:id="@+id/passwordConfirmSignUp"
+                            android:layout_marginTop="16dp"
+                            android:padding="0dp"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/sign_in_button"
+                    android:id="@+id/signInButton"
+                    android:elevation="10dp"
+                    android:text="Sign In"
+                    android:textAllCaps="false"
+                    android:layout_marginTop="32dp" />
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
+
+</FrameLayout>
