@@ -63,15 +63,37 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener { task ->
 
                 if (task.isSuccessful) {
+
                     //  Logged in Successfully
-                    Toast.makeText(this@LoginActivity, "Logged in successfully!", Toast.LENGTH_SHORT).show()
+                    if (email == "starrycodes@gmail.com") {
+
+                        //  Admin User
+                        val intent = Intent(this@LoginActivity, AdminActivity::class.java)
+                        startActivity(intent)
+                        finish()
+
+                        toast("Logged in as admin!")
+
+                    } else {
+
+                        //  Normal user
+                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
+
+                        toast("Logged in successfully!")
+                    }
 
                 } else {
 
-                    Toast.makeText(this@LoginActivity, "Something went wrong...", Toast.LENGTH_SHORT).show()
+                    toast("Something went wrong...")
                 }
             }
 
+    }
+
+    private fun toast(message: String) {
+        Toast.makeText(this@LoginActivity, message, Toast.LENGTH_SHORT).show()
     }
 
 }
