@@ -35,6 +35,7 @@ class SplashActivity : AppCompatActivity() {
             //  Start the mainactivity
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
+            finish()
 
         }, timeout)
     }

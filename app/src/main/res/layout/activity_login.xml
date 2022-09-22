@@ -158,16 +158,30 @@
             android:textStyle="bold"
             android:layout_marginTop="32dp"/>
 
-        <androidx.appcompat.widget.AppCompatButton
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/sign_in_button"
-            android:id="@+id/signInButton"
-            android:elevation="10dp"
-            android:text="Sign In"
-            android:fontFamily="@font/poppins_regular"
-            android:textAllCaps="false"
-            android:layout_marginTop="32dp" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/sign_in_button"
+                android:id="@+id/signInButton"
+                android:elevation="10dp"
+                android:text="Sign In"
+                android:visibility="visible"
+                android:fontFamily="@font/poppins_regular"
+                android:textAllCaps="false" />
+
+            <ProgressBar
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/progressBar"
+                android:layout_gravity="center"
+                android:visibility="gone"/>
+
+        </FrameLayout>
         
         <TextView
             android:layout_width="wrap_content"
