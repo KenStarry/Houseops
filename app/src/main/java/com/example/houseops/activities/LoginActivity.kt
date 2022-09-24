@@ -3,10 +3,9 @@ package com.example.houseops.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
-import com.example.houseops.R
+import com.example.houseops.Utilities
 import com.example.houseops.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -16,6 +15,7 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
     private lateinit var auth: FirebaseAuth
+    private lateinit var util: Utilities
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +23,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         auth = Firebase.auth
+        util = Utilities(this)
 
         listeners()
     }
@@ -42,28 +43,22 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun loginUser() {
-        Log.d("LoginActivity", "loginUser: Logging User")
 
         //  Show progress bar
-        binding.progressBar.visibility = View.VISIBLE
-        binding.signInButton.visibility = View.GONE
+        util.showViewAHideViewB(binding.progressBar, binding.signInButton)
 
         //  Check if input fields are empty or not
         val email = binding.emailSignIn.text.toString()
         val password = binding.passwordSignIn.text.toString()
 
         if (email.isBlank()) {
-            Toast.makeText(this@LoginActivity, "email cannot be empty", Toast.LENGTH_SHORT).show()
-            binding.progressBar.visibility = View.VISIBLE
-            binding.signInButton.visibility = View.GONE
+            util.toast("email cannot be empty")
+            util.showViewAHideViewB(binding.signInButton, binding.progressBar)
 
         }
         else if (password.isBlank()) {
-            Toast.makeText(this@LoginActivity, "password cannot be blank", Toast.LENGTH_SHORT)
-                .show()
-            binding.progressBar.visibility = View.GONE
-            binding.signInButton.visibility = View.VISIBLE
-            Log.d("LoginActivity", "loginUser: Password Not reached")
+            util.toast("password cannot be blank")
+            util.showViewAHideViewB(binding.signInButton, binding.progressBar)
         }
         else {
             //  Everything is fine
@@ -72,15 +67,13 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun allowAccessToAccount(email: String, password: String) {
-        Log.d("LoginActivity", "allowAccessToAccount: Allowing Access ")
 
         //  Sign in the user using the email address
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
 
-                    binding.progressBar.visibility = View.GONE
-                    binding.signInButton.visibility = View.VISIBLE
+                    util.showViewAHideViewB(binding.signInButton, binding.progressBar)
 
                     //  Logged in Successfully
                     if (email == "starrycodes@gmail.com") {
@@ -104,8 +97,7 @@ class LoginActivity : AppCompatActivity() {
 
                 } else {
 
-                    binding.progressBar.visibility = View.GONE
-                    binding.signInButton.visibility = View.VISIBLE
+                    util.showViewAHideViewB(binding.signInButton, binding.progressBar)
 
                     toast("Something went wrong...")
                 }
