@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import android.widget.Toolbar
 import com.example.houseops.Utilities
 import com.example.houseops.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -29,6 +30,12 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun listeners() {
+
+        //  Forgot password text
+        binding.forgotPasswordText.setOnClickListener {
+            val intent = Intent(this@LoginActivity, ForgotPasswordActivity::class.java)
+            startActivity(intent)
+        }
 
         binding.signUpText.setOnClickListener {
 
