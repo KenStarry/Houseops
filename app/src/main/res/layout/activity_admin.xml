@@ -4,11 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorOnPrimary"
+    android:padding="8dp"
     tools:context=".activities.AdminActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Admin"/>
+        android:id="@+id/adminTitle"
+        android:text="Admin"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="?attr/textBlack700"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/adminRecyclerView"
+        android:layout_below="@id/adminTitle"
+        android:layout_marginTop="32dp"/>
 
 </RelativeLayout>
