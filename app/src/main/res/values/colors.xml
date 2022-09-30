@@ -15,6 +15,7 @@
 <!--    <color name="accent_blue_dull_trans">#D91D3F4D</color>-->
 
     <color name="accent_blue_bright">#008CFF</color>
+    <color name="accent_blue_bright_trans">#32008CFF</color>
     <color name="accent_blue_dull">#1E4667</color>
     <color name="accent_blue_dull_trans">#D8008CFF</color>
 

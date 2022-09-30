@@ -5,23 +5,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorOnPrimary"
-    android:padding="8dp"
     tools:context=".activities.AdminActivity">
+
+    <include
+        layout="@layout/toolbar"
+        android:id="@+id/adminToolbar"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/adminTitle"
-        android:text="Admin"
+        android:text="Categories"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="?attr/textBlack700"/>
+        android:layout_below="@id/adminToolbar"
+        android:textColor="?attr/textBlack700"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="16dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="8dp"
         android:id="@+id/adminRecyclerView"
+        android:scrollbars="vertical"
+        android:scrollbarStyle="outsideInset"
         android:layout_below="@id/adminTitle"
-        android:layout_marginTop="32dp"/>
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="8dp"/>
 
 </RelativeLayout>
