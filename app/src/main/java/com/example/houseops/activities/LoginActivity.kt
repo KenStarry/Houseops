@@ -3,9 +3,7 @@ package com.example.houseops.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
-import android.widget.Toolbar
 import com.example.houseops.Utilities
 import com.example.houseops.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -86,7 +84,7 @@ class LoginActivity : AppCompatActivity() {
                     if (email == "starrycodes@gmail.com") {
 
                         //  Admin User
-                        val intent = Intent(this@LoginActivity, AdminActivity::class.java)
+                        val intent = Intent(this@LoginActivity, CaretakerActivity::class.java)
                         startActivity(intent)
                         finish()
 
