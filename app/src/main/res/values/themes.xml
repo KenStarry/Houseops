@@ -25,4 +25,13 @@
         <item name="android:navigationBarColor">?attr/colorOnPrimary</item>
 
     </style>
+
+    <!--Change fab shape to square-->
+    <style name="fab_square" parent="">
+
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+
+    </style>
+
 </resources>

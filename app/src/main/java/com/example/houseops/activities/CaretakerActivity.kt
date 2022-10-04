@@ -9,13 +9,13 @@ import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.houseops.R
 import com.example.houseops.adapters.AdminCategoriesAdapter
-import com.example.houseops.databinding.ActivityAdminBinding
+import com.example.houseops.databinding.ActivityCaretakerBinding
 import com.example.houseops.models.AdminCategoriesModel
 
 class CaretakerActivity : AppCompatActivity() {
 
     private lateinit var adapter: AdminCategoriesAdapter
-    private lateinit var binding: ActivityAdminBinding
+    private lateinit var binding: ActivityCaretakerBinding
 
     //  Houses List
     private val categories = listOf(
@@ -30,14 +30,14 @@ class CaretakerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        binding = ActivityAdminBinding.inflate(layoutInflater)
+        binding = ActivityCaretakerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         //  Setting our toolbar
-        val toolbar: Toolbar = findViewById(R.id.adminToolbar)
+        val toolbar: Toolbar = findViewById(R.id.caretakerToolbar)
         setSupportActionBar(toolbar)
 
-        supportActionBar!!.title = "Admin"
+        supportActionBar!!.title = "Caretaker"
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         setupRecyclerView()
