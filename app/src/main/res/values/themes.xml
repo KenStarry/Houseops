@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.HouseOps" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.HouseOps" parent="Theme.Material3.DayNight.NoActionBar">
 
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/accent_blue_bright</item>

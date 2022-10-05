@@ -36,6 +36,7 @@ class SignUpActivity : AppCompatActivity() {
     private fun verifyDetails() {
 
         val username = binding.usernameSignUp.text.toString()
+        val phone = binding.phoneSignUp.text.toString()
         val email = binding.emailSignUp.text.toString()
         val password = binding.passwordSignUp.text.toString()
         val passwordConfirm = binding.passwordConfirmSignUp.text.toString()
@@ -57,6 +58,7 @@ class SignUpActivity : AppCompatActivity() {
             if (password == passwordConfirm) {
                 //  Proceed with authentication
                 createUserAccount(email, password)
+                createUsersCollection(username, phone, email, password)
             }
 
         }
@@ -77,6 +79,12 @@ class SignUpActivity : AppCompatActivity() {
                     toast("Created account successfully")
                 }
             }
+
+    }
+
+    //  Create a collection for the users
+    private fun createUsersCollection(username: String, phone: String, email: String, password: String) {
+
 
     }
 

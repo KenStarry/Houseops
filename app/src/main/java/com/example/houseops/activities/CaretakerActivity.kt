@@ -40,17 +40,6 @@ class CaretakerActivity : AppCompatActivity() {
         supportActionBar!!.title = "Caretaker"
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        setupRecyclerView()
-    }
-
-    //  Setting up the recyclerview
-    private fun setupRecyclerView() {
-
-        adapter = AdminCategoriesAdapter(this@CaretakerActivity, categories)
-        binding.adminRecyclerView.adapter = adapter
-        binding.adminRecyclerView.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-//            GridLayoutManager(this@AdminActivity, 2, GridLayoutManager.VERTICAL, false)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

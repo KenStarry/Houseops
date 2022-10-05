@@ -73,23 +73,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
-                    android:orientation="vertical">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/username"
-                        android:textSize="14sp"
-                        android:includeFontPadding="false"
-                        android:fontFamily="@font/poppins_bold"
-                        android:textColor="?attr/colorPrimary"
-                        android:textStyle="bold"/>
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ic_baseline_person_24"
+                        app:tint="?attr/textBlack100"/>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="64dp"
                         app:hintEnabled="false"
                         android:padding="0dp"
+                        android:layout_marginStart="16dp"
                         app:passwordToggleEnabled="false"
                         app:boxStrokeWidth="0dp"
                         app:passwordToggleTint="?attr/colorPrimary">
@@ -97,10 +95,10 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:inputType="textEmailAddress"
+                            android:inputType="text"
                             android:fontFamily="@font/poppins_regular"
                             android:lines="1"
-                            android:hint="John Doe"
+                            android:hint="@string/username"
                             android:textSize="14sp"
                             android:textColor="?attr/textBlack700"
                             android:background="@drawable/rounded_edit_text"
@@ -113,28 +111,69 @@
 
                 </LinearLayout>
 
-                <!--Email Create-->
+                <!--Phone Number Create-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
-                    android:orientation="vertical">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/email"
-                        android:textSize="14sp"
-                        android:includeFontPadding="false"
-                        android:fontFamily="@font/poppins_bold"
-                        android:textColor="?attr/colorPrimary"
-                        android:textStyle="bold"/>
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ic_baseline_phone_24"
+                        app:tint="?attr/textBlack100"/>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="64dp"
                         app:hintEnabled="false"
                         android:padding="0dp"
+                        android:layout_marginStart="16dp"
+                        app:passwordToggleEnabled="false"
+                        app:boxStrokeWidth="0dp"
+                        app:passwordToggleTint="?attr/colorPrimary">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:inputType="phone"
+                            android:fontFamily="@font/poppins_regular"
+                            android:lines="1"
+                            android:hint="Phone Number"
+                            android:textSize="14sp"
+                            android:textColor="?attr/textBlack700"
+                            android:background="@drawable/rounded_edit_text"
+                            android:id="@+id/phoneSignUp"
+                            android:layout_marginTop="16dp"
+                            android:padding="0dp"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                </LinearLayout>
+
+                <!--Email Create-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="32dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/at_solid"
+                        app:tint="?attr/textBlack100"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp"
+                        app:hintEnabled="false"
+                        android:padding="0dp"
+                        android:layout_marginStart="16dp"
                         app:passwordToggleEnabled="false"
                         app:boxStrokeWidth="0dp"
                         app:passwordToggleTint="?attr/colorPrimary">
@@ -145,7 +184,7 @@
                             android:inputType="textEmailAddress"
                             android:fontFamily="@font/poppins_regular"
                             android:lines="1"
-                            android:hint="@string/email_hint"
+                            android:hint="Email Address"
                             android:textSize="14sp"
                             android:textColor="?attr/textBlack700"
                             android:background="@drawable/rounded_edit_text"
@@ -163,17 +202,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
-                    android:orientation="vertical">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/password"
-                        android:textSize="14sp"
-                        android:includeFontPadding="false"
-                        android:fontFamily="@font/poppins_bold"
-                        android:textColor="?attr/colorPrimary"
-                        android:textStyle="bold"/>
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/key_solid"
+                        app:tint="?attr/textBlack100"/>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
@@ -181,6 +217,7 @@
                         app:hintEnabled="false"
                         android:padding="0dp"
                         app:boxStrokeWidth="0dp"
+                        android:layout_marginStart="16dp"
                         app:passwordToggleEnabled="true"
                         app:passwordToggleTint="?attr/colorPrimary">
 
@@ -207,17 +244,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
-                    android:orientation="vertical">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Confirm Password"
-                        android:textSize="14sp"
-                        android:includeFontPadding="false"
-                        android:fontFamily="@font/poppins_bold"
-                        android:textColor="?attr/colorPrimary"
-                        android:textStyle="bold"/>
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/key_solid"
+                        app:tint="?attr/textBlack100"/>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
@@ -225,6 +259,7 @@
                         app:hintEnabled="false"
                         android:padding="0dp"
                         app:boxStrokeWidth="0dp"
+                        android:layout_marginStart="16dp"
                         app:passwordToggleEnabled="true"
                         app:passwordToggleTint="?attr/colorPrimary">
 
@@ -234,7 +269,7 @@
                             android:inputType="textPassword"
                             android:fontFamily="@font/poppins_regular"
                             android:lines="1"
-                            android:hint="@string/password_hint"
+                            android:hint="Confirm password"
                             android:textSize="14sp"
                             android:textColor="?attr/textBlack700"
                             android:background="@drawable/rounded_edit_text"
@@ -252,7 +287,8 @@
                     android:background="@drawable/sign_in_button"
                     android:id="@+id/signUpButton"
                     android:elevation="10dp"
-                    android:text="Sign Up"
+                    android:text="Create Account"
+                    android:textColor="@color/text_white_900"
                     android:textAllCaps="false"
                     android:layout_marginTop="32dp" />
 

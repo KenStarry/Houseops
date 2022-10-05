@@ -30,6 +30,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Hello"
+                android:fontFamily="@font/poppins_regular"
+                android:includeFontPadding="false"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:textColor="?attr/textBlack100"/>
@@ -38,7 +40,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Patricia W."
-                android:textSize="18sp"
+                android:textSize="16sp"
+                android:fontFamily="@font/poppins_regular"
+                android:includeFontPadding="false"
                 android:textStyle="bold"
                 android:layout_below="@id/caretakerToolbar"
                 android:textColor="?attr/textBlack700"
@@ -49,25 +53,15 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/adminTitle"
-            android:text="Categories"
-            android:textSize="24sp"
-            android:textStyle="bold"
             android:layout_below="@id/welcomeTextHolder"
-            android:textColor="?attr/textBlack700"
-            android:layout_marginTop="32dp"
-            android:layout_marginStart="16dp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="8dp"
-            android:id="@+id/adminRecyclerView"
-            android:scrollbars="vertical"
-            android:scrollbarStyle="outsideInset"
-            android:layout_below="@id/adminTitle"
-            android:layout_marginTop="32dp"
-            android:layout_marginStart="8dp"/>
+            android:text="Blessed Apartments"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="?attr/textBlack900"
+            android:fontFamily="@font/poppins_regular"
+            android:layout_marginTop="16dp"
+            android:includeFontPadding="false"
+            android:layout_centerHorizontal="true"/>
 
     </RelativeLayout>
 
@@ -76,9 +70,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/caretakerFab"
+        app:borderWidth="0dp"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        app:shapeAppearanceOverlay="@style/fab_square"/>
+        app:backgroundTint="@color/accent_blue_bright_trans"
+        android:src="@drawable/ic_baseline_add_24"/>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
