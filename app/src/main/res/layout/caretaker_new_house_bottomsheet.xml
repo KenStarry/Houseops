@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@drawable/rounded_dialog"
+    android:padding="16dp"
+    android:layout_height="match_parent">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/add_house_image"
+        app:riv_corner_radius="16dp"
+        android:src="@drawable/image_regular"
+        app:tint="?attr/textBlack300"/>
+
+    <!--House Number-->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        app:hintEnabled="false"
+        android:padding="0dp"
+        app:passwordToggleEnabled="false"
+        app:boxStrokeWidth="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        app:passwordToggleTint="?attr/colorPrimary">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="text"
+            android:gravity="center"
+            android:fontFamily="@font/poppins_regular"
+            android:lines="1"
+            android:hint="House Number"
+            android:textSize="14sp"
+            android:textColor="?attr/textBlack700"
+            android:background="@drawable/rounded_edit_text_primary"
+            android:id="@+id/emailSignIn"
+            android:padding="0dp"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+</LinearLayout>

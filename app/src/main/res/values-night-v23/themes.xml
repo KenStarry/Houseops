@@ -25,15 +25,22 @@
         <item name="android:statusBarColor">?attr/colorOnPrimary</item>
         <item name="android:navigationBarColor">?attr/colorOnPrimary</item>
         <item name="android:windowLightStatusBar">false</item>
+        <item name="bottomSheetDialogTheme">@style/MyBottomSheetDialogTheme</item>
 
     </style>
 
-    <!--Change fab shape to square-->
-    <style name="fab_square" parent="">
+    <!--Bottom sheet dialog theme-->
+    <style name="MyBottomSheetDialogTheme" parent="ThemeOverlay.Material3.BottomSheetDialog">
 
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">8dp</item>
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
 
+    </style>
+
+    <style name="AppModalStyle" parent="Widget.Material3.BottomSheet.Modal">
+        <item name="background">@drawable/rounded_dialog</item>
     </style>
 
 </resources>

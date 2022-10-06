@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.houseops.R
 import com.example.houseops.adapters.AdminCategoriesAdapter
 import com.example.houseops.databinding.ActivityCaretakerBinding
+import com.example.houseops.fragments.dialogs.AddHouseBottomSheet
 import com.example.houseops.models.AdminCategoriesModel
 
 class CaretakerActivity : AppCompatActivity() {
@@ -40,6 +42,18 @@ class CaretakerActivity : AppCompatActivity() {
         supportActionBar!!.title = "Caretaker"
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
+        listeners()
+
+    }
+
+    private fun listeners() {
+
+        binding.caretakerFab.setOnClickListener {
+
+            //  Open the bottom sheet dialog
+            val dialog = AddHouseBottomSheet()
+            dialog.show(supportFragmentManager, "AddHouseDialog")
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -61,5 +75,9 @@ class CaretakerActivity : AppCompatActivity() {
         }
 
         return true
+    }
+
+    private fun toast(message: String) {
+        Toast.makeText(this@CaretakerActivity, message, Toast.LENGTH_SHORT).show()
     }
 }
