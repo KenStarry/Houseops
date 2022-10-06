@@ -53,12 +53,13 @@
             android:padding="8dp"
             android:background="@drawable/rounded_corners"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="8dp"
             android:orientation="horizontal">
 
             <RelativeLayout
                 android:layout_width="125dp"
                 android:layout_height="45dp"
+                android:id="@+id/tenantToggle"
                 android:background="@drawable/rounded_corners_active">
 
                 <TextView
@@ -76,6 +77,7 @@
             <RelativeLayout
                 android:layout_width="125dp"
                 android:layout_height="45dp"
+                android:id="@+id/caretakerToggle"
                 android:background="@drawable/rounded_corners">
 
                 <TextView
