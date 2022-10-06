@@ -1,19 +1,24 @@
 package com.example.houseops.activities
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.example.houseops.Utilities
 import com.example.houseops.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
     private lateinit var auth: FirebaseAuth
+    private lateinit var db: FirebaseFirestore
     private lateinit var util: Utilities
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,6 +27,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         auth = Firebase.auth
+        db = Firebase.firestore
         util = Utilities(this)
 
         listeners()
@@ -78,27 +84,41 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
 
-                    util.showViewAHideViewB(binding.signInButton, binding.progressBar)
+                    //  Get current user
+                    val currentUser = auth.currentUser
 
-                    //  Logged in Successfully
-                    if (email == "starrycodes@gmail.com") {
+                    //  Compare the current user to the caretakers in the database in the database
+                    db.collection("caretakers")
+                        .whereEqualTo("emailAddress", currentUser!!.email)
+                        .get()
+                        .addOnSuccessListener { documents ->
 
-                        //  Admin User
-                        val intent = Intent(this@LoginActivity, CaretakerActivity::class.java)
-                        startActivity(intent)
-                        finish()
+                            //  If there is no caretaker by that name, login as normal user
+                            if (documents.isEmpty) {
 
-                        toast("Logged in as admin!")
+                                //  Login as a Normal user
+                                val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                                startActivity(intent)
+                                finish()
 
-                    } else {
+                                toast("Logged in successfully!")
+                                util.showViewAHideViewB(binding.signInButton, binding.progressBar)
 
-                        //  Normal user
-                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                        startActivity(intent)
-                        finish()
+                            } else {
 
-                        toast("Logged in successfully!")
-                    }
+                                for (doc in documents) {
+                                    Log.d(TAG, doc.id)
+
+                                    val intent = Intent(this@LoginActivity, CaretakerActivity::class.java)
+                                    startActivity(intent)
+                                    finish()
+
+                                    toast("Logged in as caretaker!")
+                                }
+                            }
+
+                        }
+
 
                 } else {
 

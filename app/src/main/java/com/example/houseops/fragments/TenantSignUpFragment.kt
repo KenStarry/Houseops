@@ -127,8 +127,6 @@ class TenantSignUpFragment : Fragment() {
         )
 
         db.collection("users").document(email).set(user)
-
-
     }
 
     private fun toast(message: String) {

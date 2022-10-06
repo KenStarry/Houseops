@@ -32,7 +32,7 @@
                 android:text="Hello"
                 android:fontFamily="@font/poppins_regular"
                 android:includeFontPadding="false"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 android:textStyle="bold"
                 android:textColor="?attr/textBlack100"/>
 
@@ -40,12 +40,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Patricia W."
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:fontFamily="@font/poppins_regular"
                 android:includeFontPadding="false"
                 android:textStyle="bold"
                 android:layout_below="@id/caretakerToolbar"
-                android:textColor="?attr/textBlack700"
+                android:textColor="?attr/textBlack500"
                 android:layout_marginTop="4dp" />
 
         </LinearLayout>
@@ -55,9 +55,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/welcomeTextHolder"
             android:text="Blessed Apartments"
-            android:textSize="22sp"
+            android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="?attr/textBlack900"
+            android:textColor="?attr/textBlack700"
             android:fontFamily="@font/poppins_regular"
             android:layout_marginTop="16dp"
             android:includeFontPadding="false"
