@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.TenantSignUpFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbars="vertical"
+        android:layout_marginTop="24dp"
+        android:scrollbarFadeDuration="@integer/material_motion_duration_medium_1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tenant Account"
+                android:textSize="22sp"
+                android:includeFontPadding="false"
+                android:fontFamily="@font/poppins_bold"
+                android:textColor="?attr/textBlack700"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp"/>
+
+            <!--Username Create-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_baseline_person_24"
+                    app:tint="?attr/textBlack100"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    app:hintEnabled="false"
+                    android:padding="0dp"
+                    android:layout_marginStart="16dp"
+                    app:passwordToggleEnabled="false"
+                    app:boxStrokeWidth="0dp"
+                    app:passwordToggleTint="?attr/colorPrimary">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="text"
+                        android:fontFamily="@font/poppins_regular"
+                        android:lines="1"
+                        android:hint="@string/username"
+                        android:textSize="14sp"
+                        android:textColor="?attr/textBlack700"
+                        android:background="@drawable/rounded_edit_text"
+                        android:id="@+id/usernameTenantSignUp"
+                        android:layout_marginTop="16dp"
+                        android:padding="0dp"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+            </LinearLayout>
+
+            <!--Phone Number Create-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_baseline_phone_24"
+                    app:tint="?attr/textBlack100"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    app:hintEnabled="false"
+                    android:padding="0dp"
+                    android:layout_marginStart="16dp"
+                    app:passwordToggleEnabled="false"
+                    app:boxStrokeWidth="0dp"
+                    app:passwordToggleTint="?attr/colorPrimary">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="phone"
+                        android:fontFamily="@font/poppins_regular"
+                        android:lines="1"
+                        android:hint="Phone Number"
+                        android:textSize="14sp"
+                        android:textColor="?attr/textBlack700"
+                        android:background="@drawable/rounded_edit_text"
+                        android:id="@+id/phoneTenantSignUp"
+                        android:layout_marginTop="16dp"
+                        android:padding="0dp"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+            </LinearLayout>
+
+            <!--Email Create-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_marginTop="32dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/at_solid"
+                    app:tint="?attr/textBlack100"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    app:hintEnabled="false"
+                    android:padding="0dp"
+                    android:layout_marginStart="16dp"
+                    app:passwordToggleEnabled="false"
+                    app:boxStrokeWidth="0dp"
+                    app:passwordToggleTint="?attr/colorPrimary">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="textEmailAddress"
+                        android:fontFamily="@font/poppins_regular"
+                        android:lines="1"
+                        android:hint="Email Address"
+                        android:textSize="14sp"
+                        android:textColor="?attr/textBlack700"
+                        android:background="@drawable/rounded_edit_text"
+                        android:id="@+id/emailTenantSignUp"
+                        android:layout_marginTop="16dp"
+                        android:padding="0dp"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+            </LinearLayout>
+
+            <!--Password Create-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/key_solid"
+                    app:tint="?attr/textBlack100"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    app:hintEnabled="false"
+                    android:padding="0dp"
+                    app:boxStrokeWidth="0dp"
+                    android:layout_marginStart="16dp"
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="?attr/colorPrimary">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="textPassword"
+                        android:fontFamily="@font/poppins_regular"
+                        android:lines="1"
+                        android:hint="@string/password_hint"
+                        android:textSize="14sp"
+                        android:textColor="?attr/textBlack700"
+                        android:background="@drawable/rounded_edit_text"
+                        android:id="@+id/passwordTenantSignUp"
+                        android:layout_marginTop="16dp"
+                        android:padding="0dp"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <!--Password Confirm Create-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/key_solid"
+                    app:tint="?attr/textBlack100"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    app:hintEnabled="false"
+                    android:padding="0dp"
+                    app:boxStrokeWidth="0dp"
+                    android:layout_marginStart="16dp"
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="?attr/colorPrimary">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="textPassword"
+                        android:fontFamily="@font/poppins_regular"
+                        android:lines="1"
+                        android:hint="Confirm password"
+                        android:textSize="14sp"
+                        android:textColor="?attr/textBlack700"
+                        android:background="@drawable/rounded_edit_text"
+                        android:id="@+id/passwordConfirmTenantSignUp"
+                        android:layout_marginTop="16dp"
+                        android:padding="0dp"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/sign_in_button"
+                android:id="@+id/signUpButtonTenant"
+                android:elevation="10dp"
+                android:text="Create Account"
+                android:textColor="@color/text_white_900"
+                android:textAllCaps="false"
+                android:layout_marginTop="32dp" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</FrameLayout>
