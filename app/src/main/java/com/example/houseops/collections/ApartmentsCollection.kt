@@ -11,6 +11,7 @@ class ApartmentsCollection(
     var showerStatus: String,
     var electricityStatus: String,
     var houseNo: String,
+    var isOccupied: Boolean,
     var floorNo: String,
 ) {
 }
