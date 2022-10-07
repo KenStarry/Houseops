@@ -8,23 +8,30 @@ import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.example.houseops.R
 import com.example.houseops.databinding.ActivitySplashBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class SplashActivity : AppCompatActivity() {
 
     private val timeout: Long = 4000
     private lateinit var binding: ActivitySplashBinding
 
+    private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        splashHandler()
+        auth = Firebase.auth
     }
 
     override fun onStart() {
         super.onStart()
+        splashHandler()
 
+        //  Check if darkmode is enabled or not
         checkDarkMode()
     }
 
@@ -32,10 +39,22 @@ class SplashActivity : AppCompatActivity() {
 
         Handler(Looper.getMainLooper()).postDelayed({
 
-            //  Start the mainactivity
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
+            //  Start the login activity if the user is not logged in or Main Activity otherwise
+            val currentUser = auth.currentUser
+
+            if (currentUser != null) {
+
+                //  Start the mainactivity
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+
+            } else {
+
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
 
         }, timeout)
     }
@@ -64,5 +83,4 @@ class SplashActivity : AppCompatActivity() {
             }
         }
     }
-
 }

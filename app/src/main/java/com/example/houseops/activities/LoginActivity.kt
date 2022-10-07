@@ -84,48 +84,23 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
 
-                    //  Get current user
-                    val currentUser = auth.currentUser
+                    //  Login as a Normal user
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
 
-                    //  Compare the current user to the caretakers in the database in the database
-                    db.collection("caretakers")
-                        .whereEqualTo("emailAddress", currentUser!!.email)
-                        .get()
-                        .addOnSuccessListener { documents ->
-
-                            //  If there is no caretaker by that name, login as normal user
-                            if (documents.isEmpty) {
-
-                                //  Login as a Normal user
-                                val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                                startActivity(intent)
-                                finish()
-
-                                toast("Logged in successfully!")
-                                util.showViewAHideViewB(binding.signInButton, binding.progressBar)
-
-                            } else {
-
-                                for (doc in documents) {
-                                    Log.d(TAG, doc.id)
-
-                                    val intent = Intent(this@LoginActivity, CaretakerActivity::class.java)
-                                    startActivity(intent)
-                                    finish()
-
-                                    toast("Logged in as caretaker!")
-                                }
-                            }
-
-                        }
-
+                    util.showViewAHideViewB(binding.signInButton, binding.progressBar)
+                    toast("Logged in successfully!")
 
                 } else {
 
                     util.showViewAHideViewB(binding.signInButton, binding.progressBar)
-
                     toast("Something went wrong...")
                 }
+            }
+            .addOnFailureListener {
+
+                Log.w(TAG, "Error while fetching data : $it")
             }
 
     }
