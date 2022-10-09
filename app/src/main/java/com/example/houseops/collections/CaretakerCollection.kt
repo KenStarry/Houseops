@@ -1,6 +1,6 @@
 package com.example.houseops.collections
 
-class CaretakerCollection(
+data class CaretakerCollection(
 
     var apartment: String,
     var idNo: String,
@@ -11,4 +11,8 @@ class CaretakerCollection(
     var isVerfied: Boolean
 
 ) {
+
+    constructor() : this(
+        "", "", "", "", "", "", false
+    )
 }

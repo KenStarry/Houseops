@@ -2,6 +2,7 @@ package com.example.houseops.activities
 
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -21,6 +22,9 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
     private lateinit var util: Utilities
 
+    private lateinit var sharedPref: SharedPreferences
+    private lateinit var sharedPrefEditor: SharedPreferences.Editor
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -29,6 +33,9 @@ class LoginActivity : AppCompatActivity() {
         auth = Firebase.auth
         db = Firebase.firestore
         util = Utilities(this)
+
+        sharedPref = getSharedPreferences("user_type", MODE_PRIVATE)
+        sharedPrefEditor = sharedPref.edit()
 
         listeners()
     }
@@ -66,18 +73,38 @@ class LoginActivity : AppCompatActivity() {
             util.toast("email cannot be empty")
             util.showViewAHideViewB(binding.signInButton, binding.progressBar)
 
-        }
-        else if (password.isBlank()) {
+        } else if (password.isBlank()) {
             util.toast("password cannot be blank")
             util.showViewAHideViewB(binding.signInButton, binding.progressBar)
-        }
-        else {
+        } else {
             //  Everything is fine
             allowAccessToAccount(email, password)
         }
     }
 
     private fun allowAccessToAccount(email: String, password: String) {
+
+        //  Check if the user is contained in the caretaker's database or not
+        db.collection("caretakers")
+            .whereEqualTo("emailAddress", email)
+            .get()
+            .addOnSuccessListener { snapshot ->
+
+                if (snapshot.isEmpty) {
+
+                    sharedPrefEditor.putString("type", "user")
+                    sharedPrefEditor.commit()
+
+                } else {
+
+                    //   If the user exists there
+                    sharedPrefEditor.putString("type", "caretaker")
+                    sharedPrefEditor.commit()
+                }
+            }
+            .addOnFailureListener {
+                util.toast("Failed to fetch users")
+            }
 
         //  Sign in the user using the email address
         auth.signInWithEmailAndPassword(email, password)

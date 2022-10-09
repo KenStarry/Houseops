@@ -1,5 +1,7 @@
 package com.example.houseops.activities
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,6 +12,8 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.example.houseops.R
+import com.example.houseops.collections.CaretakerCollection
+import com.example.houseops.collections.UsersCollection
 import com.example.houseops.databinding.ActivityLoginBinding
 import com.example.houseops.databinding.ActivityMainBinding
 import com.example.houseops.fragments.BookedFragment
@@ -19,9 +23,11 @@ import com.example.houseops.fragments.ProfileFragment
 import com.google.android.material.navigation.NavigationBarItemView
 import com.google.android.material.navigation.NavigationBarView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListener {
@@ -29,14 +35,19 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
     private lateinit var binding: ActivityMainBinding
     private lateinit var db: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
+    private lateinit var bundle: Bundle
+
+    private lateinit var sharedPrefs: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        bundle = Bundle()
         db = Firebase.firestore
         auth = Firebase.auth
+        sharedPrefs = getSharedPreferences("user_type", Context.MODE_PRIVATE)
 
         listeners()
         changeStatusBarColor()
@@ -57,9 +68,7 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
             .commit()
 
         //  Watch the current user's activities
-        val currentUser = auth.currentUser
 
-        Toast.makeText(this, currentUser!!.email, Toast.LENGTH_SHORT).show()
     }
 
 
@@ -73,8 +82,11 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
         else {
             val fm = supportFragmentManager
 
+            val frag = HomeFragment()
+            frag.arguments = bundle
+
             fm.beginTransaction()
-                .replace(R.id.fragments_container, HomeFragment())
+                .replace(R.id.fragments_container, frag)
                 .commit()
 
             //  Pop everything in the backstack
@@ -92,31 +104,43 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
         when (item.itemId) {
             R.id.home_menu -> {
 
+                val frag = HomeFragment()
+                frag.arguments = bundle
+
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragments_container, HomeFragment())
+                    .replace(R.id.fragments_container, frag)
                     .commit()
             }
 
             R.id.booked_menu -> {
 
+                val frag = BookedFragment()
+                frag.arguments = bundle
+
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragments_container, BookedFragment())
+                    .replace(R.id.fragments_container, frag)
                     .addToBackStack(null)
                     .commit()
             }
 
             R.id.bookmarks_menu -> {
 
+                val frag = BookmarksFragment()
+                frag.arguments = bundle
+
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragments_container, BookmarksFragment())
+                    .replace(R.id.fragments_container, frag)
                     .addToBackStack(null)
                     .commit()
             }
 
             R.id.profile_menu -> {
 
+                val frag = ProfileFragment()
+                frag.arguments = bundle
+
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragments_container, ProfileFragment())
+                    .replace(R.id.fragments_container, frag)
                     .addToBackStack(null)
                     .commit()
             }

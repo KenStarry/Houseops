@@ -1,15 +1,19 @@
 package com.example.houseops.activities
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.example.houseops.R
+import com.example.houseops.Utilities
 import com.example.houseops.databinding.ActivitySplashBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class SplashActivity : AppCompatActivity() {
@@ -18,6 +22,10 @@ class SplashActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySplashBinding
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var db: FirebaseFirestore
+    private lateinit var util: Utilities
+    private lateinit var sharedPref: SharedPreferences
+    private lateinit var sharedPrefEditor: SharedPreferences.Editor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +33,11 @@ class SplashActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         auth = Firebase.auth
+        db = Firebase.firestore
+        util = Utilities(this)
+
+        sharedPref = getSharedPreferences("user_type", MODE_PRIVATE)
+        sharedPrefEditor = sharedPref.edit()
     }
 
     override fun onStart() {
@@ -39,10 +52,34 @@ class SplashActivity : AppCompatActivity() {
 
         Handler(Looper.getMainLooper()).postDelayed({
 
-            //  Start the login activity if the user is not logged in or Main Activity otherwise
             val currentUser = auth.currentUser
 
+            //  Start the login activity if the user is not logged in or Main Activity otherwise
+
             if (currentUser != null) {
+
+                db.collection("caretakers")
+                    .whereEqualTo("emailAddress", currentUser.email)
+                    .get()
+                    .addOnSuccessListener { snapshot ->
+
+                        if (snapshot.isEmpty) {
+
+                            sharedPrefEditor.putString("type", "user")
+                            sharedPrefEditor.commit()
+
+                        } else {
+
+                            //   If the user exists there
+                            sharedPrefEditor.putString("type", "caretaker")
+                            sharedPrefEditor.commit()
+                        }
+
+                    }
+                    .addOnFailureListener {
+                        util.toast("Failed to fetch users")
+                    }
+
 
                 //  Start the mainactivity
                 val intent = Intent(this, MainActivity::class.java)
