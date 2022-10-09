@@ -3,12 +3,103 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <!--Background Frame layout-->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/bottom_rounded_view"
+            android:layout_weight="2"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="?attr/colorOnPrimary"
+            android:layout_weight="3"/>
+
+    </LinearLayout>
+
+    <!--Main Content-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!--Header-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="16dp"
+            android:orientation="horizontal">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/user_profile"
+                android:scaleType="centerCrop"
+                android:src="@drawable/undraw_pic_profile_re_1865"
+                app:riv_corner_radius="100dp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:id="@+id/houseops_title"
+                android:text="HouseOps"
+                android:includeFontPadding="false"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/text_white_900"
+                android:fontFamily="@font/poppins_regular"/>
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/drawer_menu"
+                android:src="@drawable/comments_regular"
+                app:tint="@color/text_white_700"/>
+
+        </LinearLayout>
+
+        <!--Greetings Text-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Good Morning,"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/poppins_regular"
+                android:includeFontPadding="false"
+                android:textColor="@color/text_white_500"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kenneth M."
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/poppins_regular"
+                android:includeFontPadding="false"
+                android:textColor="@color/text_white_900"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </FrameLayout>

@@ -7,7 +7,7 @@
         android:icon="@drawable/ic_home"/>
 
     <item
-        android:id="@+id/home"
+        android:id="@+id/booked_menu"
         android:title="Booked"
         android:icon="@drawable/ic_booked"/>
 
