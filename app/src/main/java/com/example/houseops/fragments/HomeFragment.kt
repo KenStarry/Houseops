@@ -1,15 +1,18 @@
 package com.example.houseops.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.example.houseops.R
+import com.example.houseops.activities.LoginActivity
 import com.example.houseops.collections.CaretakerCollection
 import com.example.houseops.collections.UsersCollection
 import com.google.firebase.auth.FirebaseAuth
@@ -23,6 +26,7 @@ import com.google.firebase.ktx.Firebase
 class HomeFragment : Fragment() {
 
     private lateinit var usernameGreeting: TextView
+    private lateinit var userProfile: ImageView
 
     private lateinit var db: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
@@ -41,8 +45,28 @@ class HomeFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
         usernameGreeting = view.findViewById(R.id.username_greeting)
+        userProfile = view.findViewById(R.id.user_profile)
+
+        listeners()
 
         return view
+    }
+
+    private fun listeners() {
+
+        userProfile.setOnClickListener {
+            logoutUser()
+        }
+    }
+
+    //  Logout the user
+    private fun logoutUser() {
+
+        auth.signOut()
+
+        val intent = Intent(requireActivity(), LoginActivity::class.java)
+        startActivity(intent)
+        requireActivity().finish()
     }
 
     override fun onStart() {
@@ -64,8 +88,10 @@ class HomeFragment : Fragment() {
 
         db.collection("caretakers")
             .whereEqualTo("emailAddress", currentUser!!.email)
-            .get()
-            .addOnSuccessListener { querySnapshot ->
+            .addSnapshotListener { querySnapshot, error ->
+
+                if (error != null)
+                    return@addSnapshotListener
 
                 var apartment = ""
                 var email = ""
@@ -73,7 +99,7 @@ class HomeFragment : Fragment() {
                 var username = ""
                 var isVerified = false
 
-                for (snapshot in querySnapshot) {
+                for (snapshot in querySnapshot!!) {
 
                     val caretaker: CaretakerCollection = snapshot.toObject()
 

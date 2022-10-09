@@ -154,7 +154,7 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
 
         this.window.apply {
             addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            statusBarColor = ContextCompat.getColor(this@MainActivity, R.color.accent_blue_dull)
+            statusBarColor = ContextCompat.getColor(this@MainActivity, R.color.accent_blue_dull_full)
         }
     }
 }

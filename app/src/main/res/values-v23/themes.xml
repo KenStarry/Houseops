@@ -6,12 +6,12 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/accent_blue_bright</item>
         <item name="colorPrimaryVariant">@color/accent_blue_dull</item>
-        <item name="colorOnPrimary">@color/bg_white</item>
+        <item name="colorOnPrimary">@color/bg_cream</item>
 
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/accent_blue_bright</item>
         <item name="colorSecondaryVariant">@color/accent_blue_bright</item>
-        <item name="colorOnSecondary">@color/bg_cream</item>
+        <item name="colorOnSecondary">@color/bg_white</item>
 
         <!--Text Colors Light Mode-->
         <item name="textBlack900">@color/text_black_900</item>
