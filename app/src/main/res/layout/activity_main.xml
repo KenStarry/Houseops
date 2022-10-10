@@ -18,8 +18,11 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?attr/colorOnPrimary"
         android:id="@+id/bottom_navigation_view"
         android:layout_gravity="bottom"
+        app:elevation="4dp"
+        app:itemActiveIndicatorStyle="@style/App.Custom.Indicator"
         app:menu="@menu/bottom_nav_menu"/>
 
 

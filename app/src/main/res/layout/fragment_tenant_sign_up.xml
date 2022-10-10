@@ -30,6 +30,14 @@
                 android:textStyle="bold"
                 android:layout_marginTop="8dp"/>
 
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/imageTenantSignup"
+                android:src="@drawable/undraw_profile_pic_re_upir"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="32dp"/>
+
             <!--Username Create-->
             <LinearLayout
                 android:layout_width="match_parent"
