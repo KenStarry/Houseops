@@ -28,7 +28,7 @@
     </style>
 
     <!--Bottom sheet dialog theme-->
-    <style name="MyBottomSheetDialogTheme" parent="ThemeOverlay.Material3.BottomSheetDialog">
+    <style name="MyBottomSheetDialogTheme" parent="Theme.Material3.DayNight.BottomSheetDialog">
 
         <item name="bottomSheetStyle">@style/AppModalStyle</item>
         <item name="android:windowIsFloating">false</item>
@@ -54,5 +54,10 @@
         <item name="android:color">?attr/colorPrimary</item>
     </style>
 
+    <!--Default appearance for buttons-->
+    <style name="PrimaryButton" parent="Theme.AppCompat">
+        <item name="colorButtonNormal">?attr/colorOnSecondary</item>
+        <item name="colorControlHighlight">@color/accent_blue_bright</item>
+    </style>
 
 </resources>

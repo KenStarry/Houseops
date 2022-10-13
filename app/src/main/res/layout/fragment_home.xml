@@ -70,37 +70,6 @@
 
         </LinearLayout>
 
-        <!--Greetings Text-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Good Morning,"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:fontFamily="@font/poppins_regular"
-                android:includeFontPadding="false"
-                android:textColor="@color/text_white_500"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/username_greeting"
-                android:text=""
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/poppins_regular"
-                android:includeFontPadding="false"
-                android:textColor="@color/text_white_900"/>
-
-        </LinearLayout>
-
     </LinearLayout>
 
 </FrameLayout>

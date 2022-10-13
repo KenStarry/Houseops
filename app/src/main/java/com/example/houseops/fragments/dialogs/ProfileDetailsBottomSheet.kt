@@ -1,21 +1,23 @@
-package com.example.houseops.fragments
+package com.example.houseops.fragments.dialogs
 
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
+import androidx.fragment.app.DialogFragment
 import com.example.houseops.R
+import com.example.houseops.Utilities
+import com.example.houseops.activities.CaretakerActivity
 import com.example.houseops.activities.LoginActivity
 import com.example.houseops.collections.CaretakerCollection
 import com.example.houseops.collections.UsersCollection
-import com.example.houseops.fragments.dialogs.ProfileDetailsBottomSheet
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -24,60 +26,76 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 
-class HomeFragment : Fragment() {
-
-    private lateinit var userProfile: ImageView
+class ProfileDetailsBottomSheet : BottomSheetDialogFragment() {
 
     private lateinit var db: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
-
     private lateinit var sharedPrefs: SharedPreferences
+    private lateinit var utils: Utilities
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private lateinit var profileUsername: TextView
+    private lateinit var profileCaretakerAdminBtn: Button
+    private lateinit var profileDetailsLogout: ImageView
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_home, container, false)
 
-        userProfile = view.findViewById(R.id.user_profile)
+        val view = inflater.inflate(R.layout.profile_details_bottomsheet, container, false)
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.MyBottomSheetDialogTheme)
 
-        listeners()
+        profileUsername = view.findViewById(R.id.profile_details_username)
+        profileCaretakerAdminBtn = view.findViewById(R.id.profile_caretaker_admin_btn)
+        profileDetailsLogout = view.findViewById(R.id.profile_details_logout)
+
+        //  Open caretaker activity
+        profileCaretakerAdminBtn.setOnClickListener {
+            val intent = Intent(requireActivity(), CaretakerActivity::class.java)
+            startActivity(intent)
+        }
+
+        //  Logout the user
+        profileDetailsLogout.setOnClickListener {
+            logoutUser()
+        }
 
         return view
-    }
-
-    private fun listeners() {
-
-        userProfile.setOnClickListener {
-            //  Open Bottom Sheet Dialog
-            openProfileDetailsBottomSheet()
-        }
-    }
-
-    private fun openProfileDetailsBottomSheet() {
-
-        val dialog = ProfileDetailsBottomSheet()
-        dialog.show(requireActivity().supportFragmentManager, "ProfileDetailsDialog")
     }
 
     override fun onStart() {
         super.onStart()
 
-        auth = Firebase.auth
         db = Firebase.firestore
-
+        auth = Firebase.auth
+        utils = Utilities(requireContext())
         sharedPrefs = requireContext().getSharedPreferences("user_type", Context.MODE_PRIVATE)
+
         val currentUser = auth.currentUser
 
         if (sharedPrefs.getString("type", "") == "user") {
+            //  Show user details
             queryUserDetails(currentUser)
-        } else
+            profileCaretakerAdminBtn.visibility = View.GONE
+
+        } else {
+            //  Show caretaker details
             queryCaretakerDetails(currentUser)
+            profileCaretakerAdminBtn.visibility = View.VISIBLE
+        }
+
+
+    }
+
+    //  Logout the user
+    private fun logoutUser() {
+
+        auth.signOut()
+
+        val intent = Intent(requireActivity(), LoginActivity::class.java)
+        startActivity(intent)
+        requireActivity().finish()
     }
 
     private fun queryCaretakerDetails(currentUser: FirebaseUser?) {
@@ -105,6 +123,8 @@ class HomeFragment : Fragment() {
                     username = caretaker.username
                     isVerified = caretaker.isVerfied
                 }
+
+                profileUsername.text = username
             }
     }
 
@@ -129,6 +149,8 @@ class HomeFragment : Fragment() {
                     phone = user.phone!!
                     username = user.username!!
                 }
+
+                profileUsername.text = username
             }
     }
 }

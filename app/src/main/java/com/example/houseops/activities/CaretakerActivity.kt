@@ -56,27 +56,6 @@ class CaretakerActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.admin_toolbar_menu, menu)
-
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-        when (item.itemId) {
-            //  Go back to the main activity when clicked
-            R.id.quitAdminMenu -> {
-                val intent = Intent(this@CaretakerActivity, MainActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
-        }
-
-        return true
-    }
-
     private fun toast(message: String) {
         Toast.makeText(this@CaretakerActivity, message, Toast.LENGTH_SHORT).show()
     }

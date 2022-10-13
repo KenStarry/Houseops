@@ -18,7 +18,7 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
         val view = inflater.inflate(R.layout.caretaker_new_house_bottomsheet, container, false)
 
         //  Set the theme/style of the bottom sheet
-//        setStyle(DialogFragment.STYLE_NORMAL, R.style.MyBottomSheetDialogTheme)
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.MyBottomSheetDialogTheme)
         return view
     }
 }
