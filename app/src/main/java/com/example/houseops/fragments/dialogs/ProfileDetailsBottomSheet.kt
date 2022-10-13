@@ -1,5 +1,6 @@
 package com.example.houseops.fragments.dialogs
 
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -37,6 +38,12 @@ class ProfileDetailsBottomSheet : BottomSheetDialogFragment() {
     private lateinit var profileCaretakerAdminBtn: Button
     private lateinit var profileDetailsLogout: ImageView
 
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.MyBottomSheetDialogTheme)
+        return super.onCreateDialog(savedInstanceState)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -44,7 +51,6 @@ class ProfileDetailsBottomSheet : BottomSheetDialogFragment() {
     ): View? {
 
         val view = inflater.inflate(R.layout.profile_details_bottomsheet, container, false)
-        setStyle(DialogFragment.STYLE_NORMAL, R.style.MyBottomSheetDialogTheme)
 
         profileUsername = view.findViewById(R.id.profile_details_username)
         profileCaretakerAdminBtn = view.findViewById(R.id.profile_caretaker_admin_btn)

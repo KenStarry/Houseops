@@ -1,5 +1,6 @@
 package com.example.houseops.fragments.dialogs
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,12 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class AddHouseBottomSheet : BottomSheetDialogFragment() {
 
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.MyBottomSheetDialogTheme)
+        return super.onCreateDialog(savedInstanceState)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -17,8 +24,6 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
     ): View? {
         val view = inflater.inflate(R.layout.caretaker_new_house_bottomsheet, container, false)
 
-        //  Set the theme/style of the bottom sheet
-        setStyle(DialogFragment.STYLE_NORMAL, R.style.MyBottomSheetDialogTheme)
         return view
     }
 }

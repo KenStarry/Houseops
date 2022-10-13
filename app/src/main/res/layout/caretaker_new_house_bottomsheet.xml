@@ -4,121 +4,371 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:background="@drawable/rounded_dialog"
-    android:padding="16dp"
     android:layout_height="match_parent">
 
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New House"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:textColor="?attr/textBlack700"
-        android:fontFamily="@font/poppins_regular"
-        android:includeFontPadding="false"
-        android:layout_gravity="center_horizontal"/>
-
-    <com.makeramen.roundedimageview.RoundedImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/add_house_image"
-        app:riv_corner_radius="16dp"
-        android:layout_marginTop="24dp"
-        android:src="@drawable/image_regular"
-        app:tint="?attr/textBlack300"/>
-
-    <!--House Number-->
-    <com.google.android.material.textfield.TextInputLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        app:hintEnabled="false"
-        android:padding="0dp"
-        app:passwordToggleEnabled="false"
-        app:boxStrokeWidth="0dp"
-        android:layout_marginTop="16dp"
-        app:passwordToggleTint="?attr/colorPrimary">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="text"
-            android:gravity="center"
-            android:fontFamily="@font/poppins_regular"
-            android:lines="1"
-            android:hint="House Number"
-            android:textSize="14sp"
-            android:textColor="?attr/textBlack700"
-            android:background="@drawable/rounded_edit_text_primary"
-            android:id="@+id/emailSignIn"
-            android:padding="0dp"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <!--Status, occupied or vacant-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:gravity="center"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Status"
-            android:textStyle="bold"
-            android:fontFamily="@font/poppins_regular"
-            android:textColor="?attr/textBlack300"
-            android:layout_marginEnd="16dp"/>
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:background="@drawable/rounded_corners"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <RelativeLayout
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New House"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="?attr/textBlack700"
+                android:fontFamily="@font/poppins_regular"
+                android:includeFontPadding="false"
+                android:layout_gravity="center_horizontal"/>
+
+            <com.makeramen.roundedimageview.RoundedImageView
                 android:layout_width="100dp"
-                android:layout_height="45dp"
-                android:id="@+id/tenantToggle"
-                android:background="@drawable/rounded_corners_active">
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/add_house_image"
+                app:riv_corner_radius="16dp"
+                android:layout_marginTop="24dp"
+                android:src="@drawable/image_regular"
+                app:tint="?attr/textBlack300"/>
+
+            <!--House Number-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                app:hintEnabled="false"
+                android:padding="0dp"
+                app:passwordToggleEnabled="false"
+                app:boxStrokeWidth="0dp"
+                android:layout_marginTop="16dp"
+                app:passwordToggleTint="?attr/colorPrimary">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="text"
+                    android:gravity="center"
+                    android:fontFamily="@font/poppins_regular"
+                    android:lines="1"
+                    android:hint="House Number"
+                    android:textSize="14sp"
+                    android:textColor="?attr/textBlack700"
+                    android:background="@drawable/rounded_edit_text_primary"
+                    android:id="@+id/emailSignIn"
+                    android:padding="0dp"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--Status, occupied or vacant-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
+                    android:text="Status"
+                    android:textStyle="bold"
                     android:fontFamily="@font/poppins_regular"
-                    android:includeFontPadding="false"
-                    android:text="Vacant"
-                    android:textColor="?attr/textBlack700"
-                    android:textStyle="bold" />
+                    android:textColor="?attr/textBlack300"
+                    android:layout_marginEnd="16dp"/>
 
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="100dp"
-                android:layout_height="45dp"
-                android:id="@+id/caretakerToggle"
-                android:background="@drawable/rounded_corners">
-
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
+                    android:padding="8dp"
+                    android:background="@drawable/rounded_corners"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="100dp"
+                        android:layout_height="45dp"
+                        android:id="@+id/tenantToggle"
+                        android:background="@drawable/rounded_corners_active">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/poppins_regular"
+                            android:includeFontPadding="false"
+                            android:text="Vacant"
+                            android:textColor="?attr/textBlack700"
+                            android:textStyle="bold" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="100dp"
+                        android:layout_height="45dp"
+                        android:id="@+id/caretakerToggle"
+                        android:background="@drawable/rounded_corners">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/poppins_regular"
+                            android:includeFontPadding="false"
+                            android:text="Occupied"
+                            android:textColor="?attr/textBlack700"
+                            android:textStyle="bold" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!--Type of house: one bedroom, 2 bedroom e.t.c-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Category"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="?attr/textBlack700"
+                android:fontFamily="@font/poppins_regular"
+                android:includeFontPadding="false"
+                android:layout_marginTop="16dp"/>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:orientation="horizontal">
+
+                    <!--Single-->
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/house_category_single"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/rounded_edit_text"
+                        android:padding="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="Single"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/poppins_regular"
+                            android:includeFontPadding="false"
+                            android:textColor="?attr/textBlack700"/>
+                    </RelativeLayout>
+
+                    <!--Bedsitter-->
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/house_category_bedsitter"
+                        android:background="@drawable/rounded_edit_text"
+                        android:layout_marginEnd="8dp"
+                        android:padding="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="Bedsitter"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/poppins_regular"
+                            android:includeFontPadding="false"
+                            android:textColor="?attr/textBlack700"/>
+                    </RelativeLayout>
+
+                    <!--One Bedroom-->
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/house_category_one_bedroom"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/rounded_edit_text"
+                        android:padding="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="One Bedroom"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/poppins_regular"
+                            android:includeFontPadding="false"
+                            android:textColor="?attr/textBlack700"/>
+                    </RelativeLayout>
+
+                    <!--Two Bedroom-->
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/house_category_two_bedroom"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/rounded_edit_text"
+                        android:padding="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="Two Bedroom"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/poppins_regular"
+                            android:includeFontPadding="false"
+                            android:textColor="?attr/textBlack700"/>
+
+                    </RelativeLayout>
+
+                    <!--Three Bedroom-->
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/house_category_three_bedroom"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/rounded_edit_text"
+                        android:padding="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="Three Bedroom"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/poppins_regular"
+                            android:includeFontPadding="false"
+                            android:textColor="?attr/textBlack700"/>
+
+                    </RelativeLayout>
+
+                    <!--Mansion-->
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/house_category_mansion"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/rounded_edit_text"
+                        android:padding="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="Mansion"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/poppins_regular"
+                            android:includeFontPadding="false"
+                            android:textColor="?attr/textBlack700"/>
+                    </RelativeLayout>
+
+                    <!--Other-->
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/house_category_other"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/rounded_edit_text"
+                        android:padding="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="Other"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/poppins_regular"
+                            android:includeFontPadding="false"
+                            android:textColor="?attr/textBlack700"/>
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+            <!--Description of the house-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="?attr/textBlack700"
+                android:fontFamily="@font/poppins_regular"
+                android:includeFontPadding="false"
+                android:layout_marginTop="32dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:id="@+id/house_description"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="16dp"
+                    android:inputType="textMultiLine"
+                    android:gravity="top"
+                    android:hint="Tell me more..."
+                    android:padding="16dp"
+                    android:textColor="?attr/textBlack700"
+                    android:textStyle="normal"
+                    android:textSize="14sp"
                     android:fontFamily="@font/poppins_regular"
                     android:includeFontPadding="false"
-                    android:text="Occupied"
-                    android:textColor="?attr/textBlack700"
-                    android:textStyle="bold" />
+                    android:background="@drawable/rounded_edit_text"/>
 
-            </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_corners_active"
+                    android:padding="8dp"
+                    android:orientation="horizontal"
+                    android:layout_gravity="end"
+                    android:gravity="center"
+                    android:layout_marginTop="8dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_library_add"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Templates"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_white_900"
+                        android:fontFamily="@font/poppins_regular"
+                        android:includeFontPadding="false"
+                        android:layout_marginStart="8dp"/>
+
+                </LinearLayout>
+            </LinearLayout>
 
         </LinearLayout>
-
-    </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

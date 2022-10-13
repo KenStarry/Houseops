@@ -39,6 +39,7 @@
 
     <style name="AppModalStyle" parent="Widget.Material3.BottomSheet.Modal">
         <item name="background">@drawable/rounded_dialog</item>
+        <item name="backgroundTint">@android:color/transparent</item>
     </style>
 
     <!--Item Indicator for bottom navigation menu-->
