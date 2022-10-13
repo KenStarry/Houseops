@@ -57,12 +57,14 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/accent_blue_bright"
         android:id="@+id/profile_caretaker_admin_btn"
         android:text="Admin Page"
         android:textStyle="bold"
+        android:textSize="14sp"
         android:textColor="@color/text_white_900"
         android:fontFamily="@font/poppins_regular"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
         android:theme="@style/PrimaryButton"/>
 
 </LinearLayout>
