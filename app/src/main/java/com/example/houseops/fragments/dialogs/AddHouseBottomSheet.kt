@@ -6,9 +6,12 @@ import android.app.Instrumentation.ActivityResult
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.ImageDecoder
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.provider.MediaStore.Audio.Media
 import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
@@ -16,9 +19,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.decodeBitmap
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -253,14 +258,20 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
     }
 
     //  Function to encode our image to a string
-    private fun encodeImage(bitmap: Bitmap): String {
+    private fun encodeImage(uri: Uri ,bitmap: Bitmap): String {
 
-        val previewWidth = 150
-        val previewHeight = bitmap.height * previewWidth / bitmap.width
+        //  Setting our previewBitmap
+        val previewBitmap = when {
 
-        //  The preview bitmap
-        val previewBitmap: Bitmap =
-            Bitmap.createScaledBitmap(bitmap, previewWidth, previewHeight, false)
+            Build.VERSION.SDK_INT < 28 -> {
+                MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, uri)
+            }
+            else -> {
+                val source: ImageDecoder.Source = ImageDecoder.createSource(requireActivity().contentResolver, uri)
+                ImageDecoder.decodeBitmap(source)
+            }
+        }
+
         val byteArrayOutputStream = ByteArrayOutputStream()
 
         previewBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
@@ -285,10 +296,11 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
                         val bitmap: Bitmap = BitmapFactory.decodeStream(inputStream)
 
                         //  Set the image picked by the user
-                        encodedImage = encodeImage(bitmap)
+                        encodedImage = encodeImage(uri, bitmap)
                         encodedImagesList.add(encodedImage)
 
                         setupRecyclerView(encodedImagesList)
+                        Toast.makeText(requireActivity(), encodedImagesList.size.toString(), Toast.LENGTH_SHORT).show()
 
                     } catch (e: FileNotFoundException) {
                         e.printStackTrace()
