@@ -34,7 +34,7 @@
                 android:id="@+id/add_house_image"
                 app:riv_corner_radius="16dp"
                 android:layout_marginTop="24dp"
-                android:src="@drawable/image_regular"
+                android:src="@drawable/ic_baseline_add_photo_alternate_24"
                 app:tint="?attr/textBlack300"/>
 
             <!--House Number-->
@@ -92,7 +92,7 @@
                     <RelativeLayout
                         android:layout_width="100dp"
                         android:layout_height="45dp"
-                        android:id="@+id/tenantToggle"
+                        android:id="@+id/vacantToggle"
                         android:background="@drawable/rounded_corners_active">
 
                         <TextView
@@ -110,7 +110,7 @@
                     <RelativeLayout
                         android:layout_width="100dp"
                         android:layout_height="45dp"
-                        android:id="@+id/caretakerToggle"
+                        android:id="@+id/occupiedToggle"
                         android:background="@drawable/rounded_corners">
 
                         <TextView
