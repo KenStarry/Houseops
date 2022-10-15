@@ -1,10 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.makeramen.roundedimageview.RoundedImageView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/recycler_house_image"
     android:layout_width="130dp"
-    android:layout_height="130dp"
-    app:riv_corner_radius="16dp"
-    android:scaleType="centerCrop"
-    android:layout_marginEnd="8dp"
-    android:src="@drawable/ic_baseline_add_24" />
+    android:layout_height="130dp">
+
+    <com.makeramen.roundedimageview.RoundedImageView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/recycler_house_image"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        app:riv_corner_radius="16dp"
+        android:scaleType="centerCrop"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/ic_baseline_add_24" />
+
+    <RelativeLayout
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_gravity="end"
+        android:id="@+id/deleteHouseImage"
+        android:layout_margin="4dp"
+        android:background="@drawable/rounded_edit_text">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_delete"
+            app:tint="?attr/textBlack100"/>
+
+    </RelativeLayout>
+
+</FrameLayout>

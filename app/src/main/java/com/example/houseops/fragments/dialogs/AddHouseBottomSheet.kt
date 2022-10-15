@@ -2,7 +2,6 @@ package com.example.houseops.fragments.dialogs
 
 import android.app.Activity
 import android.app.Dialog
-import android.app.Instrumentation.ActivityResult
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -11,19 +10,15 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.provider.MediaStore.Audio.Media
 import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.decodeBitmap
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -254,8 +249,6 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
         other = view.findViewById(R.id.house_category_other)
     }
 
-
-
     //  Function to encode our image to a string
     private fun encodeImage(uri: Uri ,bitmap: Bitmap): String {
 
@@ -297,8 +290,8 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
                         //  Set the image picked by the user
                         encodedImage = encodeImage(uri, bitmap)
 
-                        adapter.add_image(encodedImage)
-                        Toast.makeText(requireActivity(), encodedImagesList.size.toString(), Toast.LENGTH_SHORT).show()
+                        adapter.addImage(encodedImage)
+                        houses_recycler_view.visibility = View.VISIBLE
 
                     } catch (e: FileNotFoundException) {
                         e.printStackTrace()

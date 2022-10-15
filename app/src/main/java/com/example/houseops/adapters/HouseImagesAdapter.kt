@@ -40,12 +40,13 @@ class HouseImagesAdapter(
     }
 
     private fun getUserImageBitmap(encodedImage: String): Bitmap {
+
         //  An array of bytes containing the image resource
         val bytes = Base64.decode(encodedImage, Base64.DEFAULT)
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
     }
 
-    fun add_image(image: String) {
+    fun addImage(image: String) {
         encodedHouseImagesList.add(image)
         notifyDataSetChanged()
     }
