@@ -1,6 +1,7 @@
 package com.example.houseops.activities
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -8,6 +9,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.houseops.Constants
 import com.example.houseops.R
 import com.example.houseops.adapters.AdminCategoriesAdapter
 import com.example.houseops.collections.CaretakerCollection
@@ -28,6 +30,8 @@ class CaretakerActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCaretakerBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
+    private lateinit var sharedPref: SharedPreferences
+    private lateinit var sharedPrefEditor: SharedPreferences.Editor
 
     //  Houses List
     private val categories = listOf(
@@ -51,6 +55,9 @@ class CaretakerActivity : AppCompatActivity() {
 
         supportActionBar!!.title = "Caretaker"
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+
+        sharedPref = getSharedPreferences(Constants().caretakerDetails, AppCompatActivity.MODE_PRIVATE)
+        sharedPrefEditor = sharedPref.edit()
 
         listeners()
 
@@ -90,6 +97,9 @@ class CaretakerActivity : AppCompatActivity() {
                     apartment = caretaker.apartment
                     name = caretaker.username
                 }
+
+                sharedPrefEditor.putString(Constants().caretakerApartment, apartment)
+                sharedPrefEditor.commit()
 
                 binding.caretakerName.text = name
                 binding.caretakerApartments.text= apartment

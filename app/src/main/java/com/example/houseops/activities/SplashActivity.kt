@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
+import com.example.houseops.Constants
 import com.example.houseops.R
 import com.example.houseops.Utilities
 import com.example.houseops.databinding.ActivitySplashBinding
@@ -36,7 +37,7 @@ class SplashActivity : AppCompatActivity() {
         db = Firebase.firestore
         util = Utilities(this)
 
-        sharedPref = getSharedPreferences("user_type", MODE_PRIVATE)
+        sharedPref = getSharedPreferences(Constants().userType, MODE_PRIVATE)
         sharedPrefEditor = sharedPref.edit()
     }
 
@@ -65,13 +66,13 @@ class SplashActivity : AppCompatActivity() {
 
                         if (snapshot.isEmpty) {
 
-                            sharedPrefEditor.putString("type", "user")
+                            sharedPrefEditor.putString(Constants().type, "user")
                             sharedPrefEditor.commit()
 
                         } else {
 
                             //   If the user exists there
-                            sharedPrefEditor.putString("type", "caretaker")
+                            sharedPrefEditor.putString(Constants().type, "caretaker")
                             sharedPrefEditor.commit()
                         }
 

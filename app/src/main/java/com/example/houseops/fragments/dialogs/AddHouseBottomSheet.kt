@@ -2,7 +2,10 @@ package com.example.houseops.fragments.dialogs
 
 import android.app.Activity
 import android.app.Dialog
+import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.ImageDecoder
@@ -11,9 +14,12 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -22,15 +28,31 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.houseops.Constants
 import com.example.houseops.R
 import com.example.houseops.adapters.HouseImagesAdapter
+import com.example.houseops.models.HouseModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.makeramen.roundedimageview.RoundedImageView
 import java.io.ByteArrayOutputStream
 import java.io.FileNotFoundException
 
 class AddHouseBottomSheet : BottomSheetDialogFragment() {
 
-    private lateinit var houseImage: CardView
+    private lateinit var db: FirebaseFirestore
+    private lateinit var auth: FirebaseAuth
+
+    private lateinit var houseImage: RoundedImageView
+    private lateinit var houseNumber: TextInputEditText
+    private lateinit var houseDescription: EditText
+    private lateinit var houseAddBtn: Button
 
     private lateinit var vacantToggle: RelativeLayout
     private lateinit var occupiedToggle: RelativeLayout
@@ -41,12 +63,16 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
     private lateinit var threeBedroom: RelativeLayout
     private lateinit var mansion: RelativeLayout
     private lateinit var other: RelativeLayout
-    private lateinit var houses_recycler_view: RecyclerView
 
     private lateinit var encodedImage: String
 
     private lateinit var adapter: HouseImagesAdapter
     private val encodedImagesList: ArrayList<String> = ArrayList()
+    private lateinit var sharedPref: SharedPreferences
+
+    private var houseStatus = "vacant"
+    private var houseCategory = "single"
+
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
@@ -65,16 +91,20 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
         initializeVariables(view)
         listeners(view)
 
-        adapter = HouseImagesAdapter(encodedImagesList)
-
-        houses_recycler_view.adapter = adapter
-        houses_recycler_view.layoutManager =
-            LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
-
         return view
     }
 
     private fun listeners(view: View) {
+
+        //  Add the house to the apartments collection
+        houseAddBtn.setOnClickListener {
+
+            //  Pick the specific apartment that this caretaker is in charge of
+            val currentUser = auth.currentUser
+            val apartment = sharedPref.getString(Constants().caretakerApartment, "")
+
+            addHouseToApartmentsCollection(apartment)
+        }
 
         //  Allow the caretaker to choose an image from gallery
         houseImage.setOnClickListener {
@@ -94,6 +124,7 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
                 ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_corners_active)
             occupiedToggle.background =
                 ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_corners)
+            houseStatus = "vacant"
 
         }
 
@@ -103,12 +134,14 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
                 ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_corners_active)
             vacantToggle.background =
                 ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_corners)
+            houseStatus = "occupied"
         }
 
         //  Category buttons
         single.setOnClickListener {
             it.background =
                 ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text_accent)
+            houseCategory = "single"
 
             bedsitter.background =
                 ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
@@ -127,6 +160,7 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
         bedsitter.setOnClickListener {
             it.background =
                 ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text_accent)
+            houseCategory = "bedsitter"
 
             single.background =
                 ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
@@ -145,6 +179,7 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
         oneBedroom.setOnClickListener {
             it.background =
                 ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text_accent)
+            houseCategory = "one bedroom"
 
             bedsitter.background =
                 ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
@@ -163,6 +198,7 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
         twoBedroom.setOnClickListener {
             it.background =
                 ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text_accent)
+            houseCategory = "two bedroom"
 
             bedsitter.background =
                 ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
@@ -181,6 +217,7 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
         threeBedroom.setOnClickListener {
             it.background =
                 ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text_accent)
+            houseCategory = "three bedroom"
 
             bedsitter.background =
                 ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
@@ -199,6 +236,7 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
         mansion.setOnClickListener {
             it.background =
                 ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text_accent)
+            houseCategory = "mansion"
 
             bedsitter.background =
                 ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
@@ -217,6 +255,7 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
         other.setOnClickListener {
             it.background =
                 ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text_accent)
+            houseCategory = "other"
 
             bedsitter.background =
                 ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
@@ -235,8 +274,14 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
 
     private fun initializeVariables(view: View) {
 
+        db = Firebase.firestore
+        auth = Firebase.auth
+        sharedPref = requireActivity().getSharedPreferences(Constants().caretakerDetails, Context.MODE_PRIVATE)
+
         houseImage = view.findViewById(R.id.add_house_image)
-        houses_recycler_view = view.findViewById(R.id.imagesRecyclerView)
+        houseNumber = view.findViewById(R.id.houseNumber)
+        houseDescription = view.findViewById(R.id.house_description)
+        houseAddBtn = view.findViewById(R.id.houseAddBtn)
 
         vacantToggle = view.findViewById(R.id.vacantToggle)
         occupiedToggle = view.findViewById(R.id.occupiedToggle)
@@ -272,6 +317,29 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
         return Base64.encodeToString(bytes, Base64.DEFAULT)
     }
 
+    //  Function to add a house to the apartments collection
+    private fun addHouseToApartmentsCollection(apartment: String?) {
+
+        val houseStatus = houseStatus
+        val houseNo = houseNumber.text.toString()
+        val houseCat = houseCategory
+        val houseDesc = houseDescription.text.toString()
+        val houseImageBitmap = encodedImage
+
+        val houseModel =
+            HouseModel(apartment, houseStatus, houseNo, houseCat, houseDesc, houseImageBitmap)
+
+        db.collection("apartments").document(apartment!!).collection("houses").document(houseNo)
+            .set(houseModel, SetOptions.merge())
+            .addOnSuccessListener { doc ->
+                Toast.makeText(requireActivity(), "House Added successfully", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { e ->
+                Log.e(TAG, e.toString())
+                Toast.makeText(requireActivity(), e.toString(), Toast.LENGTH_SHORT).show()
+            }
+    }
+
     //  Start an activity for image result
     private val pickImage =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -289,9 +357,10 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
 
                         //  Set the image picked by the user
                         encodedImage = encodeImage(uri, bitmap)
+                        val bytes = Base64.decode(encodedImage, Base64.DEFAULT)
+                        val previewBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
 
-                        adapter.addImage(encodedImage)
-                        houses_recycler_view.visibility = View.VISIBLE
+                        houseImage.setImageBitmap(previewBitmap)
 
                     } catch (e: FileNotFoundException) {
                         e.printStackTrace()
