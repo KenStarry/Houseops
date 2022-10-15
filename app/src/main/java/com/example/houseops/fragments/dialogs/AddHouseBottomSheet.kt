@@ -70,6 +70,12 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
         initializeVariables(view)
         listeners(view)
 
+        adapter = HouseImagesAdapter(encodedImagesList)
+
+        houses_recycler_view.adapter = adapter
+        houses_recycler_view.layoutManager =
+            LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
+
         return view
     }
 
@@ -248,14 +254,7 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
         other = view.findViewById(R.id.house_category_other)
     }
 
-    private fun setupRecyclerView(encodedImagesList: ArrayList<String>) {
 
-        adapter = HouseImagesAdapter(encodedImagesList)
-
-        houses_recycler_view.adapter = adapter
-        houses_recycler_view.layoutManager =
-            LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
-    }
 
     //  Function to encode our image to a string
     private fun encodeImage(uri: Uri ,bitmap: Bitmap): String {
@@ -297,9 +296,8 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
 
                         //  Set the image picked by the user
                         encodedImage = encodeImage(uri, bitmap)
-                        encodedImagesList.add(encodedImage)
 
-                        setupRecyclerView(encodedImagesList)
+                        adapter.add_image(encodedImage)
                         Toast.makeText(requireActivity(), encodedImagesList.size.toString(), Toast.LENGTH_SHORT).show()
 
                     } catch (e: FileNotFoundException) {

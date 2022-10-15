@@ -12,7 +12,7 @@ import com.makeramen.roundedimageview.RoundedImageView
 
 class HouseImagesAdapter(
 
-    private val encodedHouseImagesList: List<String>
+    private val encodedHouseImagesList: MutableList<String>
 
 ) : RecyclerView.Adapter<HouseImagesAdapter.ViewHolder>() {
 
@@ -43,5 +43,10 @@ class HouseImagesAdapter(
         //  An array of bytes containing the image resource
         val bytes = Base64.decode(encodedImage, Base64.DEFAULT)
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+    }
+
+    fun add_image(image: String) {
+        encodedHouseImagesList.add(image)
+        notifyDataSetChanged()
     }
 }
