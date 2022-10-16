@@ -41,6 +41,7 @@ import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.makeramen.roundedimageview.RoundedImageView
+import com.squareup.picasso.Picasso
 import java.io.ByteArrayOutputStream
 import java.io.FileNotFoundException
 
@@ -49,7 +50,7 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
     private lateinit var db: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
 
-    private lateinit var houseImage: RoundedImageView
+    private lateinit var houseImage: CardView
     private lateinit var houseNumber: TextInputEditText
     private lateinit var houseDescription: EditText
     private lateinit var houseAddBtn: Button
@@ -65,9 +66,10 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
     private lateinit var other: RelativeLayout
 
     private lateinit var encodedImage: String
+    private lateinit var imageUriList: ArrayList<String>
 
     private lateinit var adapter: HouseImagesAdapter
-    private val encodedImagesList: ArrayList<String> = ArrayList()
+    private lateinit var recyclerViewHouses: RecyclerView
     private lateinit var sharedPref: SharedPreferences
 
     private var houseStatus = "vacant"
@@ -91,7 +93,16 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
         initializeVariables(view)
         listeners(view)
 
+        setupRecyclerView()
+
         return view
+    }
+
+    private fun setupRecyclerView() {
+
+        recyclerViewHouses.adapter = adapter
+        recyclerViewHouses.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
+
     }
 
     private fun listeners(view: View) {
@@ -103,18 +114,14 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
             val currentUser = auth.currentUser
             val apartment = sharedPref.getString(Constants().caretakerApartment, "")
 
-            addHouseToApartmentsCollection(apartment)
+//            addHouseToApartmentsCollection(apartment)
         }
 
         //  Allow the caretaker to choose an image from gallery
         houseImage.setOnClickListener {
 
             //  Gallery intent
-            val intent =
-                Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).apply {
-                    addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                }
-            pickImage.launch(intent)
+            openFileChooser()
         }
 
         vacantToggle.setOnClickListener { toggle ->
@@ -272,11 +279,25 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
         }
     }
 
+    private fun openFileChooser() {
+
+        val intent = Intent().apply {
+            type = "image/*"
+            action = Intent.ACTION_GET_CONTENT
+        }
+        pickImage.launch(intent)
+
+    }
+
     private fun initializeVariables(view: View) {
 
         db = Firebase.firestore
         auth = Firebase.auth
         sharedPref = requireActivity().getSharedPreferences(Constants().caretakerDetails, Context.MODE_PRIVATE)
+        imageUriList = ArrayList()
+
+        adapter = HouseImagesAdapter(imageUriList)
+        recyclerViewHouses = view.findViewById(R.id.add_house_recycler)
 
         houseImage = view.findViewById(R.id.add_house_image)
         houseNumber = view.findViewById(R.id.houseNumber)
@@ -324,10 +345,9 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
         val houseNo = houseNumber.text.toString()
         val houseCat = houseCategory
         val houseDesc = houseDescription.text.toString()
-        val houseImageBitmap = encodedImage
 
         val houseModel =
-            HouseModel(apartment, houseStatus, houseNo, houseCat, houseDesc, houseImageBitmap)
+            HouseModel(apartment, houseStatus, houseNo, houseCat, houseDesc, imageUriList)
 
         db.collection("apartments").document(apartment!!).collection("houses").document(houseNo)
             .set(houseModel, SetOptions.merge())
@@ -344,28 +364,15 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
     private val pickImage =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
 
-            if (result.resultCode == Activity.RESULT_OK) {
+            if (result.resultCode == Activity.RESULT_OK
+                && result.data != null
+                && result.data!!.data != null) {
 
-                //  Get the image uri
-                if (result.data != null) {
+                //  Pick the image
+                val uri = result.data!!.data
 
-                    val uri: Uri? = result.data!!.data
-
-                    try {
-                        val inputStream = requireActivity().contentResolver.openInputStream(uri!!)
-                        val bitmap: Bitmap = BitmapFactory.decodeStream(inputStream)
-
-                        //  Set the image picked by the user
-                        encodedImage = encodeImage(uri, bitmap)
-                        val bytes = Base64.decode(encodedImage, Base64.DEFAULT)
-                        val previewBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-
-                        houseImage.setImageBitmap(previewBitmap)
-
-                    } catch (e: FileNotFoundException) {
-                        e.printStackTrace()
-                    }
-                }
+                // Display the recyclerview
+                adapter.addImage(uri!!)
             }
 
         }

@@ -34,16 +34,55 @@
                 android:layout_marginTop="16dp"
                 android:layout_gravity="center_horizontal"/>
 
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:id="@+id/add_house_image"
-                android:layout_gravity="center"
-                app:riv_corner_radius="16dp"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
                 android:layout_marginTop="32dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/image_regular"
-                app:tint="?attr/textBlack300"/>
+                android:orientation="horizontal">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:id="@+id/add_house_recycler"/>
+
+                <!--Add House Button-->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:orientation="vertical">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:id="@+id/add_house_image"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="0dp"
+                        app:cardBackgroundColor="@color/accent_blue_bright_trans">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_baseline_add_24"
+                            android:layout_gravity="center"/>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Add a House"
+                        android:textSize="12sp"
+                        android:textColor="?attr/textBlack700"
+                        android:includeFontPadding="false"
+                        android:layout_marginTop="8dp"
+                        android:layout_gravity="center_horizontal"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
 
             <!--House Number-->
             <com.google.android.material.textfield.TextInputLayout
