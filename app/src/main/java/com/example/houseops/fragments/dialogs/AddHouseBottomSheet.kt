@@ -6,18 +6,13 @@ import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.ImageDecoder
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
-import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.MimeTypeMap
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RelativeLayout
@@ -40,15 +35,14 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.makeramen.roundedimageview.RoundedImageView
-import com.squareup.picasso.Picasso
-import java.io.ByteArrayOutputStream
-import java.io.FileNotFoundException
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 
 class AddHouseBottomSheet : BottomSheetDialogFragment() {
 
     private lateinit var db: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
+    private lateinit var storageRef: StorageReference
 
     private lateinit var houseImage: CardView
     private lateinit var houseNumber: TextInputEditText
@@ -66,7 +60,7 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
     private lateinit var other: RelativeLayout
 
     private lateinit var encodedImage: String
-    private lateinit var imageUriList: ArrayList<String>
+    private lateinit var imageUriList: ArrayList<Uri>
 
     private lateinit var adapter: HouseImagesAdapter
     private lateinit var recyclerViewHouses: RecyclerView
@@ -93,15 +87,14 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
         initializeVariables(view)
         listeners(view)
 
-        setupRecyclerView()
-
         return view
     }
 
     private fun setupRecyclerView() {
 
         recyclerViewHouses.adapter = adapter
-        recyclerViewHouses.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
+        recyclerViewHouses.layoutManager =
+            LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
 
     }
 
@@ -114,7 +107,8 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
             val currentUser = auth.currentUser
             val apartment = sharedPref.getString(Constants().caretakerApartment, "")
 
-//            addHouseToApartmentsCollection(apartment)
+            //  Add images to firebase storage
+            addFilesToCloudStorage(apartment)
         }
 
         //  Allow the caretaker to choose an image from gallery
@@ -293,7 +287,10 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
 
         db = Firebase.firestore
         auth = Firebase.auth
-        sharedPref = requireActivity().getSharedPreferences(Constants().caretakerDetails, Context.MODE_PRIVATE)
+        sharedPref = requireActivity().getSharedPreferences(
+            Constants().caretakerDetails,
+            Context.MODE_PRIVATE
+        )
         imageUriList = ArrayList()
 
         adapter = HouseImagesAdapter(imageUriList)
@@ -315,29 +312,6 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
         other = view.findViewById(R.id.house_category_other)
     }
 
-    //  Function to encode our image to a string
-    private fun encodeImage(uri: Uri ,bitmap: Bitmap): String {
-
-        //  Setting our previewBitmap
-        val previewBitmap = when {
-
-            Build.VERSION.SDK_INT < 28 -> {
-                MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, uri)
-            }
-            else -> {
-                val source: ImageDecoder.Source = ImageDecoder.createSource(requireActivity().contentResolver, uri)
-                ImageDecoder.decodeBitmap(source)
-            }
-        }
-
-        val byteArrayOutputStream = ByteArrayOutputStream()
-
-        previewBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
-        val bytes = byteArrayOutputStream.toByteArray()
-
-        return Base64.encodeToString(bytes, Base64.DEFAULT)
-    }
-
     //  Function to add a house to the apartments collection
     private fun addHouseToApartmentsCollection(apartment: String?) {
 
@@ -347,17 +321,89 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
         val houseDesc = houseDescription.text.toString()
 
         val houseModel =
-            HouseModel(apartment, houseStatus, houseNo, houseCat, houseDesc, imageUriList)
+            HouseModel(apartment, houseStatus, houseNo, houseCat, houseDesc, null)
 
         db.collection("apartments").document(apartment!!).collection("houses").document(houseNo)
             .set(houseModel, SetOptions.merge())
             .addOnSuccessListener { doc ->
-                Toast.makeText(requireActivity(), "House Added successfully", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(), "House Added successfully", Toast.LENGTH_SHORT)
+                    .show()
             }
             .addOnFailureListener { e ->
                 Log.e(TAG, e.toString())
                 Toast.makeText(requireActivity(), e.toString(), Toast.LENGTH_SHORT).show()
             }
+    }
+
+    //  Method to return file extensions
+    private fun getFileExtension(uri: Uri): String {
+
+        val cr = requireActivity().contentResolver
+        val mimeTypeMap = MimeTypeMap.getSingleton()
+
+        return mimeTypeMap.getExtensionFromMimeType(cr.getType(uri))!!
+    }
+
+    private fun addFilesToCloudStorage(apartment: String?) {
+
+        addHouseToApartmentsCollection(apartment)
+
+        //  We need to add the image URIs to Firebase storage
+        storageRef = FirebaseStorage.getInstance().getReference("${apartment}uploads")
+
+        //  There is at least one image
+        if (imageUriList.size > 0) {
+
+            val downloadUrlList: MutableList<Uri> = ArrayList()
+
+            for (uri in imageUriList) {
+
+                val fileReference = storageRef.child(
+                    "${System.currentTimeMillis()}.${getFileExtension(uri)}"
+                )
+
+                fileReference.putFile(uri)
+                    .addOnSuccessListener {
+
+                        //  Get the download URL
+                        fileReference.downloadUrl.addOnSuccessListener { url ->
+
+                            downloadUrlList.add(url)
+
+                            val houseRef = db.collection("apartments").document(apartment!!)
+                                .collection("houses").document(houseNumber.text.toString())
+
+                            houseRef.update("houseImageDownloadUriList", downloadUrlList)
+                                .addOnSuccessListener {
+                                    Toast.makeText(requireActivity(), "download url added successfully", Toast.LENGTH_SHORT).show()
+                                }
+                        }
+
+                        Toast.makeText(
+                            requireActivity(),
+                            "Uploaded Successfully",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    .addOnProgressListener {
+
+                        Toast.makeText(
+                            requireActivity(),
+                            "Uploading, please wait...",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    .addOnFailureListener {
+
+                        Log.d(TAG, it.toString())
+                        Toast.makeText(requireActivity(), "$it", Toast.LENGTH_SHORT).show()
+                    }
+
+            }
+
+            Toast.makeText(requireActivity(), "${downloadUrlList.size}", Toast.LENGTH_SHORT).show()
+        }
+
     }
 
     //  Start an activity for image result
@@ -366,13 +412,15 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
 
             if (result.resultCode == Activity.RESULT_OK
                 && result.data != null
-                && result.data!!.data != null) {
+                && result.data!!.data != null
+            ) {
 
                 //  Pick the image
-                val uri = result.data!!.data
+                val uri = result.data!!.data!!
+                imageUriList.add(uri)
 
                 // Display the recyclerview
-                adapter.addImage(uri!!)
+                setupRecyclerView()
             }
 
         }

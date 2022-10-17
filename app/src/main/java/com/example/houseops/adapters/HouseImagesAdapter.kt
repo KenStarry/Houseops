@@ -14,7 +14,7 @@ import com.squareup.picasso.Picasso
 
 class HouseImagesAdapter(
 
-    private val houseImagesUriList: ArrayList<String>
+    private val houseImagesUriList: ArrayList<Uri>
 
 ) : RecyclerView.Adapter<HouseImagesAdapter.ViewHolder>() {
 
@@ -48,7 +48,7 @@ class HouseImagesAdapter(
     }
 
     fun addImage(imageUri: Uri) {
-        houseImagesUriList.add(imageUri.toString())
+        houseImagesUriList.add(imageUri)
         notifyDataSetChanged()
     }
 }

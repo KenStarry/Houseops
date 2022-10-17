@@ -7,7 +7,7 @@ data class HouseModel(
     val houseNo: String?,
     val houseCategory: String?,
     val houseDescription: String?,
-    val houseImageUriList: ArrayList<String>?
+    val houseImageDownloadUriList: ArrayList<String>?
 
 ) {
 
