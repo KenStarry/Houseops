@@ -1,9 +1,11 @@
 package com.example.houseops.activities
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -62,6 +64,7 @@ class CaretakerActivity : AppCompatActivity() {
         supportActionBar!!.title = "Caretaker"
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
+        //  Get the caretaker details from shared preferences
         sharedPref = getSharedPreferences(Constants().caretakerDetails, AppCompatActivity.MODE_PRIVATE)
         sharedPrefEditor = sharedPref.edit()
 
@@ -100,13 +103,13 @@ class CaretakerActivity : AppCompatActivity() {
                 }
 
                 //  Setup recyclerview
-//                setupRecyclerView(housesList)
+                setupRecyclerView(housesList)
             }
     }
 
     private fun setupRecyclerView(housesList: ArrayList<HouseModel>) {
 
-        housesAdapter = CaretakerHousesAdapter(housesList)
+        housesAdapter = CaretakerHousesAdapter(this, housesList)
 
         housesRecyclerView.adapter = housesAdapter
         housesRecyclerView.layoutManager = LinearLayoutManager(this)

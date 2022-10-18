@@ -321,7 +321,7 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
         val houseDesc = houseDescription.text.toString()
 
         val houseModel =
-            HouseModel(apartment, houseStatus, houseNo, houseCat, houseDesc, null)
+            HouseModel(apartment, houseStatus, houseNo, houseCat, houseDesc, ArrayList())
 
         db.collection("apartments").document(apartment!!).collection("houses").document(houseNo)
             .set(houseModel, SetOptions.merge())
@@ -345,8 +345,6 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
     }
 
     private fun addFilesToCloudStorage(apartment: String?) {
-
-        addHouseToApartmentsCollection(apartment)
 
         //  We need to add the image URIs to Firebase storage
         storageRef = FirebaseStorage.getInstance().getReference("${apartment}uploads")
@@ -398,8 +396,9 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
                         Log.d(TAG, it.toString())
                         Toast.makeText(requireActivity(), "$it", Toast.LENGTH_SHORT).show()
                     }
-
             }
+
+            addHouseToApartmentsCollection(apartment)
 
             Toast.makeText(requireActivity(), "${downloadUrlList.size}", Toast.LENGTH_SHORT).show()
         }

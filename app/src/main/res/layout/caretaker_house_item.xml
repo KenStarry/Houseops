@@ -1,37 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="200dp"
-    android:layout_height="220dp"
+    android:layout_width="match_parent"
+    android:layout_height="130dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="8dp"
+    app:cardCornerRadius="16dp"
+    android:layout_gravity="center_horizontal"
     app:cardElevation="0dp"
     android:layout_marginBottom="24dp"
     app:cardBackgroundColor="?attr/colorOnSecondary">
 
+    <!--House Details-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp"
-        android:orientation="vertical">
+        android:padding="16dp"
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <com.makeramen.roundedimageview.RoundedImageView
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:id="@+id/house_card_image"
             android:src="@drawable/house1"
             android:scaleType="centerCrop"
-            app:riv_corner_radius="8dp"/>
+            app:riv_corner_radius="16dp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/house_card_number"
-            android:text="H16"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:fontFamily="@font/poppins_regular"
-            android:textColor="?attr/textBlack500"
-            android:layout_marginTop="8dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/house_card_number"
+                android:text="H16"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:fontFamily="@font/poppins_regular"
+                android:textColor="?attr/textBlack500"
+                android:layout_marginTop="8dp"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
