@@ -30,7 +30,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Hello"
-                android:fontFamily="@font/poppins_regular"
                 android:includeFontPadding="false"
                 android:textSize="12sp"
                 android:textStyle="bold"
@@ -41,8 +40,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/caretaker_name"
                 android:text="Patricia W."
-                android:textSize="14sp"
-                android:fontFamily="@font/poppins_regular"
+                android:textSize="16sp"
                 android:includeFontPadding="false"
                 android:textStyle="bold"
                 android:textColor="?attr/textBlack500"
@@ -56,10 +54,11 @@
             android:id="@+id/caretaker_apartments"
             android:layout_below="@id/welcomeTextHolder"
             android:text="Blessed Apartments"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             android:textColor="?attr/textBlack700"
-            android:fontFamily="@font/poppins_regular"
             android:includeFontPadding="false"
             android:layout_centerHorizontal="true"/>
 
@@ -75,13 +74,15 @@
                 android:layout_marginTop="16dp"
                 android:id="@+id/caretaker_recycler_view"
                 android:scrollbars="vertical"
+                android:visibility="gone"
                 tools:listitem="@layout/caretaker_house_item"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:id="@+id/empty_svg_holder"
                 android:gravity="center"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:orientation="vertical">
 
                 <ImageView
@@ -94,9 +95,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Add a new house"
+                    android:textSize="16sp"
+                    android:includeFontPadding="false"
                     android:textColor="?attr/textBlack300"
                     android:textStyle="bold"
-                    android:fontFamily="@font/poppins_regular"
                     android:layout_marginTop="32dp"/>
 
             </LinearLayout>

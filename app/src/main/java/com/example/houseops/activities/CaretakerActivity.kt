@@ -8,6 +8,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,6 +35,7 @@ class CaretakerActivity : AppCompatActivity() {
 
     private lateinit var housesAdapter: CaretakerHousesAdapter
     private lateinit var housesRecyclerView: RecyclerView
+    private lateinit var svgHolder: LinearLayout
     private lateinit var binding: ActivityCaretakerBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
@@ -94,6 +97,14 @@ class CaretakerActivity : AppCompatActivity() {
                 if (error != null)
                     return@addSnapshotListener
 
+                if (querySnapshot!!.isEmpty) {
+                    housesRecyclerView.visibility = View.GONE
+                    svgHolder.visibility = View.VISIBLE
+                } else {
+                    housesRecyclerView.visibility = View.VISIBLE
+                    svgHolder.visibility = View.GONE
+                }
+
                 val housesList = ArrayList<HouseModel>()
 
                 for (snapshot in querySnapshot!!) {
@@ -148,6 +159,8 @@ class CaretakerActivity : AppCompatActivity() {
     }
 
     private fun listeners() {
+
+        svgHolder = findViewById(R.id.empty_svg_holder)
 
         binding.caretakerFab.setOnClickListener {
 

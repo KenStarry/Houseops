@@ -6,7 +6,7 @@
     <color name="bg_white_trans">#FFFFFF</color>
     <color name="bg_cream">#F9F9F9</color>
 
-    <color name="bg_dark">#131313</color>
+    <color name="bg_dark">#1F1F1F</color>
     <color name="bg_dark_light">#282828</color>
     <color name="bg_dark_light_trans">#D9282828</color>
 
@@ -19,6 +19,8 @@
     <color name="accent_blue_dull">#591E4667</color>
     <color name="accent_blue_dull_full">#1E4667</color>
     <color name="accent_blue_dull_trans">#D8008CFF</color>
+    <color name="success_green">#07B70A</color>
+    <color name="error_red">#B70707</color>
 
     <!--Text Black Colors-->
     <color name="text_black_900">#000000</color>

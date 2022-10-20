@@ -8,11 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Recycler
 import com.example.houseops.R
+import com.example.houseops.Utilities
 import com.example.houseops.models.HouseModel
 import com.squareup.picasso.Picasso
 
@@ -22,6 +24,8 @@ class CaretakerHousesAdapter(
     private val housesArrayList: ArrayList<HouseModel>
 
 ) : RecyclerView.Adapter<CaretakerHousesAdapter.ViewHolder>() {
+
+    private lateinit var utils: Utilities
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -35,10 +39,28 @@ class CaretakerHousesAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
+        utils = Utilities(context)
+
         val model = housesArrayList[position]
 
         //  Setting the house number
         holder.houseNumber.text = model.houseNo
+        //  one bedroom, two bedroom, three bedroom e.t.c
+        holder.houseCategory.text = model.houseCategory
+        //  Updating the number of images for that house
+        holder.houseImageCount.text = if (model.houseImageDownloadUriList.size - 1 >= 0) {
+            "+${model.houseImageDownloadUriList.size - 1}"
+        } else {
+            "+0"
+        }
+
+        //  Check the current status of the house
+        if (model.houseStatus == "occupied") {
+            utils.showViewAHideViewB(holder.houseOccupied, holder.houseVacant)
+        }
+        else {
+            utils.showViewAHideViewB(holder.houseVacant, holder.houseOccupied)
+        }
 
         //  Setting the image using Picasso Library
         if (model.houseImageDownloadUriList != null && model.houseImageDownloadUriList.isNotEmpty())
@@ -58,5 +80,9 @@ class CaretakerHousesAdapter(
 
         val houseImage: ImageView = itemView.findViewById(R.id.house_card_image)
         val houseNumber: TextView = itemView.findViewById(R.id.house_card_number)
+        val houseCategory: TextView = itemView.findViewById(R.id.house_card_category)
+        val houseImageCount: TextView = itemView.findViewById(R.id.house_card_image_count)
+        val houseVacant: LinearLayout = itemView.findViewById(R.id.house_card_vacant_holder)
+        val houseOccupied: LinearLayout = itemView.findViewById(R.id.house_card_occupied_holder)
     }
 }
