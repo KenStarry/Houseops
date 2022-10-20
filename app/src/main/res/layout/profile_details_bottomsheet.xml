@@ -35,7 +35,6 @@
             android:text="Good Morning,"
             android:textSize="12sp"
             android:textStyle="bold"
-            android:fontFamily="@font/poppins_regular"
             android:includeFontPadding="false"
             android:textColor="?attr/textBlack300"/>
 
@@ -47,7 +46,6 @@
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginTop="8dp"
-            android:fontFamily="@font/poppins_regular"
             android:includeFontPadding="false"
             android:textColor="?attr/textBlack700"/>
 
@@ -63,7 +61,6 @@
         android:textStyle="bold"
         android:textSize="14sp"
         android:textColor="@color/text_white_900"
-        android:fontFamily="@font/poppins_regular"
         android:layout_marginTop="20dp"/>
 
 </LinearLayout>

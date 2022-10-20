@@ -60,6 +60,8 @@ class ProfileDetailsBottomSheet : BottomSheetDialogFragment() {
         profileCaretakerAdminBtn.setOnClickListener {
             val intent = Intent(requireActivity(), CaretakerActivity::class.java)
             startActivity(intent)
+
+            this@ProfileDetailsBottomSheet.dismiss()
         }
 
         //  Logout the user

@@ -25,7 +25,6 @@
                 android:text="Tenant Account"
                 android:textSize="22sp"
                 android:includeFontPadding="false"
-                android:fontFamily="@font/poppins_bold"
                 android:textColor="?attr/textBlack700"
                 android:textStyle="bold"
                 android:layout_marginTop="8dp"/>
@@ -34,8 +33,10 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:id="@+id/imageTenantSignup"
-                android:src="@drawable/undraw_profile_pic_re_upir"
+                android:src="@drawable/profile"
+                android:scaleType="centerCrop"
                 android:layout_gravity="center_horizontal"
+                app:riv_corner_radius="100dp"
                 android:layout_marginTop="32dp"/>
 
             <!--Username Create-->
@@ -66,7 +67,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="text"
-                        android:fontFamily="@font/poppins_regular"
                         android:lines="1"
                         android:hint="@string/username"
                         android:textSize="14sp"
@@ -109,7 +109,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="phone"
-                        android:fontFamily="@font/poppins_regular"
                         android:lines="1"
                         android:hint="Phone Number"
                         android:textSize="14sp"
@@ -152,7 +151,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="textEmailAddress"
-                        android:fontFamily="@font/poppins_regular"
                         android:lines="1"
                         android:hint="Email Address"
                         android:textSize="14sp"
@@ -195,7 +193,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="textPassword"
-                        android:fontFamily="@font/poppins_regular"
                         android:lines="1"
                         android:hint="@string/password_hint"
                         android:textSize="14sp"
@@ -237,7 +234,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="textPassword"
-                        android:fontFamily="@font/poppins_regular"
                         android:lines="1"
                         android:hint="Confirm password"
                         android:textSize="14sp"
@@ -251,16 +247,29 @@
 
             </LinearLayout>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/sign_in_button"
-                android:id="@+id/signUpButtonTenant"
-                android:elevation="10dp"
-                android:text="Create Account"
-                android:textColor="@color/text_white_900"
-                android:textAllCaps="false"
-                android:layout_marginTop="32dp" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/sign_in_button"
+                    android:id="@+id/signUpButtonTenant"
+                    android:elevation="10dp"
+                    android:text="Create Account"
+                    android:textColor="@color/text_white_900"
+                    android:textAllCaps="false" />
+
+                <ProgressBar
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/progressBarTenant"
+                    android:layout_gravity="center"
+                    android:visibility="gone"/>
+
+            </FrameLayout>
 
         </LinearLayout>
 

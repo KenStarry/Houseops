@@ -25,7 +25,6 @@
                 android:text="Caretaker Account"
                 android:textSize="22sp"
                 android:includeFontPadding="false"
-                android:fontFamily="@font/poppins_bold"
                 android:textColor="?attr/textBlack700"
                 android:textStyle="bold"
                 android:layout_marginTop="8dp"/>
@@ -34,9 +33,11 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:id="@+id/imageCaretakerSignup"
-                android:src="@drawable/undraw_profile_pic_re_upir"
+                android:src="@drawable/profile"
+                android:scaleType="centerCrop"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="32dp"/>
+                android:layout_marginTop="32dp"
+                app:riv_corner_radius="100dp"/>
 
             <!--Apartment Create-->
             <LinearLayout
@@ -44,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="24dp"
@@ -52,31 +53,20 @@
                     android:src="@drawable/ic_baseline_house_24"
                     app:tint="?attr/textBlack100"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Apartments"
-                    android:textStyle="bold"
-                    android:fontFamily="@font/poppins_regular"
-                    android:textColor="?attr/textBlack700"
-                    android:includeFontPadding="false"
-                    android:textSize="18sp"/>
-
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="64dp"
                     app:hintEnabled="false"
                     android:padding="0dp"
                     app:passwordToggleEnabled="false"
+                    android:layout_marginStart="8dp"
                     app:boxStrokeWidth="0dp"
                     app:passwordToggleTint="?attr/colorPrimary">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="center"
                         android:inputType="text"
-                        android:fontFamily="@font/poppins_regular"
                         android:lines="1"
                         android:hint="Apartment name"
                         android:textSize="14sp"
@@ -119,7 +109,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="number"
-                        android:fontFamily="@font/poppins_regular"
                         android:lines="1"
                         android:hint="ID Number"
                         android:textSize="14sp"
@@ -162,7 +151,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="text"
-                        android:fontFamily="@font/poppins_regular"
                         android:lines="1"
                         android:hint="@string/username"
                         android:textSize="14sp"
@@ -205,7 +193,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="phone"
-                        android:fontFamily="@font/poppins_regular"
                         android:lines="1"
                         android:hint="Phone Number"
                         android:textSize="14sp"
@@ -248,7 +235,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="textEmailAddress"
-                        android:fontFamily="@font/poppins_regular"
                         android:lines="1"
                         android:hint="Email Address"
                         android:textSize="14sp"
@@ -291,7 +277,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="textPassword"
-                        android:fontFamily="@font/poppins_regular"
                         android:lines="1"
                         android:hint="@string/password_hint"
                         android:textSize="14sp"
@@ -333,7 +318,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="textPassword"
-                        android:fontFamily="@font/poppins_regular"
                         android:lines="1"
                         android:hint="Confirm password"
                         android:textSize="14sp"
@@ -347,16 +331,29 @@
 
             </LinearLayout>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/sign_in_button"
-                android:id="@+id/signUpButtonCaretaker"
-                android:elevation="10dp"
-                android:text="Create Account"
-                android:textColor="@color/text_white_900"
-                android:textAllCaps="false"
-                android:layout_marginTop="32dp" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/sign_in_button"
+                    android:id="@+id/signUpButtonCaretaker"
+                    android:elevation="10dp"
+                    android:text="Create Account"
+                    android:textColor="@color/text_white_900"
+                    android:textAllCaps="false" />
+
+                <ProgressBar
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/progressBarCaretaker"
+                    android:layout_gravity="center"
+                    android:visibility="gone"/>
+
+            </FrameLayout>
 
         </LinearLayout>
 

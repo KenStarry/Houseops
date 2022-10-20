@@ -9,10 +9,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import com.example.houseops.R
+import com.example.houseops.Utilities
 import com.example.houseops.activities.CaretakerActivity
+import com.example.houseops.activities.MainActivity
 import com.example.houseops.collections.CaretakerCollection
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -24,6 +27,7 @@ class CaretakerSignUpFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
+    private lateinit var utils: Utilities
 
     private lateinit var apartment: EditText
     private lateinit var id: EditText
@@ -33,6 +37,7 @@ class CaretakerSignUpFragment : Fragment() {
     private lateinit var password: EditText
     private lateinit var passwordConfirm: EditText
     private lateinit var signUpBtn: AppCompatButton
+    private lateinit var progressBarCaretaker: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +52,7 @@ class CaretakerSignUpFragment : Fragment() {
 
         auth = Firebase.auth
         db = Firebase.firestore
+        utils = Utilities(requireContext())
 
         apartment = view.findViewById(R.id.apartmentsCaretakerSignUp)
         id = view.findViewById(R.id.idCaretakerSignUp)
@@ -56,6 +62,7 @@ class CaretakerSignUpFragment : Fragment() {
         password = view.findViewById(R.id.passwordCaretakerSignUp)
         passwordConfirm = view.findViewById(R.id.passwordConfirmCaretakerSignUp)
         signUpBtn = view.findViewById(R.id.signUpButtonCaretaker)
+        progressBarCaretaker = view.findViewById(R.id.progressBarCaretaker)
 
         listeners()
 
@@ -70,6 +77,10 @@ class CaretakerSignUpFragment : Fragment() {
     }
 
     private fun verifyDetails() {
+
+        //  Start the progress bar
+        utils.showViewAHideViewB(progressBarCaretaker, signUpBtn)
+
         val apartmentText = apartment.text.toString()
         val idText = id.text.toString()
         val usernameText = username.text.toString()
@@ -80,21 +91,27 @@ class CaretakerSignUpFragment : Fragment() {
 
         if (usernameText.isBlank()) {
             toast("Enter username")
+            utils.showViewAHideViewB(signUpBtn, progressBarCaretaker)
 
         } else if (apartmentText.isBlank()) {
             toast("Enter Apartment")
+            utils.showViewAHideViewB(signUpBtn, progressBarCaretaker)
 
         } else if (idText.isBlank()) {
             toast("Enter id number")
+            utils.showViewAHideViewB(signUpBtn, progressBarCaretaker)
 
         } else if (emailText.isBlank()) {
             toast("Enter email")
+            utils.showViewAHideViewB(signUpBtn, progressBarCaretaker)
 
         } else if (passwordText.isBlank()) {
             toast("Enter password")
+            utils.showViewAHideViewB(signUpBtn, progressBarCaretaker)
 
         } else if (passwordConfirmText.isBlank()) {
             toast("confirm your password")
+            utils.showViewAHideViewB(signUpBtn, progressBarCaretaker)
 
         } else {
             //  Check if the user confirmed the password correctly
@@ -121,9 +138,11 @@ class CaretakerSignUpFragment : Fragment() {
 
                 if (task.isSuccessful) {
 
-                    val intent = Intent(requireActivity(), CaretakerActivity::class.java)
+                    val intent = Intent(requireActivity(), MainActivity::class.java)
                     startActivity(intent)
                     requireActivity().finish()
+
+                    utils.showViewAHideViewB(signUpBtn, progressBarCaretaker)
 
                     toast("Account Created Successfully")
                 }
