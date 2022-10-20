@@ -4,6 +4,7 @@ data class HouseModel(
 
     val houseApartment: String?,
     val houseStatus: String?,
+    val housePrice: String,
     val houseNo: String?,
     val houseCategory: String?,
     val houseDescription: String?,
@@ -11,5 +12,5 @@ data class HouseModel(
 
 ) {
 
-    constructor() : this("", "", "", "", "", ArrayList())
+    constructor() : this("", "", "", "", "", "", ArrayList())
 }

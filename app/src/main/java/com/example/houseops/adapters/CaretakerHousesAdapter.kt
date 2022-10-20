@@ -17,6 +17,9 @@ import com.example.houseops.R
 import com.example.houseops.Utilities
 import com.example.houseops.models.HouseModel
 import com.squareup.picasso.Picasso
+import java.text.NumberFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class CaretakerHousesAdapter(
 
@@ -45,8 +48,16 @@ class CaretakerHousesAdapter(
 
         //  Setting the house number
         holder.houseNumber.text = model.houseNo
+
+        //  Setting house price
+        holder.housePrice.text = if (model.housePrice.isBlank())
+            "Ksh. 0.00"
+        else
+            "Ksh. ${NumberFormat.getNumberInstance(Locale.US).format(model.housePrice.toInt())}"
+
         //  one bedroom, two bedroom, three bedroom e.t.c
         holder.houseCategory.text = model.houseCategory
+
         //  Updating the number of images for that house
         holder.houseImageCount.text = if (model.houseImageDownloadUriList.size - 1 >= 0) {
             "+${model.houseImageDownloadUriList.size - 1}"
@@ -80,6 +91,7 @@ class CaretakerHousesAdapter(
 
         val houseImage: ImageView = itemView.findViewById(R.id.house_card_image)
         val houseNumber: TextView = itemView.findViewById(R.id.house_card_number)
+        val housePrice: TextView = itemView.findViewById(R.id.house_card_price)
         val houseCategory: TextView = itemView.findViewById(R.id.house_card_category)
         val houseImageCount: TextView = itemView.findViewById(R.id.house_card_image_count)
         val houseVacant: LinearLayout = itemView.findViewById(R.id.house_card_vacant_holder)

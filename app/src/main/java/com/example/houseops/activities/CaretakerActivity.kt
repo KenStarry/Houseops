@@ -107,7 +107,7 @@ class CaretakerActivity : AppCompatActivity() {
 
                 val housesList = ArrayList<HouseModel>()
 
-                for (snapshot in querySnapshot!!) {
+                for (snapshot in querySnapshot) {
 
                     val house: HouseModel = snapshot.toObject()
                     housesList.add(house)

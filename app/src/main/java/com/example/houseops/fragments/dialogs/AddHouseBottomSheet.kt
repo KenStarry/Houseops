@@ -45,6 +45,7 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
     private lateinit var storageRef: StorageReference
 
     private lateinit var houseImage: CardView
+    private lateinit var housePrice: TextInputEditText
     private lateinit var houseNumber: TextInputEditText
     private lateinit var houseDescription: EditText
     private lateinit var houseAddBtn: Button
@@ -298,6 +299,7 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
 
         houseImage = view.findViewById(R.id.add_house_image)
         houseNumber = view.findViewById(R.id.houseNumber)
+        housePrice = view.findViewById(R.id.housePrice)
         houseDescription = view.findViewById(R.id.house_description)
         houseAddBtn = view.findViewById(R.id.houseAddBtn)
 
@@ -316,12 +318,13 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
     private fun addHouseToApartmentsCollection(apartment: String?) {
 
         val houseStatus = houseStatus
+        val price = housePrice.text.toString()
         val houseNo = houseNumber.text.toString()
         val houseCat = houseCategory
         val houseDesc = houseDescription.text.toString()
 
         val houseModel =
-            HouseModel(apartment, houseStatus, houseNo, houseCat, houseDesc, ArrayList())
+            HouseModel(apartment, houseStatus, price, houseNo, houseCat, houseDesc, ArrayList())
 
         db.collection("apartments").document(apartment!!).collection("houses").document(houseNo)
             .set(houseModel, SetOptions.merge())
