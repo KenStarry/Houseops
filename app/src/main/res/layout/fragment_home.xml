@@ -30,6 +30,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="16dp"
         android:orientation="vertical">
 
         <!--Header-->
@@ -37,7 +38,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:padding="16dp"
             android:orientation="horizontal">
 
             <com.makeramen.roundedimageview.RoundedImageView
@@ -58,8 +58,7 @@
                 android:includeFontPadding="false"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:textColor="@color/text_white_900"
-                android:fontFamily="@font/poppins_regular"/>
+                android:textColor="@color/text_white_900"/>
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:layout_width="25dp"
@@ -69,6 +68,38 @@
                 app:tint="@color/text_white_700"/>
 
         </LinearLayout>
+
+        <!--User Location-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/locationImage"
+                android:src="@drawable/ic_location"
+                app:tint="@color/accent_blue_bright"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Location"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_white_700"
+                android:layout_toEndOf="@id/locationImage"
+                android:layout_marginStart="16dp"/>
+        </RelativeLayout>
+
+
+        <!--Android viewpager-->
+        <androidx.viewpager2.widget.ViewPager2
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/main_view_pager_2"
+            android:layout_marginTop="32dp"/>
 
     </LinearLayout>
 

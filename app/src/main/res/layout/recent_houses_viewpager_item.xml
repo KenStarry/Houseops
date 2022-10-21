@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="280dp"
+    android:layout_height="350dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="16dp"
+    app:cardBackgroundColor="?attr/colorOnSecondary"
+    app:cardElevation="0dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:id="@+id/recents_card_image_holder">
+
+            <!--Recents image-->
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:id="@+id/recents_card_image"
+                android:src="@drawable/house2"
+                android:scaleType="centerCrop"
+                app:riv_corner_radius="16dp"/>
+
+            <!--Recents category-->
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:id="@+id/recents_card_category_holder"
+                android:background="@drawable/rounded_edit_text_primary"
+                android:padding="4dp"
+                android:layout_margin="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/recents_card_category"
+                    android:text="one bedroom"
+                    android:textStyle="bold"
+                    android:textSize="12sp"
+                    android:textColor="@color/accent_blue_bright"
+                    android:includeFontPadding="false" />
+
+            </RelativeLayout>
+
+        </FrameLayout>
+
+        <!--Apartments name-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/recents_card_apartment_name"
+            android:text="Apartment Name"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="?attr/textBlack700"
+            android:layout_below="@id/recents_card_image_holder"
+            android:layout_marginTop="16dp"/>
+
+        <!--Icons-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/recents_card_apartment_name"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/door_open_solid"
+                app:tint="?attr/textBlack700"/>
+
+            <!--house number-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/recents_card_house_number"
+                android:text="H16"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:textColor="?attr/textBlack500"
+                android:layout_marginStart="8dp"/>
+
+        </LinearLayout>
+
+        <!--Bookmarks-->
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_baseline_bookmark_border_24"
+            app:tint="?attr/colorPrimary"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"/>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

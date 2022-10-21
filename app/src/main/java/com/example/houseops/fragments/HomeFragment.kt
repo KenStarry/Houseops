@@ -78,6 +78,14 @@ class HomeFragment : Fragment() {
             queryUserDetails(currentUser)
         } else
             queryCaretakerDetails(currentUser)
+
+        //  Query all houses
+        queryHouses(currentUser)
+    }
+
+    //  function to query all the houses
+    private fun queryHouses(currentUser: FirebaseUser?) {
+
     }
 
     private fun queryCaretakerDetails(currentUser: FirebaseUser?) {
