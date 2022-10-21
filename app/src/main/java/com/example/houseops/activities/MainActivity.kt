@@ -66,9 +66,6 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragments_container, HomeFragment())
             .commit()
-
-        //  Watch the current user's activities
-
     }
 
 

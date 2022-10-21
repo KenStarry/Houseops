@@ -4,7 +4,7 @@
     <!--Brand Colors-->
     <color name="bg_white">#FFFFFF</color>
     <color name="bg_white_trans">#FFFFFF</color>
-    <color name="bg_cream">#F9F9F9</color>
+    <color name="bg_cream">#F3F3F3</color>
 
     <color name="bg_dark">#1F1F1F</color>
     <color name="bg_dark_light">#282828</color>

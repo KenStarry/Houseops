@@ -1,26 +1,24 @@
 package com.example.houseops.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Recycler
 import com.example.houseops.R
+import com.example.houseops.activities.MainActivity
 import com.example.houseops.models.HouseModel
 import com.makeramen.roundedimageview.RoundedImageView
 import com.squareup.picasso.Picasso
 
 class HousesViewPager(
 
-    private val context: Context,
     private val houses: ArrayList<HouseModel>
 
 ) : RecyclerView.Adapter<HousesViewPager.HousesViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HousesViewHolder {
-        return HousesViewHolder(LayoutInflater.from(context).inflate(
+        return HousesViewHolder(LayoutInflater.from(parent.context).inflate(
             R.layout.recent_houses_viewpager_item,
             parent,
             false
