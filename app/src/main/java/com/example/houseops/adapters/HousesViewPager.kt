@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.houseops.R
-import com.example.houseops.activities.MainActivity
 import com.example.houseops.models.HouseModel
 import com.makeramen.roundedimageview.RoundedImageView
 import com.squareup.picasso.Picasso
