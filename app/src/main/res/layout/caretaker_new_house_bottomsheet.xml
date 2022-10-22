@@ -83,164 +83,6 @@
 
             </LinearLayout>
 
-            <!--House Number-->
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                app:hintEnabled="false"
-                android:padding="0dp"
-                app:passwordToggleEnabled="false"
-                app:boxStrokeWidth="0dp"
-                android:layout_marginTop="16dp"
-                app:passwordToggleTint="?attr/colorPrimary">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:inputType="text"
-                    android:gravity="center"
-                    android:lines="1"
-                    android:hint="House Number"
-                    android:textSize="14sp"
-                    android:textColor="?attr/textBlack700"
-                    android:background="@drawable/rounded_edit_text_primary"
-                    android:id="@+id/houseNumber"
-                    android:padding="0dp"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!--Status, occupied or vacant-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:gravity="center"
-                android:layout_marginTop="16dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Status"
-                    android:textStyle="bold"
-                    android:includeFontPadding="false"
-                    android:textColor="?attr/textBlack300"
-                    android:layout_marginEnd="16dp"/>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:background="@drawable/rounded_corners"
-                    android:orientation="horizontal">
-
-                    <RelativeLayout
-                        android:layout_width="100dp"
-                        android:layout_height="45dp"
-                        android:id="@+id/vacantToggle"
-                        android:background="@drawable/rounded_corners_active">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:includeFontPadding="false"
-                            android:text="Vacant"
-                            android:textColor="?attr/textBlack700"
-                            android:textStyle="bold" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="100dp"
-                        android:layout_height="45dp"
-                        android:id="@+id/occupiedToggle"
-                        android:background="@drawable/rounded_corners">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:includeFontPadding="false"
-                            android:text="Occupied"
-                            android:textColor="?attr/textBlack700"
-                            android:textStyle="bold" />
-
-                    </RelativeLayout>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <!--Pricing per month-->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Price"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:textColor="?attr/textBlack700"
-                android:includeFontPadding="false"
-                android:layout_marginTop="16dp"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:layout_marginTop="16dp">
-
-                <!--Ksh Text-->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Ksh"
-                    android:textStyle="bold"
-                    android:textSize="14sp"
-                    android:textColor="?attr/textBlack700"
-                    android:includeFontPadding="false"/>
-
-                <!--House Price-->
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="0dp"
-                    android:layout_height="56dp"
-                    android:layout_weight="2"
-                    android:layout_marginStart="16dp"
-                    app:hintEnabled="false"
-                    android:padding="0dp"
-                    app:passwordToggleEnabled="false"
-                    app:boxStrokeWidth="0dp"
-                    app:passwordToggleTint="?attr/colorPrimary">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:inputType="number"
-                        android:fontFamily="@font/poppins_regular"
-                        android:lines="1"
-                        android:hint="Price"
-                        android:textSize="14sp"
-                        android:textColor="?attr/textBlack700"
-                        android:background="@drawable/rounded_edit_text"
-                        android:id="@+id/housePrice"
-                        android:padding="0dp"/>
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    android:id="@+id/house_card_price_per_month_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:includeFontPadding="false"
-                    android:text="/mo"
-                    android:textStyle="bold"
-                    android:layout_marginStart="16dp"
-                    android:textColor="?attr/textBlack100"
-                    android:textSize="14sp" />
-
-            </LinearLayout>
-
             <!--Type of house: one bedroom, 2 bedroom e.t.c-->
             <TextView
                 android:layout_width="wrap_content"
@@ -250,7 +92,7 @@
                 android:textSize="16sp"
                 android:textColor="?attr/textBlack700"
                 android:includeFontPadding="false"
-                android:layout_marginTop="24dp"/>
+                android:layout_marginTop="32dp"/>
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
@@ -401,6 +243,164 @@
                 </LinearLayout>
 
             </HorizontalScrollView>
+
+            <!--House Number-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                app:hintEnabled="false"
+                android:padding="0dp"
+                app:passwordToggleEnabled="false"
+                app:boxStrokeWidth="0dp"
+                android:layout_marginTop="32dp"
+                app:passwordToggleTint="?attr/colorPrimary">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="number"
+                    android:gravity="center"
+                    android:lines="1"
+                    android:hint="Rooms Available"
+                    android:textSize="16sp"
+                    android:textColor="?attr/textBlack700"
+                    android:background="@drawable/rounded_edit_text"
+                    android:id="@+id/houseRoomsAvailable"
+                    android:padding="0dp"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--Status, occupied or vacant-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:padding="8dp"-->
+<!--                android:gravity="center"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:orientation="horizontal">-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Status"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:includeFontPadding="false"-->
+<!--                    android:textColor="?attr/textBlack300"-->
+<!--                    android:layout_marginEnd="16dp"/>-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:padding="8dp"-->
+<!--                    android:background="@drawable/rounded_corners"-->
+<!--                    android:orientation="horizontal">-->
+
+<!--                    <RelativeLayout-->
+<!--                        android:layout_width="100dp"-->
+<!--                        android:layout_height="45dp"-->
+<!--                        android:id="@+id/vacantToggle"-->
+<!--                        android:background="@drawable/rounded_corners_active">-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_centerInParent="true"-->
+<!--                            android:includeFontPadding="false"-->
+<!--                            android:text="Vacant"-->
+<!--                            android:textColor="?attr/textBlack700"-->
+<!--                            android:textStyle="bold" />-->
+
+<!--                    </RelativeLayout>-->
+
+<!--                    <RelativeLayout-->
+<!--                        android:layout_width="100dp"-->
+<!--                        android:layout_height="45dp"-->
+<!--                        android:id="@+id/occupiedToggle"-->
+<!--                        android:background="@drawable/rounded_corners">-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_centerInParent="true"-->
+<!--                            android:includeFontPadding="false"-->
+<!--                            android:text="Occupied"-->
+<!--                            android:textColor="?attr/textBlack700"-->
+<!--                            android:textStyle="bold" />-->
+
+<!--                    </RelativeLayout>-->
+
+<!--                </LinearLayout>-->
+
+<!--            </LinearLayout>-->
+
+            <!--Pricing per month-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Price"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="?attr/textBlack700"
+                android:includeFontPadding="false"
+                android:layout_marginTop="16dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp">
+
+                <!--Ksh Text-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ksh"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textColor="?attr/textBlack700"
+                    android:includeFontPadding="false"/>
+
+                <!--House Price-->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="2"
+                    android:layout_marginStart="16dp"
+                    app:hintEnabled="false"
+                    android:padding="0dp"
+                    app:passwordToggleEnabled="false"
+                    app:boxStrokeWidth="0dp"
+                    app:passwordToggleTint="?attr/colorPrimary">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="number"
+                        android:fontFamily="@font/poppins_regular"
+                        android:lines="1"
+                        android:hint="Price"
+                        android:textSize="14sp"
+                        android:textColor="?attr/textBlack700"
+                        android:background="@drawable/rounded_edit_text"
+                        android:id="@+id/housePrice"
+                        android:padding="0dp"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/house_card_price_per_month_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:includeFontPadding="false"
+                    android:text="/mo"
+                    android:textStyle="bold"
+                    android:layout_marginStart="16dp"
+                    android:textColor="?attr/textBlack100"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
 
             <!--Description of the house-->
             <TextView

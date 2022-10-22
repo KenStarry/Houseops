@@ -80,8 +80,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/house_card_number"
-                android:text="H16"
+                android:id="@+id/house_card_rooms"
+                android:text="3 Rooms"
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:layout_centerVertical="true"

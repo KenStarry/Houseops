@@ -1,18 +1,13 @@
 package com.example.houseops.adapters
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Recycler
 import com.example.houseops.R
 import com.example.houseops.Utilities
 import com.example.houseops.models.HouseModel
@@ -47,7 +42,10 @@ class CaretakerHousesAdapter(
         val model = housesArrayList[position]
 
         //  Setting the house number
-        holder.houseNumber.text = model.houseNo
+        holder.houseRooms.text = if (model.houseRoomsAvailable!!.toInt() < 2)
+            "${model.houseRoomsAvailable} Unit"
+        else
+            "${model.houseRoomsAvailable} Units"
 
         //  Setting house price
         holder.housePrice.text = if (model.housePrice.isBlank())
@@ -68,8 +66,7 @@ class CaretakerHousesAdapter(
         //  Check the current status of the house
         if (model.houseStatus == "occupied") {
             utils.showViewAHideViewB(holder.houseOccupied, holder.houseVacant)
-        }
-        else {
+        } else {
             utils.showViewAHideViewB(holder.houseVacant, holder.houseOccupied)
         }
 
@@ -90,7 +87,7 @@ class CaretakerHousesAdapter(
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val houseImage: ImageView = itemView.findViewById(R.id.house_card_image)
-        val houseNumber: TextView = itemView.findViewById(R.id.house_card_number)
+        val houseRooms: TextView = itemView.findViewById(R.id.house_card_rooms)
         val housePrice: TextView = itemView.findViewById(R.id.house_card_price)
         val houseCategory: TextView = itemView.findViewById(R.id.house_card_category)
         val houseImageCount: TextView = itemView.findViewById(R.id.house_card_image_count)

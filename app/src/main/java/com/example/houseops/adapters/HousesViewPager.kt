@@ -14,7 +14,6 @@ import com.makeramen.roundedimageview.RoundedImageView
 import com.squareup.picasso.Picasso
 import java.text.NumberFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class HousesViewPager(
 
@@ -22,31 +21,32 @@ class HousesViewPager(
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HousesViewHolder {
-        return HousesViewHolder(LayoutInflater.from(parent.context).inflate(
-            R.layout.recent_houses_viewpager_item,
-            parent,
-            false
-        ))
+        return HousesViewHolder(
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.recent_houses_viewpager_item,
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: HousesViewHolder, position: Int) {
 
         with(getItem(position)) {
 
-            holder.apply {
-
-
-
-            }
-
             holder.houseCategory.text = houseCategory
             holder.apartmentName.text = houseApartment
-            holder.houseNumber.text = houseNo
+
+            //  Check the number of rooms available
+            holder.houseNumber.text = "$houseRoomsAvailable Units"
+
+            //  Set the price range
             holder.housePrice.text = if (housePrice.isBlank())
                 "Ksh. 0.00"
             else
                 "Ksh. ${NumberFormat.getNumberInstance(Locale.US).format(housePrice.toInt())}"
 
+            //  Set the images
             if (houseImageDownloadUriList.isNotEmpty())
                 Picasso.get()
                     .load(houseImageDownloadUriList[0])
@@ -73,12 +73,12 @@ class HousesViewPager(
 private val diffCallback = object : DiffUtil.ItemCallback<HouseModel>() {
     override fun areItemsTheSame(oldItem: HouseModel, newItem: HouseModel): Boolean {
 
-        return oldItem.houseNo == newItem.houseNo
+        return oldItem.houseRoomsAvailable == newItem.houseRoomsAvailable
     }
 
     override fun areContentsTheSame(oldItem: HouseModel, newItem: HouseModel): Boolean {
 
-        return oldItem.houseNo == newItem.houseNo &&
+        return oldItem.houseRoomsAvailable == newItem.houseRoomsAvailable &&
                 oldItem.houseApartment == newItem.houseApartment &&
                 oldItem.houseStatus == newItem.houseStatus &&
                 oldItem.housePrice == newItem.housePrice &&

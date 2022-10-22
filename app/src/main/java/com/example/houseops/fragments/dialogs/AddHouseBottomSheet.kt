@@ -46,12 +46,10 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
 
     private lateinit var houseImage: CardView
     private lateinit var housePrice: TextInputEditText
-    private lateinit var houseNumber: TextInputEditText
+    private lateinit var houseRoomsAvailable: TextInputEditText
     private lateinit var houseDescription: EditText
     private lateinit var houseAddBtn: Button
 
-    private lateinit var vacantToggle: RelativeLayout
-    private lateinit var occupiedToggle: RelativeLayout
     private lateinit var bedsitter: RelativeLayout
     private lateinit var single: RelativeLayout
     private lateinit var oneBedroom: RelativeLayout
@@ -60,7 +58,6 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
     private lateinit var mansion: RelativeLayout
     private lateinit var other: RelativeLayout
 
-    private lateinit var encodedImage: String
     private lateinit var imageUriList: ArrayList<Uri>
 
     private lateinit var adapter: HouseImagesAdapter
@@ -117,26 +114,6 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
 
             //  Gallery intent
             openFileChooser()
-        }
-
-        vacantToggle.setOnClickListener { toggle ->
-
-            //  Change the background color of the vacant toggle button
-            toggle.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_corners_active)
-            occupiedToggle.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_corners)
-            houseStatus = "vacant"
-
-        }
-
-        occupiedToggle.setOnClickListener { toggle ->
-
-            toggle.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_corners_active)
-            vacantToggle.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_corners)
-            houseStatus = "occupied"
         }
 
         //  Category buttons
@@ -298,13 +275,11 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
         recyclerViewHouses = view.findViewById(R.id.add_house_recycler)
 
         houseImage = view.findViewById(R.id.add_house_image)
-        houseNumber = view.findViewById(R.id.houseNumber)
+        houseRoomsAvailable = view.findViewById(R.id.houseRoomsAvailable)
         housePrice = view.findViewById(R.id.housePrice)
         houseDescription = view.findViewById(R.id.house_description)
         houseAddBtn = view.findViewById(R.id.houseAddBtn)
 
-        vacantToggle = view.findViewById(R.id.vacantToggle)
-        occupiedToggle = view.findViewById(R.id.occupiedToggle)
         bedsitter = view.findViewById(R.id.house_category_bedsitter)
         single = view.findViewById(R.id.house_category_single)
         oneBedroom = view.findViewById(R.id.house_category_one_bedroom)
@@ -317,18 +292,18 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
     //  Function to add a house to the apartments collection
     private fun addHouseToApartmentsCollection(apartment: String?) {
 
-        val houseStatus = houseStatus
         val price = housePrice.text.toString()
-        val houseNo = houseNumber.text.toString()
+        val houseRooms = houseRoomsAvailable.text.toString()
         val houseCat = houseCategory
         val houseDesc = houseDescription.text.toString()
 
         val houseModel =
-            HouseModel(apartment, houseStatus, price, houseNo, houseCat, houseDesc, ArrayList())
+            HouseModel(apartment, "vacant", price, houseRooms, houseCat, houseDesc, ArrayList())
 
-        db.collection("apartments").document(apartment!!).collection("houses").document(houseNo)
+        db.collection("apartments").document(apartment!!).collection("houses").document(houseCat)
             .set(houseModel, SetOptions.merge())
             .addOnSuccessListener { doc ->
+
                 Toast.makeText(requireActivity(), "House Added successfully", Toast.LENGTH_SHORT)
                     .show()
             }
@@ -372,7 +347,7 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
                             downloadUrlList.add(url)
 
                             val houseRef = db.collection("apartments").document(apartment!!)
-                                .collection("houses").document(houseNumber.text.toString())
+                                .collection("houses").document(houseCategory)
 
                             houseRef.update("houseImageDownloadUriList", downloadUrlList)
                                 .addOnSuccessListener {

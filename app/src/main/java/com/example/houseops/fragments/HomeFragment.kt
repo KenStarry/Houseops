@@ -48,20 +48,6 @@ class HomeFragment : Fragment() {
         db = Firebase.firestore
         viewpagerAdapter = HousesViewPager()
 
-        sharedPrefs = requireContext().getSharedPreferences("user_type", Context.MODE_PRIVATE)
-        val currentUser = auth.currentUser
-
-        if (sharedPrefs.getString("type", "") == "user") {
-            queryUserDetails(currentUser)
-            //  Query all houses
-            queryHouses(currentUser)
-
-        } else {
-            queryCaretakerDetails(currentUser)
-            //  Query all houses
-            queryHouses(currentUser)
-        }
-
     }
 
     override fun onCreateView(
@@ -111,23 +97,30 @@ class HomeFragment : Fragment() {
     //  function to query all the houses
     private fun queryHouses(currentUser: FirebaseUser?) {
 
-        val housesArrayList: ArrayList<HouseModel> = ArrayList()
-
         db.collectionGroup("houses")
             .whereEqualTo("houseStatus", "vacant")
             .addSnapshotListener { querySnapshot, error ->
 
+                val housesArrayList: ArrayList<HouseModel> = ArrayList()
+
                 if (error != null)
                     return@addSnapshotListener
 
-                for (snapshot in querySnapshot!!) {
-                    val house: HouseModel = snapshot.toObject()
-                    housesArrayList.add(house)
+                if (querySnapshot!!.isEmpty) {
+
+
+                } else {
+
+                    //  Snapshot exists
+                    for (snapshot in querySnapshot) {
+                        val house: HouseModel = snapshot.toObject()
+                        housesArrayList.add(house)
+                    }
+
+                    viewpagerAdapter.submitList(housesArrayList)
                 }
 
-                viewpagerAdapter.submitList(housesArrayList)
             }
-
     }
 
     private fun queryCaretakerDetails(currentUser: FirebaseUser?) {

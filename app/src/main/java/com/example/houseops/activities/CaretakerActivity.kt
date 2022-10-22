@@ -71,13 +71,6 @@ class CaretakerActivity : AppCompatActivity() {
         sharedPref = getSharedPreferences(Constants().caretakerDetails, AppCompatActivity.MODE_PRIVATE)
         sharedPrefEditor = sharedPref.edit()
 
-        listeners()
-
-    }
-
-    override fun onStart() {
-        super.onStart()
-
         auth = Firebase.auth
         db = Firebase.firestore
 
@@ -86,11 +79,20 @@ class CaretakerActivity : AppCompatActivity() {
         //  Listen for changes on the caretaker's collection and apartments collection
         queryApartments(currentUser)
         queryCaretakerDetails(currentUser)
+
+
+        listeners()
+
+    }
+
+    override fun onStart() {
+        super.onStart()
     }
 
     private fun queryApartments(currentUser: FirebaseUser?) {
 
         val apartment = sharedPref.getString(Constants().caretakerApartment, "")
+
         db.collection("apartments").document(apartment!!).collection("houses")
             .addSnapshotListener{querySnapshot, error ->
 
@@ -100,21 +102,22 @@ class CaretakerActivity : AppCompatActivity() {
                 if (querySnapshot!!.isEmpty) {
                     housesRecyclerView.visibility = View.GONE
                     svgHolder.visibility = View.VISIBLE
+
                 } else {
                     housesRecyclerView.visibility = View.VISIBLE
                     svgHolder.visibility = View.GONE
+
+                    val housesList = ArrayList<HouseModel>()
+
+                    for (snapshot in querySnapshot) {
+
+                        val house: HouseModel = snapshot.toObject()
+                        housesList.add(house)
+                    }
+
+                    //  Setup recyclerview
+                    setupRecyclerView(housesList)
                 }
-
-                val housesList = ArrayList<HouseModel>()
-
-                for (snapshot in querySnapshot) {
-
-                    val house: HouseModel = snapshot.toObject()
-                    housesList.add(house)
-                }
-
-                //  Setup recyclerview
-                setupRecyclerView(housesList)
             }
     }
 
