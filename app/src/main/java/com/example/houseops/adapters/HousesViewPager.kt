@@ -3,6 +3,7 @@ package com.example.houseops.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.houseops.R
@@ -10,6 +11,9 @@ import com.example.houseops.activities.MainActivity
 import com.example.houseops.models.HouseModel
 import com.makeramen.roundedimageview.RoundedImageView
 import com.squareup.picasso.Picasso
+import java.text.NumberFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class HousesViewPager(
 
@@ -28,9 +32,18 @@ class HousesViewPager(
     override fun onBindViewHolder(holder: HousesViewHolder, position: Int) {
 
         val model = houses[position]
-        holder.houseCategory.text = model.houseCategory
-        holder.apartmentName.text = model.houseApartment
-        holder.houseNumber.text = model.houseNo
+
+        holder.apply {
+
+            houseCategory.text = model.houseCategory
+            apartmentName.text = model.houseApartment
+            houseNumber.text = model.houseNo
+            housePrice.text = if (model.housePrice.isBlank())
+                "Ksh. 0.00"
+            else
+                "Ksh. ${NumberFormat.getNumberInstance(Locale.US).format(model.housePrice.toInt())}"
+
+        }
 
         if (model.houseImageDownloadUriList.isNotEmpty())
             Picasso.get()
@@ -49,6 +62,8 @@ class HousesViewPager(
 
         val houseCategory: TextView = itemView.findViewById(R.id.recents_card_category)
         val houseImage: RoundedImageView = itemView.findViewById(R.id.recents_card_image)
+        val houseWishlist: ImageView = itemView.findViewById(R.id.recents_card_wishlist)
+        val housePrice: TextView = itemView.findViewById(R.id.recents_card_price)
         val apartmentName: TextView = itemView.findViewById(R.id.recents_card_apartment_name)
         val houseNumber: TextView = itemView.findViewById(R.id.recents_card_house_number)
     }

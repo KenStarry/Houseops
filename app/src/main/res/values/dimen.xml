@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="page_margin">16dp</dimen>
-    <dimen name="pager_offset">30dp</dimen>
+    <dimen name="page_margin">48dp</dimen>
+    <!--Sets the margin between the items in the viewpager-->
+    <dimen name="pager_offset">38dp</dimen>
     <dimen name="pager_margin_offset">32dp</dimen>
 </resources>

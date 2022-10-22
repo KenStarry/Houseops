@@ -5,8 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="210dp"
-        android:layout_height="270dp"
+        android:layout_width="180dp"
+        android:layout_height="250dp"
         android:layout_centerHorizontal="true"
         app:cardCornerRadius="16dp"
         app:cardBackgroundColor="?attr/colorOnSecondary"
@@ -19,7 +19,7 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="120dp"
                 android:id="@+id/recents_card_image_holder">
 
                 <!--Recents image-->
@@ -96,12 +96,46 @@
 
             <!--Bookmarks-->
             <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/recents_card_wishlist"
                 android:src="@drawable/ic_baseline_bookmark_border_24"
                 app:tint="?attr/colorPrimary"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"/>
+
+            <!--House Price-->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignBottom="@id/recents_card_wishlist"
+                android:layout_alignTop="@id/recents_card_wishlist"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/recents_card_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:includeFontPadding="false"
+                    android:text="Ksh. 15,000"
+                    android:textColor="?attr/colorPrimary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/house_card_price_per_month_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:includeFontPadding="false"
+                    android:text="/mo"
+                    android:textColor="?attr/textBlack100"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
 
         </RelativeLayout>
 

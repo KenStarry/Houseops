@@ -94,6 +94,16 @@
         </RelativeLayout>
 
 
+        <!--View Pager recents-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Latest"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="32dp"
+            android:textColor="@color/text_white_900"/>
+
         <!--Android viewpager-->
         <androidx.viewpager2.widget.ViewPager2
             android:layout_width="match_parent"
