@@ -46,6 +46,7 @@ class HomeFragment : Fragment() {
 
         auth = Firebase.auth
         db = Firebase.firestore
+        viewpagerAdapter = HousesViewPager()
 
         sharedPrefs = requireContext().getSharedPreferences("user_type", Context.MODE_PRIVATE)
         val currentUser = auth.currentUser
@@ -88,6 +89,7 @@ class HomeFragment : Fragment() {
         viewpager2 = view.findViewById(R.id.main_view_pager_2)
 
         listeners()
+        buildViewPager()
 
         return view
     }
@@ -121,15 +123,9 @@ class HomeFragment : Fragment() {
                 for (snapshot in querySnapshot!!) {
                     val house: HouseModel = snapshot.toObject()
                     housesArrayList.add(house)
-
                 }
 
-                Toast.makeText(
-                    requireActivity(),
-                    "arraylist size : ${housesArrayList.size}",
-                    Toast.LENGTH_SHORT
-                ).show()
-                buildViewPager(housesArrayList)
+                viewpagerAdapter.submitList(housesArrayList)
             }
 
     }
@@ -187,9 +183,7 @@ class HomeFragment : Fragment() {
     }
 
     //  Build the viewpager 2
-    private fun buildViewPager(housesArrayList: ArrayList<HouseModel>) {
-
-        viewpagerAdapter = HousesViewPager(housesArrayList)
+    private fun buildViewPager() {
 
         viewpager2.apply {
 
