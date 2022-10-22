@@ -107,17 +107,17 @@ class SplashActivity : AppCompatActivity() {
 
             //  Night mode enabled
             Configuration.UI_MODE_NIGHT_YES -> {
-                binding.splashLogo.setImageResource(R.drawable.houseops_logo_white_new)
+                binding.splashLogo.setImageResource(R.drawable.houseops_dark_final)
             }
 
             //  Night mode disabled
             Configuration.UI_MODE_NIGHT_NO -> {
-                binding.splashLogo.setImageResource(R.drawable.houseops_logo_dark_new)
+                binding.splashLogo.setImageResource(R.drawable.houseops_light_final)
             }
 
             //  Night mode undefined
             Configuration.UI_MODE_NIGHT_UNDEFINED -> {
-                binding.splashLogo.setImageResource(R.drawable.houseops_logo_dark_new)
+                binding.splashLogo.setImageResource(R.drawable.houseops_light_final)
             }
         }
     }
