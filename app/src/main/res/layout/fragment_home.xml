@@ -58,58 +58,80 @@
                 android:includeFontPadding="false"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:textColor="@color/text_white_900"/>
+                android:textColor="?attr/textBlack900"/>
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:id="@+id/drawer_menu"
                 android:src="@drawable/comments_regular"
-                app:tint="@color/text_white_700"/>
+                app:tint="?attr/textBlack500"/>
 
         </LinearLayout>
 
-        <!--User Location-->
-        <RelativeLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp">
+            android:layout_height="wrap_content">
 
-            <ImageView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/locationImage"
-                android:src="@drawable/ic_location"
-                app:tint="@color/accent_blue_bright"/>
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Location"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/text_white_700"
-                android:layout_toEndOf="@id/locationImage"
-                android:layout_marginStart="16dp"/>
-        </RelativeLayout>
+                <!--User Location-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/locationImage"
+                        android:src="@drawable/ic_location"
+                        app:tint="@color/accent_blue_bright"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Location"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="?attr/textBlack700"
+                        android:layout_toEndOf="@id/locationImage"
+                        android:layout_marginStart="16dp"/>
+                </RelativeLayout>
+
+                <!--View Pager recents-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Latest"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="32dp"
+                    android:textColor="?attr/textBlack900"/>
+
+                <!--Android viewpager-->
+                <androidx.viewpager2.widget.ViewPager2
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/main_view_pager_2"
+                    android:layout_marginTop="32dp"/>
 
 
-        <!--View Pager recents-->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Latest"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginTop="32dp"
-            android:textColor="@color/text_white_900"/>
+                <!--View Pager recents-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Apartments"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="32dp"
+                    android:textColor="?attr/textBlack900"/>
 
-        <!--Android viewpager-->
-        <androidx.viewpager2.widget.ViewPager2
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/main_view_pager_2"
-            android:layout_marginTop="32dp"/>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
 
     </LinearLayout>
 
