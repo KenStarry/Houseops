@@ -13,415 +13,467 @@
         android:background="?attr/textBlack100"
         android:layout_gravity="center_horizontal"/>
 
-    <androidx.core.widget.NestedScrollView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Add a House"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:textColor="?attr/textBlack700"
-                android:includeFontPadding="false"
-                android:layout_marginTop="16dp"
-                android:layout_gravity="center_horizontal"/>
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            android:id="@+id/bottom_sheet_main_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_marginTop="32dp"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:layout_marginTop="16dp"
+                android:padding="16dp">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:id="@+id/add_house_recycler"/>
-
-                <!--Add House Button-->
-                <LinearLayout
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:orientation="vertical">
+                    android:text="Add a House"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="?attr/textBlack700"
+                    android:includeFontPadding="false"
+                    android:layout_gravity="center_horizontal"/>
 
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:id="@+id/add_house_image"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="0dp"
-                        app:cardBackgroundColor="@color/accent_blue_bright_trans">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="32dp"
+                    android:orientation="horizontal">
 
-                        <ImageView
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:id="@+id/add_house_recycler"/>
+
+                    <!--Add House Button-->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:orientation="vertical">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:id="@+id/add_house_image"
+                            app:cardCornerRadius="8dp"
+                            app:cardElevation="0dp"
+                            app:cardBackgroundColor="@color/accent_blue_bright_trans">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_baseline_add_24"
+                                android:layout_gravity="center"/>
+
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_baseline_add_24"
-                            android:layout_gravity="center"/>
+                            android:text="Add a House"
+                            android:textSize="12sp"
+                            android:textColor="?attr/textBlack700"
+                            android:includeFontPadding="false"
+                            android:layout_marginTop="8dp"
+                            android:layout_gravity="center_horizontal"/>
 
-                    </androidx.cardview.widget.CardView>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!--Type of house: one bedroom, 2 bedroom e.t.c-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Category"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="?attr/textBlack700"
+                    android:includeFontPadding="false"
+                    android:layout_marginTop="32dp"/>
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:orientation="horizontal">
+
+                        <!--Single-->
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/house_category_single"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/pill_stroke"
+                            android:paddingStart="24dp"
+                            android:paddingEnd="24dp"
+                            android:paddingTop="16dp"
+                            android:paddingBottom="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:includeFontPadding="false"
+                                android:text="Single"
+                                android:textColor="?attr/textBlack700"
+                                android:textSize="14sp" />
+                        </RelativeLayout>
+
+                        <!--Bedsitter-->
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/house_category_bedsitter"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/pill_stroke"
+                            android:paddingStart="24dp"
+                            android:paddingEnd="24dp"
+                            android:paddingTop="16dp"
+                            android:paddingBottom="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:includeFontPadding="false"
+                                android:text="Bedsitter"
+                                android:textColor="?attr/textBlack700"
+                                android:textSize="14sp" />
+                        </RelativeLayout>
+
+                        <!--One Bedroom-->
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/house_category_one_bedroom"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/pill_stroke"
+                            android:paddingStart="24dp"
+                            android:paddingEnd="24dp"
+                            android:paddingTop="16dp"
+                            android:paddingBottom="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:includeFontPadding="false"
+                                android:text="One Bedroom"
+                                android:textColor="?attr/textBlack700"
+                                android:textSize="14sp" />
+                        </RelativeLayout>
+
+                        <!--Two Bedroom-->
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/house_category_two_bedroom"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/pill_stroke"
+                            android:paddingStart="24dp"
+                            android:paddingEnd="24dp"
+                            android:paddingTop="16dp"
+                            android:paddingBottom="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:includeFontPadding="false"
+                                android:text="Two Bedroom"
+                                android:textColor="?attr/textBlack700"
+                                android:textSize="14sp" />
+
+                        </RelativeLayout>
+
+                        <!--Three Bedroom-->
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/house_category_three_bedroom"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/pill_stroke"
+                            android:paddingStart="24dp"
+                            android:paddingEnd="24dp"
+                            android:paddingTop="16dp"
+                            android:paddingBottom="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:includeFontPadding="false"
+                                android:text="Three Bedroom"
+                                android:textColor="?attr/textBlack700"
+                                android:textSize="14sp" />
+
+                        </RelativeLayout>
+
+                        <!--Mansion-->
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/house_category_mansion"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/pill_stroke"
+                            android:paddingStart="24dp"
+                            android:paddingEnd="24dp"
+                            android:paddingTop="16dp"
+                            android:paddingBottom="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:includeFontPadding="false"
+                                android:text="Mansion"
+                                android:textColor="?attr/textBlack700"
+                                android:textSize="14sp" />
+                        </RelativeLayout>
+
+                        <!--Other-->
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/house_category_other"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/pill_stroke"
+                            android:paddingStart="24dp"
+                            android:paddingEnd="24dp"
+                            android:paddingTop="16dp"
+                            android:paddingBottom="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:includeFontPadding="false"
+                                android:text="Other"
+                                android:textColor="?attr/textBlack700"
+                                android:textSize="14sp" />
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </HorizontalScrollView>
+
+                <!--House rooms count-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="32dp"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Add a House"
-                        android:textSize="12sp"
+                        android:text="Units Available : "
+                        android:textStyle="bold"
+                        android:textSize="16sp"
                         android:textColor="?attr/textBlack700"
-                        android:includeFontPadding="false"
-                        android:layout_marginTop="8dp"
-                        android:layout_gravity="center_horizontal"/>
+                        android:includeFontPadding="false" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        app:hintEnabled="false"
+                        android:padding="0dp"
+                        app:passwordToggleEnabled="false"
+                        app:boxStrokeWidth="0dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        app:passwordToggleTint="?attr/colorPrimary">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:inputType="number"
+                            android:gravity="center"
+                            android:lines="1"
+                            android:hint="Units"
+                            android:textSize="16sp"
+                            android:textColor="?attr/textBlack700"
+                            android:background="@drawable/rounded_edit_text"
+                            android:id="@+id/houseRoomsAvailable"
+                            android:padding="0dp"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
 
-            </LinearLayout>
 
-            <!--Type of house: one bedroom, 2 bedroom e.t.c-->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Category"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:textColor="?attr/textBlack700"
-                android:includeFontPadding="false"
-                android:layout_marginTop="32dp"/>
-
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:orientation="horizontal">
-
-                    <!--Single-->
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/house_category_single"
-                        android:layout_marginEnd="8dp"
-                        android:background="@drawable/pill_stroke"
-                        android:paddingStart="24dp"
-                        android:paddingEnd="24dp"
-                        android:paddingTop="16dp"
-                        android:paddingBottom="16dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:includeFontPadding="false"
-                            android:text="Single"
-                            android:textColor="?attr/textBlack700"
-                            android:textSize="14sp" />
-                    </RelativeLayout>
-
-                    <!--Bedsitter-->
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/house_category_bedsitter"
-                        android:layout_marginEnd="8dp"
-                        android:background="@drawable/pill_stroke"
-                        android:paddingStart="24dp"
-                        android:paddingEnd="24dp"
-                        android:paddingTop="16dp"
-                        android:paddingBottom="16dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:includeFontPadding="false"
-                            android:text="Bedsitter"
-                            android:textColor="?attr/textBlack700"
-                            android:textSize="14sp" />
-                    </RelativeLayout>
-
-                    <!--One Bedroom-->
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/house_category_one_bedroom"
-                        android:layout_marginEnd="8dp"
-                        android:background="@drawable/pill_stroke"
-                        android:paddingStart="24dp"
-                        android:paddingEnd="24dp"
-                        android:paddingTop="16dp"
-                        android:paddingBottom="16dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:includeFontPadding="false"
-                            android:text="One Bedroom"
-                            android:textColor="?attr/textBlack700"
-                            android:textSize="14sp" />
-                    </RelativeLayout>
-
-                    <!--Two Bedroom-->
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/house_category_two_bedroom"
-                        android:layout_marginEnd="8dp"
-                        android:background="@drawable/pill_stroke"
-                        android:paddingStart="24dp"
-                        android:paddingEnd="24dp"
-                        android:paddingTop="16dp"
-                        android:paddingBottom="16dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:includeFontPadding="false"
-                            android:text="Two Bedroom"
-                            android:textColor="?attr/textBlack700"
-                            android:textSize="14sp" />
-
-                    </RelativeLayout>
-
-                    <!--Three Bedroom-->
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/house_category_three_bedroom"
-                        android:layout_marginEnd="8dp"
-                        android:background="@drawable/pill_stroke"
-                        android:paddingStart="24dp"
-                        android:paddingEnd="24dp"
-                        android:paddingTop="16dp"
-                        android:paddingBottom="16dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:includeFontPadding="false"
-                            android:text="Three Bedroom"
-                            android:textColor="?attr/textBlack700"
-                            android:textSize="14sp" />
-
-                    </RelativeLayout>
-
-                    <!--Mansion-->
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/house_category_mansion"
-                        android:layout_marginEnd="8dp"
-                        android:background="@drawable/pill_stroke"
-                        android:paddingStart="24dp"
-                        android:paddingEnd="24dp"
-                        android:paddingTop="16dp"
-                        android:paddingBottom="16dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:includeFontPadding="false"
-                            android:text="Mansion"
-                            android:textColor="?attr/textBlack700"
-                            android:textSize="14sp" />
-                    </RelativeLayout>
-
-                    <!--Other-->
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/house_category_other"
-                        android:layout_marginEnd="8dp"
-                        android:background="@drawable/pill_stroke"
-                        android:paddingStart="24dp"
-                        android:paddingEnd="24dp"
-                        android:paddingTop="16dp"
-                        android:paddingBottom="16dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:includeFontPadding="false"
-                            android:text="Other"
-                            android:textColor="?attr/textBlack700"
-                            android:textSize="14sp" />
-                    </RelativeLayout>
-
-                </LinearLayout>
-
-            </HorizontalScrollView>
-
-            <!--House rooms count-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_marginTop="32dp"
-                android:orientation="horizontal">
-
+                <!--Pricing per month-->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Units Available : "
+                    android:text="Price"
                     android:textStyle="bold"
                     android:textSize="16sp"
                     android:textColor="?attr/textBlack700"
-                    android:includeFontPadding="false" />
+                    android:includeFontPadding="false"
+                    android:layout_marginTop="32dp"/>
 
-                <com.google.android.material.textfield.TextInputLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    app:hintEnabled="false"
-                    android:padding="0dp"
-                    app:passwordToggleEnabled="false"
-                    app:boxStrokeWidth="0dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    app:passwordToggleTint="?attr/colorPrimary">
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="16dp">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:inputType="number"
-                        android:gravity="center"
-                        android:lines="1"
-                        android:hint="Units"
-                        android:textSize="16sp"
+                    <!--Ksh Text-->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ksh"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
                         android:textColor="?attr/textBlack700"
-                        android:background="@drawable/rounded_edit_text"
-                        android:id="@+id/houseRoomsAvailable"
-                        android:padding="0dp"/>
+                        android:includeFontPadding="false"/>
 
-                </com.google.android.material.textfield.TextInputLayout>
+                    <!--House Price-->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="56dp"
+                        android:layout_weight="2"
+                        android:layout_marginStart="16dp"
+                        app:hintEnabled="false"
+                        android:padding="0dp"
+                        app:passwordToggleEnabled="false"
+                        app:boxStrokeWidth="0dp"
+                        app:passwordToggleTint="?attr/colorPrimary">
 
-            </LinearLayout>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:inputType="number"
+                            android:fontFamily="@font/poppins_regular"
+                            android:lines="1"
+                            android:hint="Price"
+                            android:textSize="14sp"
+                            android:textColor="?attr/textBlack700"
+                            android:background="@drawable/rounded_edit_text"
+                            android:id="@+id/housePrice"
+                            android:padding="0dp"/>
 
+                    </com.google.android.material.textfield.TextInputLayout>
 
-            <!--Pricing per month-->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Price"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:textColor="?attr/textBlack700"
-                android:includeFontPadding="false"
-                android:layout_marginTop="32dp"/>
+                    <TextView
+                        android:id="@+id/house_card_price_per_month_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:includeFontPadding="false"
+                        android:text="/ month"
+                        android:textStyle="bold"
+                        android:layout_marginStart="16dp"
+                        android:textColor="?attr/colorPrimary"
+                        android:textSize="14sp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:layout_marginTop="16dp">
+                </LinearLayout>
 
-                <!--Ksh Text-->
+                <!--Description of the house-->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ksh"
+                    android:text="Description"
                     android:textStyle="bold"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textColor="?attr/textBlack700"
-                    android:includeFontPadding="false"/>
-
-                <!--House Price-->
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="0dp"
-                    android:layout_height="56dp"
-                    android:layout_weight="2"
-                    android:layout_marginStart="16dp"
-                    app:hintEnabled="false"
-                    android:padding="0dp"
-                    app:passwordToggleEnabled="false"
-                    app:boxStrokeWidth="0dp"
-                    app:passwordToggleTint="?attr/colorPrimary">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:inputType="number"
-                        android:fontFamily="@font/poppins_regular"
-                        android:lines="1"
-                        android:hint="Price"
-                        android:textSize="14sp"
-                        android:textColor="?attr/textBlack700"
-                        android:background="@drawable/rounded_edit_text"
-                        android:id="@+id/housePrice"
-                        android:padding="0dp"/>
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    android:id="@+id/house_card_price_per_month_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:includeFontPadding="false"
-                    android:text="/mo"
-                    android:textStyle="bold"
+                    android:layout_marginTop="32dp"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:id="@+id/house_description"
+                    android:layout_marginTop="16dp"
                     android:layout_marginStart="16dp"
-                    android:textColor="?attr/colorPrimary"
-                    android:textSize="14sp" />
+                    android:inputType="textMultiLine"
+                    android:gravity="top"
+                    android:hint="Tell me more..."
+                    android:padding="16dp"
+                    android:textColor="?attr/textBlack700"
+                    android:textStyle="normal"
+                    android:textSize="14sp"
+                    android:includeFontPadding="false"
+                    android:background="@drawable/rounded_edit_text"/>
+
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:layout_gravity="end">
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/accent_blue_bright"
+                        android:id="@+id/houseAddBtn"
+                        android:text="Save"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_white_900"
+                        android:theme="@style/PrimaryButton"/>
+
+                    <ProgressBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/add_house_progress_bar"
+                        android:layout_gravity="center_horizontal"/>
+
+                </FrameLayout>
 
             </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
 
-            <!--Description of the house-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:id="@+id/bottom_sheet_lottie_success">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_centerInParent="true"
+                app:lottie_rawRes="@raw/success_lottie"
+                app:lottie_cacheComposition="true"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_repeatMode="reverse" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Description"
+                android:text="House Added Successfully!"
                 android:textStyle="bold"
-                android:textSize="16sp"
-                android:textColor="?attr/textBlack700"
-                android:includeFontPadding="false"
-                android:layout_marginTop="32dp"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:id="@+id/house_description"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
-                android:inputType="textMultiLine"
-                android:gravity="top"
-                android:hint="Tell me more..."
-                android:padding="16dp"
-                android:textColor="?attr/textBlack700"
-                android:textStyle="normal"
                 android:textSize="14sp"
+                android:textColor="?attr/textBlack700"
                 android:includeFontPadding="false"
-                android:background="@drawable/rounded_edit_text"/>
-
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/accent_blue_bright"
-                android:id="@+id/houseAddBtn"
-                android:layout_gravity="end"
-                android:text="Add"
-                android:textStyle="bold"
-                android:textColor="@color/text_white_900"
-                android:layout_marginTop="32dp"
-                android:theme="@style/PrimaryButton"/>
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:layout_gravity="center_horizontal"/>
 
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+
+    </FrameLayout>
 
 </LinearLayout>

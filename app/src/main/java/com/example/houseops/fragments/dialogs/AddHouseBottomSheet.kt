@@ -15,17 +15,22 @@ import android.view.ViewGroup
 import android.webkit.MimeTypeMap
 import android.widget.Button
 import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.Lottie
 import com.example.houseops.Constants
 import com.example.houseops.R
+import com.example.houseops.Utilities
 import com.example.houseops.activities.CaretakerActivity
 import com.example.houseops.adapters.HouseImagesAdapter
 import com.example.houseops.models.HouseModel
@@ -48,12 +53,16 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
     private lateinit var db: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
     private lateinit var storageRef: StorageReference
+    private lateinit var utils: Utilities
 
     private lateinit var houseImage: CardView
     private lateinit var housePrice: TextInputEditText
     private lateinit var houseRoomsAvailable: TextInputEditText
     private lateinit var houseDescription: EditText
     private lateinit var houseAddBtn: Button
+    private lateinit var houseLottieSuccess: LinearLayout
+    private lateinit var houseMainContent: NestedScrollView
+    private lateinit var houseAddProgress: ProgressBar
 
     private lateinit var bedsitter: RelativeLayout
     private lateinit var single: RelativeLayout
@@ -109,6 +118,8 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
             //  Pick the specific apartment that this caretaker is in charge of
             val currentUser = auth.currentUser
             val apartment = sharedPref.getString(Constants().caretakerApartment, "")
+
+            utils.showViewAHideViewB(houseAddProgress, it)
 
             //  Add images to firebase storage using coroutines
             lifecycleScope.launch(Dispatchers.IO) {
@@ -250,6 +261,7 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
             Constants().caretakerDetails,
             Context.MODE_PRIVATE
         )
+        utils = Utilities(requireActivity())
         imageUriList = ArrayList()
 
         adapter = HouseImagesAdapter(imageUriList)
@@ -260,6 +272,9 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
         housePrice = view.findViewById(R.id.housePrice)
         houseDescription = view.findViewById(R.id.house_description)
         houseAddBtn = view.findViewById(R.id.houseAddBtn)
+        houseLottieSuccess = view.findViewById(R.id.bottom_sheet_lottie_success)
+        houseMainContent = view.findViewById(R.id.bottom_sheet_main_content)
+        houseAddProgress = view.findViewById(R.id.add_house_progress_bar)
 
         bedsitter = view.findViewById(R.id.house_category_bedsitter)
         single = view.findViewById(R.id.house_category_single)
@@ -285,8 +300,13 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
             .set(houseModel, SetOptions.merge())
             .addOnSuccessListener { doc ->
 
-                Toast.makeText(requireActivity(), "House added successfully!", Toast.LENGTH_SHORT).show()
-                this@AddHouseBottomSheet.dismiss()
+                //  Show the lottie and hide the main content
+                utils.showViewAHideViewB(houseLottieSuccess, houseMainContent)
+
+                lifecycleScope.launch(Dispatchers.Main) {
+                    delay(3000L)
+                    this@AddHouseBottomSheet.dismiss()
+                }
             }
             .addOnFailureListener { e ->
                 Toast.makeText(requireActivity(), "Something Went Wrong", Toast.LENGTH_SHORT).show()
