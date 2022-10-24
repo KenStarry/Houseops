@@ -128,135 +128,107 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
         //  Category buttons
         single.setOnClickListener {
             it.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text_accent)
+                ContextCompat.getDrawable(requireActivity(), R.drawable.pill_filled)
             houseCategory = "single"
 
-            bedsitter.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
-            oneBedroom.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
-            twoBedroom.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
-            threeBedroom.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
-            mansion.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
-            other.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
+            ContextCompat.getDrawable(requireActivity(), R.drawable.pill_stroke).let { color ->
+                bedsitter.background = color
+                oneBedroom.background = color
+                twoBedroom.background = color
+                threeBedroom.background = color
+                mansion.background = color
+                other.background = color
+            }
         }
 
         bedsitter.setOnClickListener {
             it.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text_accent)
+                ContextCompat.getDrawable(requireActivity(), R.drawable.pill_filled)
             houseCategory = "bedsitter"
 
-            single.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
-            oneBedroom.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
-            twoBedroom.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
-            threeBedroom.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
-            mansion.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
-            other.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
+            ContextCompat.getDrawable(requireActivity(), R.drawable.pill_stroke).let { color ->
+                single.background = color
+                oneBedroom.background = color
+                twoBedroom.background = color
+                threeBedroom.background = color
+                mansion.background = color
+                other.background = color
+            }
         }
 
         oneBedroom.setOnClickListener {
             it.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text_accent)
+                ContextCompat.getDrawable(requireActivity(), R.drawable.pill_filled)
             houseCategory = "one bedroom"
 
-            bedsitter.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
-            single.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
-            twoBedroom.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
-            threeBedroom.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
-            mansion.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
-            other.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
+            ContextCompat.getDrawable(requireActivity(), R.drawable.pill_stroke).let { color ->
+                single.background = color
+                bedsitter.background = color
+                twoBedroom.background = color
+                threeBedroom.background = color
+                mansion.background = color
+                other.background = color
+            }
         }
 
         twoBedroom.setOnClickListener {
             it.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text_accent)
+                ContextCompat.getDrawable(requireActivity(), R.drawable.pill_filled)
             houseCategory = "two bedroom"
 
-            bedsitter.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
-            oneBedroom.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
-            single.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
-            threeBedroom.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
-            mansion.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
-            other.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
+            ContextCompat.getDrawable(requireActivity(), R.drawable.pill_stroke).let { color ->
+                single.background = color
+                bedsitter.background = color
+                oneBedroom.background = color
+                threeBedroom.background = color
+                mansion.background = color
+                other.background = color
+            }
         }
 
         threeBedroom.setOnClickListener {
             it.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text_accent)
+                ContextCompat.getDrawable(requireActivity(), R.drawable.pill_filled)
             houseCategory = "three bedroom"
 
-            bedsitter.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
-            oneBedroom.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
-            twoBedroom.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
-            single.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
-            mansion.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
-            other.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
+            ContextCompat.getDrawable(requireActivity(), R.drawable.pill_stroke).let { color ->
+                single.background = color
+                bedsitter.background = color
+                oneBedroom.background = color
+                twoBedroom.background = color
+                mansion.background = color
+                other.background = color
+            }
         }
 
         mansion.setOnClickListener {
             it.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text_accent)
+                ContextCompat.getDrawable(requireActivity(), R.drawable.pill_filled)
             houseCategory = "mansion"
 
-            bedsitter.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
-            oneBedroom.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
-            twoBedroom.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
-            threeBedroom.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
-            single.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
-            other.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
+            ContextCompat.getDrawable(requireActivity(), R.drawable.pill_stroke).let { color ->
+                single.background = color
+                bedsitter.background = color
+                oneBedroom.background = color
+                twoBedroom.background = color
+                threeBedroom.background = color
+                other.background = color
+            }
         }
 
         other.setOnClickListener {
             it.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text_accent)
+                ContextCompat.getDrawable(requireActivity(), R.drawable.pill_filled)
             houseCategory = "other"
 
-            bedsitter.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
-            oneBedroom.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
-            twoBedroom.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
-            threeBedroom.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
-            mansion.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
-            single.background =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.rounded_edit_text)
+            ContextCompat.getDrawable(requireActivity(), R.drawable.pill_stroke).let { color ->
+                single.background = color
+                bedsitter.background = color
+                oneBedroom.background = color
+                twoBedroom.background = color
+                threeBedroom.background = color
+                mansion.background = color
+            }
         }
     }
 
