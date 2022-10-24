@@ -12,6 +12,7 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.houseops.Constants
@@ -30,6 +31,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.*
 
 class CaretakerActivity : AppCompatActivity() {
 
@@ -41,16 +43,6 @@ class CaretakerActivity : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
     private lateinit var sharedPref: SharedPreferences
     private lateinit var sharedPrefEditor: SharedPreferences.Editor
-
-    //  Houses List
-    private val categories = listOf(
-        AdminCategoriesModel("Singles", R.drawable.house1),
-        AdminCategoriesModel("Self-Contained", R.drawable.house2),
-        AdminCategoriesModel("Mansions", R.drawable.house5),
-        AdminCategoriesModel("Bedsitters", R.drawable.house3),
-        AdminCategoriesModel("One Bedroom", R.drawable.house4),
-        AdminCategoriesModel("Two Bedroom", R.drawable.house1)
-    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -77,8 +69,11 @@ class CaretakerActivity : AppCompatActivity() {
         val currentUser = auth.currentUser
 
         //  Listen for changes on the caretaker's collection and apartments collection
-        queryApartments(currentUser)
-        queryCaretakerDetails(currentUser)
+        lifecycleScope.launch(Dispatchers.IO) {
+
+            async { queryCaretakerDetails(currentUser) }.await()
+            async { queryApartments(currentUser) }.await()
+        }
 
 
         listeners()
@@ -89,7 +84,7 @@ class CaretakerActivity : AppCompatActivity() {
         super.onStart()
     }
 
-    private fun queryApartments(currentUser: FirebaseUser?) {
+    private suspend fun queryApartments(currentUser: FirebaseUser?) {
 
         val apartment = sharedPref.getString(Constants().caretakerApartment, "")
 
@@ -129,7 +124,7 @@ class CaretakerActivity : AppCompatActivity() {
         housesRecyclerView.layoutManager = LinearLayoutManager(this)
     }
 
-    private fun queryCaretakerDetails(currentUser: FirebaseUser?) {
+    private suspend fun queryCaretakerDetails(currentUser: FirebaseUser?) {
 
         db.collection("caretakers")
             .whereEqualTo("emailAddress", currentUser!!.email)

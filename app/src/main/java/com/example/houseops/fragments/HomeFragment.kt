@@ -3,6 +3,7 @@ package com.example.houseops.fragments
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.view.ViewCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView.HORIZONTAL
 import androidx.recyclerview.widget.RecyclerView.Orientation
 import androidx.viewpager2.widget.ViewPager2
@@ -27,9 +29,13 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlin.math.abs
 
 class HomeFragment : Fragment() {
+
+    private val TAG = "HomeFragment"
 
     private lateinit var userProfile: ImageView
 
@@ -60,15 +66,20 @@ class HomeFragment : Fragment() {
         sharedPrefs = requireContext().getSharedPreferences("user_type", Context.MODE_PRIVATE)
         val currentUser = auth.currentUser
 
-        if (sharedPrefs.getString("type", "") == "user") {
-            queryUserDetails(currentUser)
-            //  Query all houses
-            queryHouses(currentUser)
+        lifecycleScope.launch(Dispatchers.IO) {
 
-        } else {
-            queryCaretakerDetails(currentUser)
-            //  Query all houses
-            queryHouses(currentUser)
+            if (sharedPrefs.getString("type", "") == "user") {
+                queryUserDetails(currentUser)
+                //  Query all houses
+                queryHouses(currentUser)
+
+            }
+            else {
+                queryCaretakerDetails(currentUser)
+                //  Query all houses
+                queryHouses(currentUser)
+            }
+
         }
 
         userProfile = view.findViewById(R.id.user_profile)
@@ -95,7 +106,7 @@ class HomeFragment : Fragment() {
     }
 
     //  function to query all the houses
-    private fun queryHouses(currentUser: FirebaseUser?) {
+    private suspend fun queryHouses(currentUser: FirebaseUser?) {
 
         db.collectionGroup("houses")
             .whereEqualTo("houseStatus", "vacant")
@@ -123,7 +134,7 @@ class HomeFragment : Fragment() {
             }
     }
 
-    private fun queryCaretakerDetails(currentUser: FirebaseUser?) {
+    private suspend fun queryCaretakerDetails(currentUser: FirebaseUser?) {
 
         db.collection("caretakers")
             .whereEqualTo("emailAddress", currentUser!!.email)
@@ -151,7 +162,7 @@ class HomeFragment : Fragment() {
             }
     }
 
-    private fun queryUserDetails(currentUser: FirebaseUser?) {
+    private suspend fun queryUserDetails(currentUser: FirebaseUser?) {
 
         db.collection("users")
             .whereEqualTo("emailAddress", currentUser!!.email)

@@ -21,10 +21,12 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.houseops.Constants
 import com.example.houseops.R
+import com.example.houseops.activities.CaretakerActivity
 import com.example.houseops.adapters.HouseImagesAdapter
 import com.example.houseops.models.HouseModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -37,8 +39,11 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import kotlinx.coroutines.*
 
 class AddHouseBottomSheet : BottomSheetDialogFragment() {
+
+    private val TAG = "add house bottomsheet"
 
     private lateinit var db: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
@@ -105,8 +110,12 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
             val currentUser = auth.currentUser
             val apartment = sharedPref.getString(Constants().caretakerApartment, "")
 
-            //  Add images to firebase storage
-            addFilesToCloudStorage(apartment)
+            //  Add images to firebase storage using coroutines
+            lifecycleScope.launch(Dispatchers.IO) {
+
+                async { addFilesToCloudStorage(apartment) }.await()
+                async { addHouseToApartmentsCollection(apartment) }.await()
+            }
         }
 
         //  Allow the caretaker to choose an image from gallery
@@ -290,7 +299,7 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
     }
 
     //  Function to add a house to the apartments collection
-    private fun addHouseToApartmentsCollection(apartment: String?) {
+    private suspend fun addHouseToApartmentsCollection(apartment: String?) {
 
         val price = housePrice.text.toString()
         val houseRooms = houseRoomsAvailable.text.toString()
@@ -304,12 +313,11 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
             .set(houseModel, SetOptions.merge())
             .addOnSuccessListener { doc ->
 
-                Toast.makeText(requireActivity(), "House Added successfully", Toast.LENGTH_SHORT)
-                    .show()
+                Toast.makeText(requireActivity(), "House added successfully!", Toast.LENGTH_SHORT).show()
+                this@AddHouseBottomSheet.dismiss()
             }
             .addOnFailureListener { e ->
-                Log.e(TAG, e.toString())
-                Toast.makeText(requireActivity(), e.toString(), Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(), "Something Went Wrong", Toast.LENGTH_SHORT).show()
             }
     }
 
@@ -351,34 +359,17 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
 
                             houseRef.update("houseImageDownloadUriList", downloadUrlList)
                                 .addOnSuccessListener {
-                                    Toast.makeText(requireActivity(), "download url added successfully", Toast.LENGTH_SHORT).show()
                                 }
                         }
-
-                        Toast.makeText(
-                            requireActivity(),
-                            "Uploaded Successfully",
-                            Toast.LENGTH_SHORT
-                        ).show()
                     }
                     .addOnProgressListener {
 
-                        Toast.makeText(
-                            requireActivity(),
-                            "Uploading, please wait...",
-                            Toast.LENGTH_SHORT
-                        ).show()
                     }
                     .addOnFailureListener {
 
                         Log.d(TAG, it.toString())
-                        Toast.makeText(requireActivity(), "$it", Toast.LENGTH_SHORT).show()
                     }
             }
-
-            addHouseToApartmentsCollection(apartment)
-
-            Toast.makeText(requireActivity(), "${downloadUrlList.size}", Toast.LENGTH_SHORT).show()
         }
 
     }
