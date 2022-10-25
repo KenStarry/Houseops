@@ -26,6 +26,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import com.squareup.picasso.Picasso
 
 class ProfileDetailsBottomSheet : BottomSheetDialogFragment() {
 
@@ -35,8 +36,11 @@ class ProfileDetailsBottomSheet : BottomSheetDialogFragment() {
     private lateinit var utils: Utilities
 
     private lateinit var profileUsername: TextView
+    private lateinit var profileImage: ImageView
     private lateinit var profileCaretakerAdminBtn: Button
     private lateinit var profileDetailsLogout: ImageView
+
+    private lateinit var apartmentExtra:String
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
@@ -53,13 +57,17 @@ class ProfileDetailsBottomSheet : BottomSheetDialogFragment() {
         val view = inflater.inflate(R.layout.profile_details_bottomsheet, container, false)
 
         profileUsername = view.findViewById(R.id.profile_details_username)
+        profileImage = view.findViewById(R.id.profile_details_image)
         profileCaretakerAdminBtn = view.findViewById(R.id.profile_caretaker_admin_btn)
         profileDetailsLogout = view.findViewById(R.id.profile_details_logout)
 
         //  Open caretaker activity
         profileCaretakerAdminBtn.setOnClickListener {
-            val intent = Intent(requireActivity(), CaretakerActivity::class.java)
-            startActivity(intent)
+            Intent(requireActivity(), CaretakerActivity::class.java).also {
+
+                it.putExtra("apartment_extra", apartmentExtra)
+                startActivity(it)
+            }
 
             this@ProfileDetailsBottomSheet.dismiss()
         }
@@ -132,6 +140,7 @@ class ProfileDetailsBottomSheet : BottomSheetDialogFragment() {
                     isVerified = caretaker.isVerfied
                 }
 
+                apartmentExtra = apartment
                 profileUsername.text = username
             }
     }
@@ -139,26 +148,27 @@ class ProfileDetailsBottomSheet : BottomSheetDialogFragment() {
     private fun queryUserDetails(currentUser: FirebaseUser?) {
 
         db.collection("users")
-            .whereEqualTo("emailAddress", currentUser!!.email)
-            .addSnapshotListener { querySnapshot, error ->
+            .document(currentUser!!.email!!)
+            .addSnapshotListener { snapshot, error ->
 
                 if (error != null)
                     return@addSnapshotListener
 
-                var email = ""
-                var phone = ""
-                var username = ""
+                val user: UsersCollection = snapshot!!.toObject()!!
 
-                for (snapshot in querySnapshot!!) {
+                var email = user.email!!
+                var phone = user.phone!!
+                var username = user.username!!
+                var image = user.tenantImageUrl!!
 
-                    val user: UsersCollection = snapshot.toObject()
-
-                    email = user.email!!
-                    phone = user.phone!!
-                    username = user.username!!
-                }
 
                 profileUsername.text = username
+
+                Picasso.get()
+                    .load(image)
+                    .fit()
+                    .centerCrop()
+                    .into(profileImage)
             }
     }
 }

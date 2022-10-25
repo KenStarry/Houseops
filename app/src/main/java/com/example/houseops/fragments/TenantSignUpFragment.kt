@@ -1,18 +1,21 @@
 package com.example.houseops.fragments
 
+import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.AppCompatButton
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.example.houseops.R
 import com.example.houseops.Utilities
-import com.example.houseops.activities.CaretakerActivity
 import com.example.houseops.activities.MainActivity
 import com.example.houseops.collections.UsersCollection
 import com.google.firebase.auth.FirebaseAuth
@@ -20,11 +23,20 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.makeramen.roundedimageview.RoundedImageView
+import com.squareup.picasso.Picasso
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class TenantSignUpFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
+    private lateinit var storageRef: StorageReference
     private lateinit var utils: Utilities
 
     private lateinit var signUpBtn: AppCompatButton
@@ -34,6 +46,9 @@ class TenantSignUpFragment : Fragment() {
     private lateinit var email: EditText
     private lateinit var password: EditText
     private lateinit var passwordConfirm: EditText
+    private lateinit var imageTenant: RoundedImageView
+
+    private lateinit var imageUri: Uri
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +72,7 @@ class TenantSignUpFragment : Fragment() {
         password = view.findViewById(R.id.passwordTenantSignUp)
         passwordConfirm = view.findViewById(R.id.passwordConfirmTenantSignUp)
         progressBarTenant = view.findViewById(R.id.progressBarTenant)
+        imageTenant = view.findViewById(R.id.imageTenantSignup)
 
         listeners(view)
         return view
@@ -67,6 +83,12 @@ class TenantSignUpFragment : Fragment() {
 
         signUpBtn.setOnClickListener {
             verifyDetails()
+        }
+
+        imageTenant.setOnClickListener {
+
+            openFileChooser()
+
         }
     }
 
@@ -101,8 +123,22 @@ class TenantSignUpFragment : Fragment() {
             //  Check if the user confirmed the password correctly
             if (password == passwordConfirm) {
                 //  Proceed with authentication
-                createUserAccount(email, password)
-                createUsersCollection(username, phone, email, password)
+                lifecycleScope.launch(Dispatchers.IO) {
+
+                    withContext(Dispatchers.Default) {
+                        createUserAccount(
+                            email,
+                            password
+                        )
+                        createUsersCollection(
+                            username,
+                            phone,
+                            email,
+                            password
+                        )
+                        uploadImageToFirestore(email)
+                    }
+                }
             }
 
         }
@@ -125,7 +161,45 @@ class TenantSignUpFragment : Fragment() {
                     toast("Account created successfully")
                 }
             }
+    }
 
+    //  Allow user to pick images from the file manager
+    private fun openFileChooser() {
+
+        val intent = Intent().apply {
+            type = "image/*"
+            action = Intent.ACTION_GET_CONTENT
+        }
+        pickImage.launch(intent)
+    }
+
+    private suspend fun uploadImageToFirestore(email: String) {
+
+        storageRef = FirebaseStorage.getInstance().getReference("tenant_images")
+
+        val fileRef = storageRef.child(
+            "${System.currentTimeMillis()}.${utils.getFileExtension(imageUri)}"
+        )
+
+        //  Add the image to cloud firestor
+        fileRef.putFile(imageUri)
+            .addOnSuccessListener {
+
+                //  Grab the download url
+                fileRef.downloadUrl.addOnSuccessListener { url ->
+
+                    //  Set the url in the user data in the collection
+                    val userRef = db.collection("users").document(email)
+                    userRef.update("tenantImageUrl", url)
+                }
+
+            }
+            .addOnFailureListener {
+
+            }
+            .addOnProgressListener {
+
+            }
     }
 
     //  Create a collection for the users
@@ -138,7 +212,7 @@ class TenantSignUpFragment : Fragment() {
 
         //  Create a users collection
         val user = UsersCollection(
-            username, phone, email, password
+            username, "", phone, email, password
         )
 
         db.collection("users").document(email).set(user)
@@ -149,6 +223,25 @@ class TenantSignUpFragment : Fragment() {
                 toast("Something went wrong...")
             }
     }
+
+    private val pickImage =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {result ->
+
+            if (result.resultCode == Activity.RESULT_OK
+                && result.data != null
+                && result.data!!.data != null) {
+
+                //  Grab the image uri
+                result.data!!.data!!.let { imageUri = it }
+
+                //  Set the image View to that image
+                Picasso.get()
+                    .load(imageUri)
+                    .fit()
+                    .centerCrop()
+                    .into(imageTenant)
+            }
+        }
 
     private fun toast(message: String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()

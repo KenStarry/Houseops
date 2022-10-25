@@ -86,7 +86,8 @@ class CaretakerActivity : AppCompatActivity() {
 
     private suspend fun queryApartments(currentUser: FirebaseUser?) {
 
-        val apartment = sharedPref.getString(Constants().caretakerApartment, "")
+//        val apartment = sharedPref.getString(Constants().caretakerApartment, "")
+        val apartment = intent.getStringExtra("apartment_extra")
 
         db.collection("apartments").document(apartment!!).collection("houses")
             .addSnapshotListener{querySnapshot, error ->

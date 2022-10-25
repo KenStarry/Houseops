@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:gravity="center_horizontal"
     android:background="@drawable/rounded_dialog"
@@ -14,11 +15,13 @@
         android:layout_gravity="end"
         android:src="@drawable/right_from_bracket_solid"/>
 
-    <ImageView
+    <com.makeramen.roundedimageview.RoundedImageView
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:id="@+id/profile_details_image"
-        android:src="@drawable/undraw_pic_profile_re_1865"/>
+        android:src="@drawable/undraw_pic_profile_re_1865"
+        android:scaleType="centerCrop"
+        app:riv_corner_radius="100dp"/>
 
     <!--Greetings Text-->
     <LinearLayout

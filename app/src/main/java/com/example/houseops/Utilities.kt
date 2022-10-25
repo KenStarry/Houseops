@@ -2,8 +2,10 @@ package com.example.houseops
 
 import android.content.Context
 import android.net.ConnectivityManager
+import android.net.Uri
 import android.os.Build
 import android.view.View
+import android.webkit.MimeTypeMap
 import android.widget.Toast
 import androidx.annotation.BoolRes
 import androidx.annotation.RequiresApi
@@ -33,5 +35,14 @@ class Utilities(
     fun showViewAHideViewB(viewA: View, viewB: View) {
         viewA.visibility = View.VISIBLE
         viewB.visibility = View.GONE
+    }
+
+    //  Method to return file extensions
+    fun getFileExtension(uri: Uri): String {
+
+        val cr = context.contentResolver
+        val mimeTypeMap = MimeTypeMap.getSingleton()
+
+        return mimeTypeMap.getExtensionFromMimeType(cr.getType(uri))!!
     }
 }

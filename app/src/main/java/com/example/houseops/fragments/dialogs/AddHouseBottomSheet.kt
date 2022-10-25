@@ -313,15 +313,6 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
             }
     }
 
-    //  Method to return file extensions
-    private fun getFileExtension(uri: Uri): String {
-
-        val cr = requireActivity().contentResolver
-        val mimeTypeMap = MimeTypeMap.getSingleton()
-
-        return mimeTypeMap.getExtensionFromMimeType(cr.getType(uri))!!
-    }
-
     private fun addFilesToCloudStorage(apartment: String?) {
 
         //  We need to add the image URIs to Firebase storage
@@ -335,7 +326,7 @@ class AddHouseBottomSheet : BottomSheetDialogFragment() {
             for (uri in imageUriList) {
 
                 val fileReference = storageRef.child(
-                    "${System.currentTimeMillis()}.${getFileExtension(uri)}"
+                    "${System.currentTimeMillis()}.${utils.getFileExtension(uri)}"
                 )
 
                 fileReference.putFile(uri)

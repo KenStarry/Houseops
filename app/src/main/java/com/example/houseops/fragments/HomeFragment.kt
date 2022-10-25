@@ -15,6 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView.HORIZONTAL
 import androidx.recyclerview.widget.RecyclerView.Orientation
 import androidx.viewpager2.widget.ViewPager2
+import com.example.houseops.Constants
 import com.example.houseops.R
 import com.example.houseops.activities.MainActivity
 import com.example.houseops.adapters.HousesViewPager
@@ -29,7 +30,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlin.math.abs
 
@@ -46,6 +49,7 @@ class HomeFragment : Fragment() {
     private lateinit var viewpagerAdapter: HousesViewPager
 
     private lateinit var sharedPrefs: SharedPreferences
+    private lateinit var sharedPrefsEditor: SharedPreferences.Editor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,20 +68,19 @@ class HomeFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
         sharedPrefs = requireContext().getSharedPreferences("user_type", Context.MODE_PRIVATE)
+        sharedPrefsEditor= sharedPrefs.edit()
         val currentUser = auth.currentUser
 
         lifecycleScope.launch(Dispatchers.IO) {
 
             if (sharedPrefs.getString("type", "") == "user") {
-                queryUserDetails(currentUser)
-                //  Query all houses
-                queryHouses(currentUser)
 
+                async { queryUserDetails(currentUser) }.await()
+                async { queryHouses(currentUser) }.await()
             }
             else {
-                queryCaretakerDetails(currentUser)
-                //  Query all houses
-                queryHouses(currentUser)
+                async { queryCaretakerDetails(currentUser) }.await()
+                async { queryHouses(currentUser) }.await()
             }
 
         }
@@ -165,24 +168,25 @@ class HomeFragment : Fragment() {
     private suspend fun queryUserDetails(currentUser: FirebaseUser?) {
 
         db.collection("users")
-            .whereEqualTo("emailAddress", currentUser!!.email)
-            .addSnapshotListener { querySnapshot, error ->
+            .document(currentUser!!.email!!)
+            .addSnapshotListener { snapshot, error ->
 
                 if (error != null)
                     return@addSnapshotListener
 
-                var email = ""
-                var phone = ""
-                var username = ""
+                val user: UsersCollection = snapshot!!.toObject()!!
 
-                for (snapshot in querySnapshot!!) {
+                var email = user.email!!
+                var phone = user.phone!!
+                var username = user.username!!
+                var image = user.tenantImageUrl!!
 
-                    val user: UsersCollection = snapshot.toObject()
 
-                    email = user.email!!
-                    phone = user.phone!!
-                    username = user.username!!
-                }
+                Picasso.get()
+                    .load(image)
+                    .fit()
+                    .centerCrop()
+                    .into(userProfile)
             }
     }
 
