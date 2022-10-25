@@ -86,10 +86,10 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"
                     android:id="@+id/caretaker_svg"
-                    android:src="@drawable/undraw_buy_house_re_8xq7"/>
+                    android:src="@drawable/undraw_collaborators_re_hont"/>
 
                 <TextView
                     android:layout_width="wrap_content"

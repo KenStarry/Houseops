@@ -86,8 +86,8 @@ class CaretakerActivity : AppCompatActivity() {
 
     private suspend fun queryApartments(currentUser: FirebaseUser?) {
 
-//        val apartment = sharedPref.getString(Constants().caretakerApartment, "")
-        val apartment = intent.getStringExtra("apartment_extra")
+        val apartment = sharedPref.getString(Constants().caretakerApartment, "")
+//        val apartment = intent.getStringExtra("apartment_extra")
 
         db.collection("apartments").document(apartment!!).collection("houses")
             .addSnapshotListener{querySnapshot, error ->
@@ -123,6 +123,7 @@ class CaretakerActivity : AppCompatActivity() {
 
         housesRecyclerView.adapter = housesAdapter
         housesRecyclerView.layoutManager = LinearLayoutManager(this)
+        toast("Queried successfully")
     }
 
     private suspend fun queryCaretakerDetails(currentUser: FirebaseUser?) {

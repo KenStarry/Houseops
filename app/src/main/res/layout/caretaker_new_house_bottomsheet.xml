@@ -446,14 +446,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:orientation="vertical"
             android:id="@+id/bottom_sheet_lottie_success">
 
             <com.airbnb.lottie.LottieAnimationView
-                android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:layout_centerInParent="true"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
                 app:lottie_rawRes="@raw/success_lottie"
                 app:lottie_cacheComposition="true"
                 app:lottie_autoPlay="true"
