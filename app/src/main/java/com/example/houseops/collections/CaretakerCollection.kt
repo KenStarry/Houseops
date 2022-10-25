@@ -1,5 +1,7 @@
 package com.example.houseops.collections
 
+import android.net.Uri
+
 data class CaretakerCollection(
 
     var apartment: String,
@@ -8,11 +10,12 @@ data class CaretakerCollection(
     var emailAddress: String,
     var phone: String,
     var pass: String,
-    var isVerfied: Boolean
+    var isVerfied: Boolean,
+    val caretakerImageUrl: String
 
 ) {
 
     constructor() : this(
-        "", "", "", "", "", "", false
+        "", "", "", "", "", "", false, ""
     )
 }

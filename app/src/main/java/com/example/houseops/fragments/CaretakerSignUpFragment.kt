@@ -1,7 +1,9 @@
 package com.example.houseops.fragments
 
+import android.app.Activity
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -11,10 +13,11 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.AppCompatButton
+import androidx.lifecycle.lifecycleScope
 import com.example.houseops.R
 import com.example.houseops.Utilities
-import com.example.houseops.activities.CaretakerActivity
 import com.example.houseops.activities.MainActivity
 import com.example.houseops.collections.CaretakerCollection
 import com.google.firebase.auth.FirebaseAuth
@@ -22,12 +25,21 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.makeramen.roundedimageview.RoundedImageView
+import com.squareup.picasso.Picasso
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class CaretakerSignUpFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
     private lateinit var utils: Utilities
+    private lateinit var storageRef: StorageReference
 
     private lateinit var apartment: EditText
     private lateinit var id: EditText
@@ -38,6 +50,9 @@ class CaretakerSignUpFragment : Fragment() {
     private lateinit var passwordConfirm: EditText
     private lateinit var signUpBtn: AppCompatButton
     private lateinit var progressBarCaretaker: ProgressBar
+    private lateinit var imageCaretaker: RoundedImageView
+
+    private lateinit var imageUri: Uri
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +78,7 @@ class CaretakerSignUpFragment : Fragment() {
         passwordConfirm = view.findViewById(R.id.passwordConfirmCaretakerSignUp)
         signUpBtn = view.findViewById(R.id.signUpButtonCaretaker)
         progressBarCaretaker = view.findViewById(R.id.progressBarCaretaker)
+        imageCaretaker = view.findViewById(R.id.imageCaretakerSignup)
 
         listeners()
 
@@ -73,6 +89,10 @@ class CaretakerSignUpFragment : Fragment() {
 
         signUpBtn.setOnClickListener {
             verifyDetails()
+        }
+
+        imageCaretaker.setOnClickListener {
+            openFileChooser()
         }
     }
 
@@ -117,18 +137,63 @@ class CaretakerSignUpFragment : Fragment() {
             //  Check if the user confirmed the password correctly
             if (passwordText == passwordConfirmText) {
                 //  Proceed with authentication
-                createUserAccount(emailText, passwordText)
-                createCaretakersCollection(
-                    apartmentText,
-                    idText,
-                    usernameText,
-                    phoneText,
-                    emailText,
-                    passwordText
-                )
+                lifecycleScope.launch(Dispatchers.IO) {
+                    launch(Dispatchers.Main) {
+                        toast("Began process")
+                    }
+                    async { createUserAccount(emailText, passwordText) }.await()
+                    async { createCaretakersCollection(
+                        apartmentText,
+                        idText,
+                        usernameText,
+                        phoneText,
+                        emailText,
+                        passwordText
+                    ) }.await()
+                    async { uploadImageToFirestore(emailText) }.await()
+                }
             }
 
         }
+    }
+
+    //  Allow user to pick images from the file manager
+    private fun openFileChooser() {
+
+        val intent = Intent().apply {
+            type = "image/*"
+            action = Intent.ACTION_GET_CONTENT
+        }
+        pickImage.launch(intent)
+    }
+
+    private suspend fun uploadImageToFirestore(email: String) {
+
+        storageRef = FirebaseStorage.getInstance().getReference("tenant_images")
+
+        val fileRef = storageRef.child(
+            "${System.currentTimeMillis()}.${utils.getFileExtension(imageUri)}"
+        )
+
+        //  Add the image to cloud firestor
+        fileRef.putFile(imageUri)
+            .addOnSuccessListener {
+
+                //  Grab the download url
+                fileRef.downloadUrl.addOnSuccessListener { url ->
+
+                    //  Set the url in the user data in the collection
+                    val caretakerRef = db.collection("caretakers").document(email)
+                    caretakerRef.update("caretakerImageUrl", url)
+                }
+
+            }
+            .addOnFailureListener {
+
+            }
+            .addOnProgressListener {
+
+            }
     }
 
     private fun createUserAccount(email: String, password: String) {
@@ -159,7 +224,7 @@ class CaretakerSignUpFragment : Fragment() {
     ) {
 
         val caretaker = CaretakerCollection(
-            apartmentText, idText, usernameText, emailText, phoneText, passwordText, false
+            apartmentText, idText, usernameText, emailText, phoneText, passwordText, false, ""
         )
 
         db.collection("caretakers").add(caretaker)
@@ -173,6 +238,25 @@ class CaretakerSignUpFragment : Fragment() {
             }
 
     }
+
+    private val pickImage =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+
+            if (result.resultCode == Activity.RESULT_OK
+                && result.data != null
+                && result.data!!.data != null) {
+
+                //  Grab the image uri
+                result.data!!.data!!.let { imageUri = it }
+
+                //  Set the image View to that image
+                Picasso.get()
+                    .load(imageUri)
+                    .fit()
+                    .centerCrop()
+                    .into(imageCaretaker)
+            }
+        }
 
     private fun toast(message: String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
